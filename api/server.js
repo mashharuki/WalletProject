@@ -10,18 +10,20 @@ const {
 
 // Webサーバーの起動
 const express = require('express');
-var log4js = require('log4js');
+const log4js = require('log4js');
 const app = express();
 // ポート番号
 const portNo = 3001;
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');
 const logger = log4js.getLogger("server");
+const ip = require('ip');
 const { ethers, BigNumber } = require('ethers');
 
 // 起動
 app.listen(portNo, () => {
-    logger.debug('起動しました', `https://localhost:${portNo}`)
+    logger.debug('起動しました', `https://${ip.address()}:${portNo}`);
+    console.log('起動しました', `https://${ip.address()}:${portNo}`)
 });
 
 // 暗号化用のモジュールを読み込む

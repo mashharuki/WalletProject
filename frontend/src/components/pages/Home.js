@@ -43,7 +43,7 @@ const Home = (props) => {
     const [successFlg, setSuccessFlg] = useState(false);
     const [failFlg, setFailFlg] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    const [baseURL, setBaseURL] = useState('http://localhost:3001');
+    const [baseURL, setBaseURL] = useState('https://192.168.0.19:3001');
 
     /**
      * sign in/ sign up function 

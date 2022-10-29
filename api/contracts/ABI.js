@@ -772,6 +772,5 @@ const MyTokenABI = `[
 ]`
 
 module.exports = { 
-    GreetingABI, 
     MyTokenABI
 };
