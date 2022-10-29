@@ -1,0 +1,44 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npx truffle test",
+    "compile": "npx truffle compile",
+    "build": "npx truffle build",
+    "deploy:goreli": "npx truffle migrate --network goreli",
+    "deploy:mumbai": "npx truffle migrate --network mumbai",
+    "deploy:bsctest": "npx truffle migrate --network bsctest",
+    "deploy:harmony": "npx truffle migrate --network harmony",
+    "deploy:ftm": "npx truffle migrate --network ftm",
+    "deploy:fuji": "npx truffle migrate --network fuji",
+    "deploy:op": "npx truffle migrate --network op",
+    "deploy:arbitrum": "npx truffle migrate --network arbitrum",
+    "deploy:aurora": "npx truffle migrate --network aurora",
+    "verify:goreli": "npx truffle run verify WalletFactoryV4 --network goreli && npx truffle run verify MyToken --network goreli",
+    "verify:mumbai": "npx truffle run verify WalletFactoryV4 --network mumbai && npx truffle run verify MyToken --network mumbai",
+    "verify:bsctest": "npx truffle run verify WalletFactoryV4 --network bsctest && npx truffle run verify MyToken --network bsctest",
+    "verify:fuji": "npx truffle run verify WalletFactoryV4 --network fuji && npx truffle run verify MyToken --network fuji",
+    "verify:ftm": "npx truffle run verify WalletFactoryV4 --network ftm && npx truffle run verify MyToken --network ftm",
+    "verify:aurora": "npx truffle run verify WalletFactoryV4 --network aurora && npx truffle run verify MyToken --network aurora"
+  },
+  "keywords": [],
+  "author": "mashharuki",
+  "license": "ISC",
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.1.0",
+    "dotenv": "^16.0.3",
+    "truffle-hdwallet-provider": "^1.0.17"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
+    "chai": "^4.3.6",
+    "chai-bn": "^0.3.1",
+    "truffle-assertions": "^0.9.2",
+    "truffle-plugin-verify": "^0.5.31"
+  }
+}

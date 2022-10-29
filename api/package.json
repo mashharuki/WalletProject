@@ -1,0 +1,43 @@
+{
+    "name": "api server",
+    "version": "0.1.0",
+    "homepage": "./",
+    "main": "server.js",
+    "private": true,
+    "dependencies": {
+        "@babel/register": "^7.16.0",
+        "@decentralized-identity/ion-tools": "^0.1.1",
+        "@grpc/grpc-js": "^1.4.4",
+        "child_process": "^1.0.2",
+        "config": "^3.3.6",
+        "crypto": "^1.0.1",
+        "dotenv-cli": "^4.1.1",
+        "ethers": "^5.7.2",
+        "express": "^4.17.1",
+        "grpc": "^1.24.11",
+        "js-sha512": "^0.8.0",
+        "log4js": "^6.4.1",
+        "twilio": "^3.67.2"
+    },
+    "scripts": {
+        "start": "node server.js"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
