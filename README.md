@@ -20,20 +20,22 @@ IDQ Soul Wallet
 
 ## 使用した tech stacks
 
-| No. | 名称 |
-| --- | ---- |
-| 1   |      |
-| 2   |      |
-| 3   |      |
-| 4   |      |
-| 5   |      |
-| 6   |      |
-| 7   |      |
-| 8   |      |
+| No. | 名称          |
+| --- | ------------- |
+| 1   | truffle       |
+| 2   | React.js      |
+| 3   | express       |
+| 4   | superAgent    |
+| 5   | MutliSig      |
+| 6   | SmartContract |
+| 7   | ION(DID)      |
+| 8   | ethers.js     |
+| 9   | Web3.js       |
+| 10  | Blocto SDK    |
 
 ## 使用した Blockchain
 
-Avalanche Fuji Chain
+Avalanche Fuji Chain(Testnet)
 
 ## deploy した Contract の情報
 
@@ -46,8 +48,8 @@ Avalanche Fuji Chain
 
 ## テスト手順
 
-[テスト手順書](https://github.com/mashharuki/IDQ/README2.md)
+[テスト手順書](blob/main/README2.md)
 
 ## 審査やテストのためにプロジェクトにアクセスする方法など
 
-[IDQ のリポジトリにアクセスしてください](https://github.com/mashharuki/IDQ)
+下記 QR コードからアクセスするか直接[https://idq.vercel.app/](https://idq.vercel.app/)にアクセスしてください。
