@@ -48,8 +48,10 @@ Avalanche Fuji Chain(Testnet)
 
 ## テスト手順
 
-[テスト手順書](blob/main/README2.md)
+[テスト手順書](https://github.com/mashharuki/IDQ/blob/main/README2.md)
 
 ## 審査やテストのためにプロジェクトにアクセスする方法など
 
 下記 QR コードからアクセスするか直接[https://idq.vercel.app/](https://idq.vercel.app/)にアクセスしてください。
+
+<img src="./assets/img/qrcode.png">
