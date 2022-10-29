@@ -8,7 +8,7 @@ function App() {
         <p>
           <strong>Welcome to IDQ Soul Wallet!!</strong>
         </p>
-        <QRCode value="https://google.com" />
+        <QRCode value="https://idq.vercel.app/" />
       </header>
     </div>
   );
