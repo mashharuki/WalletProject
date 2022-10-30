@@ -13,12 +13,12 @@ const UseFactory = async(methodName, args) => {
             .post(baseURL + '/api/excute/factory')
             .query({
                   methodName: methodName,
-                  args: args
+                  args: [args]
             })
             .end(async(err, res) => {
                   if (err) {
                         console.error("Factoryコントラクト用API呼び出し中に失敗", err);
-                        console.log(`メソッド名：${methodName} 引数：${args}`);
+                        console.error(`メソッド名：${methodName} 引数：${args}`);
                         return err;
                   }
                   console.log(`Factoryコントラクト用APIが正常に終了。メソッド名：${methodName} 引数：${args}`);
