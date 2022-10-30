@@ -37,7 +37,9 @@ const utils = require('./Utils');
 const abis = require('./contracts/ABI');
 
 // IDQTokenのコントラクトアドレス
-const MYTOKEN_ADDRESS = "0x505869E3B5Ef52a5Db123387fe2d188c44b27b25"
+const MYTOKEN_ADDRESS = "0x505869E3B5Ef52a5Db123387fe2d188c44b27b25";
+// Factoryコントラクトのアドレス
+const FACTORY_ADDRESS= "0x177acf501eF7d2b090d94fd3bd2BE773736598E1";
 
 // APIの定義
 
@@ -55,13 +57,6 @@ app.post('/api/mintIDQ', async(req, res) => {
   // コントラクトのABI
   const abi = abis.MyTokenABI;
   const chainId = 43113;
-
-  // create wallet 
-  const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
-  // create provider
-  const provider = new ethers.providers.JsonRpcProvider('https://api.avax-test.network/ext/bc/C/rpc');
-  // create contract 
-  var contract = new ethers.Contract(MYTOKEN_ADDRESS, abi, await provider.getSigner(wallet.address));
 
   // call send Tx function
   var result = await utils.sendTx(logger, abi, MYTOKEN_ADDRESS, "mint", [to, amount], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
@@ -94,13 +89,6 @@ app.post('/api/burnIDQ', async(req, res) => {
   const abi = abis.MyTokenABI;
   //const chainId = req.query.chainId;
   const chainId = 43113;
-  
-  // create wallet 
-  const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
-  // create provider
-  const provider = new ethers.providers.JsonRpcProvider('https://api.avax-test.network/ext/bc/C/rpc');
-  // create contract 
-  var contract = new ethers.Contract(MYTOKEN_ADDRESS, abi, await provider.getSigner(wallet.address));
 
   // call send Tx function
   var result = await utils.sendTx(logger, abi, MYTOKEN_ADDRESS, "burnToken", [to, amount], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
@@ -146,9 +134,15 @@ app.get('/api/balance/IDQ', async(req, res) => {
 
 /**
  * DIDを作成するAPI
+ * @param addr 登録するアドレス
  */
 app.post('/api/create', async(req, res) => {
+  logger.log("DID作成用のAPI開始");
+
+  var addr = req.query.addr;
+  // create key pair
   let authnKeys = await ION.generateKeyPair();
+  // new DID
   let did = new ION.DID({
     content: {
       publicKeys: [
@@ -169,13 +163,32 @@ app.post('/api/create', async(req, res) => {
     }
   });
 
+  // anchor DID
   const requestBody = await did.generateRequest();
   const request = new ION.AnchorRequest(requestBody);
   let response = await request.submit();
-  logger.log("response:", response)
+  logger.log("response:", response);
+  
+  // get DID URL
+  const didUrl = await did.getURI('short');
+  // コントラクトのABI
+  const abi = abis.FactoryABI;
+  const chainId = 43113;
+  // set to Factory contract
+  var result = await utils.sendTx(logger, abi, FACTORY_ADDRESS, "register", [addr, didUrl], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
 
-  res.set({ 'Access-Control-Allow-Origin': '*' });
-  res.json({ DID : await did.getURI() });
+  if(result == true) {
+    logger.debug("トランザクション送信成功");
+    logger.log("DID作成用のAPI終了")
+    logger.log("DID:", didUrl);
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'success' });
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.log("DID作成用のAPI終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
 });
 
 

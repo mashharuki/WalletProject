@@ -26,6 +26,8 @@ contract("MultiSigWallet & MyToken Contract tests!!", accounts => {
     var factory;
     // variable for MyToken Contract
     var myToken;
+    // sample DID
+    var did = "did:ion:er....rer";
 
     /**
      * addWallet function
@@ -60,6 +62,13 @@ contract("MultiSigWallet & MyToken Contract tests!!", accounts => {
         it("check myToken Owner", async () => {
             // get owner address 
             var ownerAddress = await myToken.owner();
+            // check owner address
+            assert.equal(ownerAddress, owners[0], "owner address must be match!!");
+        });
+
+        it("check Factory Owner", async () => {
+            // get owner address 
+            var ownerAddress = await factory.owner();
             // check owner address
             assert.equal(ownerAddress, owners[0], "owner address must be match!!");
         });
@@ -143,6 +152,33 @@ contract("MultiSigWallet & MyToken Contract tests!!", accounts => {
         it ("returns 30 results when limit requested is 30", async () => {
             const wallets = await factory.getWallets(30, 10);
             assert.equal(wallets.length, 20, "results size should be 20");
+        });
+    });
+
+    describe ("register test", async () => { 
+        it ("register", async () => {
+            // set
+            await factory.register(owners[1], did);
+            // get did
+            const didData = await factory.dids(owners[1]);
+            // check
+            assert.equal(did, didData, "did data must be match!!");
+        });
+        // 異常系
+        it ("register 2", async () => {
+            // check
+            await truffleAssert.reverts(
+                factory.register(owners[2], did, { from : owners[1] })
+            );
+        });
+        // 異常系2
+        it ("register 3", async () => {
+            // set
+            await factory.register(owners[2], did);
+            // check
+            await truffleAssert.reverts(
+                factory.register(owners[2], did)
+            );
         });
     });
 });

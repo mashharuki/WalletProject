@@ -39,10 +39,10 @@ Avalanche Fuji Chain(Testnet)
 
 ## deploy した Contract の情報
 
-| No. | コントラクト名                             | Explorer の URL                                                                                                                                                              |
-| --- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | 0x505869E3B5Ef52a5Db123387fe2d188c44b27b25 | [https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code](https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code) |
-| 2   |                                            |                                                                                                                                                                              |
+| No. | コントラクト名  | Explorer の URL                                                                                                                                                              |
+| --- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | MyToken         | [https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code](https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code) |
+| 2   | WalletFactoryV4 |                                                                                                                                                                              |
 
 ## application code やその他の file
 

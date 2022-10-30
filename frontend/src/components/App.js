@@ -18,7 +18,7 @@ import Txs from './pages/Txs';
 import Wallets from './pages/Wallets';
 
 // contract Address (WalletFactory)
-const CONTRACT_ADDRESS = "0xacff3BF500e0E9F7734D39064B290873d80Fe749";
+const CONTRACT_ADDRESS = "0x177acf501eF7d2b090d94fd3bd2BE773736598E1";
 // contract Address (MyToken)
 const MYTOKEN_ADDRESS = "0x505869E3B5Ef52a5Db123387fe2d188c44b27b25";
 // chain ID 

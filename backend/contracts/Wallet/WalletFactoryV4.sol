@@ -11,10 +11,18 @@ contract WalletFactoryV4 {
     MultiSigWallet[] public wallets;
     // 関数から返すことのできる最大値
     uint256 constant maxLimit = 20;
+    // owner
+    address public owner;
 
     // mapping
     mapping(address => bool) public isRegistered;
     mapping(address => string) public dids;
+
+    //modifier
+    modifier onlyOwner() {
+        require(msg.sender == owner, "This address is not an owner address!");
+        _;
+    }
 
     // event
     event WalletCreated(
@@ -24,6 +32,13 @@ contract WalletFactoryV4 {
         uint256 required
     );
     event Registered(address addr, string did);
+
+    /**
+     * コンストラクター
+     */
+    constructor() {
+        owner = msg.sender;
+    }
 
     /**
      * MultiSigWalletのインスタンス数を取得する関数
@@ -76,19 +91,17 @@ contract WalletFactoryV4 {
 
     /**
      * register
+     * @param _addr address
      * @param _did DID
      */
-    function register(string memory _did) public {
+    function register(address _addr, string memory _did) public onlyOwner {
         // check
-        require(
-            !isRegistered[msg.sender],
-            "This address is already registered!!"
-        );
+        require(!isRegistered[_addr], "This address is already registered!!");
 
         // set
-        isRegistered[msg.sender] = true;
-        dids[msg.sender] = _did;
+        isRegistered[_addr] = true;
+        dids[_addr] = _did;
 
-        emit Registered(msg.sender, _did);
+        emit Registered(_addr, _did);
     }
 }

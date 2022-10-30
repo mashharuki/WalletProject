@@ -53,14 +53,17 @@ const Home = (props) => {
         const FactoryContract = new provider.eth.Contract(WalletFactory.abi, CONTRACT_ADDRESS);
         // 登録ステータスを確認する。
         const status = await FactoryContract.methods.isRegistered(signer).call();
+        console.log("status:", status);
         
         if(status) { // 登録済みの場合
             // DIDを取得する。
             const didData = await FactoryContract.methods.dids(signer).call();
+            console.log("didData :", didData);
             // short
-            var  modStr = didData.substr(0, 9) + '...' + didData.substr(didData.length - 3, 3)
+            var modStr = didData.substr(0, 9) + '...' + didData.substr(didData.length - 3, 3)
             setDid(modStr);
             setFullDid(didData);
+            setIsLogined(true);
         } else { // 未登録の場合
 
             var result;
@@ -69,6 +72,7 @@ const Home = (props) => {
             // DID作成APIを呼び出す
             superAgent
                 .post(baseURL + '/api/create')
+                .query({addr: signer})
                 .end(async(err, res) => {
                     if (err) {
                         console.log("DID作成用API呼び出し中に失敗", err);
@@ -79,41 +83,17 @@ const Home = (props) => {
                         return err;
                     }
 
-                    result = res.body.DID;
-                    var modStr = result.substr(0, 9) + '...' + result.substr(result.length - 3, 3)
+                    // DIDを取得する。
+                    const result = await FactoryContract.methods.dids(signer).call();
+                    var modStr = result.substr(0, 9) + '...' + result.substr(result.length - 3, 3);
+
                     setDid(modStr);
                     setFullDid(result);
                     console.log("DID作成用API呼び出し結果：", result);
-
-                    try {
-                        // メソッドをエンコードする。
-                        var data = FactoryContract.methods.register(result).encodeABI();
-                        // tx param data
-                        const param = [{
-                            from: signer,
-                            to: CONTRACT_ADDRESS,
-                            gas: '0x76c0', // 30400
-                            gasPrice: '0x9184e72a000', // 10000000000000
-                            value: '0x00', 
-                            data: data,
-                        },];
-                        // send Tx
-                        const txHash = await blocto.ethereum.request({
-                            method: 'eth_sendTransaction', 
-                            params: param,
-                        });
-                        console.log("txhash:", txHash);
-                        
-                        // popUpメソッドの呼び出し
-                        popUp(true, "successfull!!");
-                        setIsLogined(true);
-                        setIsLoading(false);
-                    } catch(e) {
-                        // popUpメソッドの呼び出し
-                        popUp(false, "failfull...");
-                        setIsLogined(false);
-                        setIsLoading(false);
-                    }
+                    // popUpメソッドの呼び出し
+                    popUp(true, "successfull!!");
+                    setIsLogined(true);
+                    setIsLoading(false);     
                 });
         }
     }
