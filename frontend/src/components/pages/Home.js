@@ -43,7 +43,7 @@ const Home = (props) => {
     const [successFlg, setSuccessFlg] = useState(false);
     const [failFlg, setFailFlg] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    const [baseURL, setBaseURL] = useState('http://localhost:3001');
+    const [baseURL, setBaseURL] = useState('http://192.168.0.19:3001');
 
     /**
      * sign in/ sign up function 
@@ -89,12 +89,30 @@ const Home = (props) => {
 
                     setDid(modStr);
                     setFullDid(result);
-                    console.log("DID作成用API呼び出し結果：", result);
-                    // popUpメソッドの呼び出し
-                    popUp(true, "successfull!!");
-                    setIsLogined(true);
-                    setIsLoading(false);     
+                    console.log("DID作成用API呼び出し結果：", result);  
                 });
+
+            // IDQToken発行APIを呼び出す
+            superAgent
+                .post(baseURL + '/api/mintIDQ')
+                .query({
+                    to: signer,
+                    amount: 10000
+                })
+                .end(async(err, res) => {
+                    if (err) {
+                        console.log("IDQToken発行用API呼び出し中に失敗", err);
+                        // popUpメソッドの呼び出し
+                        popUp(false, "failfull...");
+                        setIsLogined(false);
+                        setIsLoading(false);
+                        return err;
+                    }
+                });
+            // popUpメソッドの呼び出し
+            popUp(true, "successfull!!");
+            setIsLogined(true);
+            setIsLoading(false);   
         }
     }
 

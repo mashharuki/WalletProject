@@ -8,7 +8,7 @@ function App() {
         <p>
           <strong>Welcome to IDQ Soul Wallet!!</strong>
         </p>
-        <QRCode value="https://idq.vercel.app/" />
+        <QRCode value="http://192.168.0.19:3000" />
       </header>
     </div>
   );
