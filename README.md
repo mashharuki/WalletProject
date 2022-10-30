@@ -6,6 +6,11 @@ IDQ Soul Wallet
 
 セキュリティ
 
+## メンバー Discord ID
+
+1. QAQA#7612
+2. mashharuki#9415
+
 ## 概要（200 文字）
 
 ## デモ動画 URL

@@ -21,8 +21,6 @@ const WalletTable = (props) => {
         index, 
         depositAction, 
         provider, 
-        signer, 
-        blocto 
     } = props;
 
     // ウォレットの名前を格納するステート変数

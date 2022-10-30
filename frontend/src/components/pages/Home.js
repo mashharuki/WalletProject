@@ -31,8 +31,6 @@ const Home = (props) => {
         MYTOKEN_ADDRESS,
         provider,
         signer,
-        blocto,
-        RPC_URL  
     } = props;
 
     const [balance, setBalance] = useState(0);

@@ -237,5 +237,37 @@ app.post('/api/verify', async(req, res) => {
   */
 });
 
-// 静的ファイルを自動的に返すようルーティングする。
-app.use('/', express.static('./build'));
+/**
+ * FactoryWalletのメソッドを実行するためのAPI
+ * @param methodName メソッド名
+ * @param args 引数
+ */
+app.post('/api/excute/factory', async(req, res) => {
+  logger.log("FactoryWalletのメソッドを実行するためのAPI開始")
+
+  var methodName = req.query.methodName;
+  var args = req.query.args;
+
+  // コントラクトのABI
+  const abi = abis.FactoryABI;
+  //const chainId = req.query.chainId;
+  const chainId = 43113;
+
+  // call send Tx function
+  var result = await utils.sendTx(logger, abi, FACTORY_ADDRESS, methodName, args, 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
+
+  if(result == true) {
+      logger.debug("トランザクション送信成功");
+      logger.log("FactoryWalletのメソッドを実行するためのAPI終了")
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result: 'success' });
+  } else {
+      logger.error("トランザクション送信失敗");
+      logger.log("FactoryWalletのメソッドを実行するためのAPI終了")
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result: 'fail' });
+  }
+});
+
+// QRコード画面を表示する。
+app.use('/', express.static('./../docs'));

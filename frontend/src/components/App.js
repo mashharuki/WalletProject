@@ -89,16 +89,14 @@ function App() {
               </Typography>
             </Toolbar>
           </AppBar>
-          { /* ウォレットに接続し、アカウント情報が取得できていなければウォレットへの接続を促す。 */ }
           { currentAccount === null ? (
             <header className="App-header">
-              <p>Please Connect Your Wallet!!</p>
+              <p>Welcome to IDQ Soul Wallet!!</p>
             </header>
           ) : (
-            /* ルーティングに従い、各ページのコンポーネントを描画する。 */ 
             <Routes>
-              <Route path="/" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} RPC_URL={RPC_URL} blocto={blocto} provider={web3} signer={currentAccount} /> } />
-              <Route path="/home" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} RPC_URL={RPC_URL} blocto={blocto} provider={web3} signer={currentAccount} /> } />
+              <Route path="/" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} /> } />
+              <Route path="/home" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} /> } />
               <Route path="/wallets" exact element={ <Wallets CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} /> } />
               <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} /> } />
               <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />

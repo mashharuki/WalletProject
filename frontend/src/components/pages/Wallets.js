@@ -122,7 +122,7 @@ const Wallets = (props) => {
             // tx param data
             const param = [{
                 from: account,
-                to: CONTRACT_ADDRESS,
+                to: wallet,
                 gas: '0x76c0', // 30400
                 gasPrice: '0x9184e72a000', //10000000000000
                 value: '0x' + value, 
@@ -289,8 +289,6 @@ const Wallets = (props) => {
                                                                 row={row} 
                                                                 index={i} 
                                                                 provider={provider}
-                                                                signer={signer}
-                                                                blocto={blocto}
                                                                 depositAction={(e) => {
                                                                     handleOpen(row)
                                                                 }}

@@ -10,6 +10,7 @@ import FactoryContract from "../../contracts/WalletFactoryV4.json";
 import ActionButton from '../common/ActionButton';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
+import UseFactory from './../common/UseContract';
 
 /** 
  * StyledPaperコンポーネント
@@ -76,22 +77,8 @@ const Create = (props) => {
         console.log("owners:", owners)
         try {
             setIsLoading(true);
-            // createWalletメソッドをエンコードする。
-            var data = contract.methods.createWallet(walletName, owners, required).encodeABI();
-            // トランザクションを作成する
-            const param = [{
-                from: signer,
-                to: CONTRACT_ADDRESS,
-                gas: '0x76c0', // 30400
-                gasPrice: '0x9184e72a000', // 10000000000000
-                value:  '0x00', 
-                data: data,
-            },];
-            // 送信する
-            const txHash = await blocto.ethereum.request({
-                method: 'eth_sendTransaction', 
-                params: param,
-            });
+            // factoryコントラクトを使うためのAPIを呼び出す
+            const res = await UseFactory("createWallet", [walletName, owners, required]);
             
             setIsLoading(false);
             // ownersの配列を空にする。
@@ -99,7 +86,7 @@ const Create = (props) => {
             // popUpメソッドを呼び出す
             popUp(true);
         } catch(err) {
-            console.error("regist err:", err);
+            console.error("create wallet err:", err);
             setIsLoading(false);
             // ownersの配列を空にする。
             setOwners([]);

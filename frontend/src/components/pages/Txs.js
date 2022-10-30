@@ -17,6 +17,7 @@ import Web3 from "web3";
 import walletContract from "../../contracts/MultiSigWallet.json";
 import ActionButton from '../common/ActionButton';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import UseFactory from '../common/UseContract';
 import './../../assets/css/App.css';
 import TxTable from './TxTable';
 
@@ -109,30 +110,6 @@ const Txs = (props) => {
     };
 
     /**
-     * send Tx function
-     * @param data byte data
-     * @return yxHash Transaction Hash
-     */
-    const sendTx = async(data) => {
-        // トランザクションを作成する
-        const param = [{
-            from: account,
-            to: wallet,
-            gas: '0x76c0', // 30400
-            gasPrice: '0x9184e72a000', // 10000000000000
-            value: value, 
-            data: data,
-        },];
-        // 送信する
-        const txHash = await blocto.ethereum.request({
-            method: 'eth_sendTransaction', 
-            params: param,
-        });
-        
-        return txHash;
-    }  
-
-    /**
      * 「Create」ボタンを押した時の処理
      */
     const createAction = async() => {
@@ -140,11 +117,9 @@ const Txs = (props) => {
         const sendValue = Web3.utils.toWei(value);
 
         try {
-            setIsLoading(true);
-            // submitメソッドをエンコードする。
-            var data = contract.methods.submit(to, sendValue, inputData).encodeABI();
-            // sendTx
-            await sendTx(data);
+            setIsLoading(true);    
+            // factoryコントラクトを使うためのAPIを呼び出す
+            const res = await UseFactory("submit", [to, sendValue, inputData]);
 
             setIsLoading(false);
             // popUpメソッドの呼び出し
@@ -189,7 +164,7 @@ const Txs = (props) => {
         try {
             setIsLoading(true);
             
-            // revokeメソッドをエンコードする。
+            // submitメソッドをエンコードする。
             var data = contract.methods.revoke(txId).encodeABI();
             // sendTx
             await sendTx(data);
@@ -213,10 +188,10 @@ const Txs = (props) => {
         try {
             setIsLoading(true);
             
-            // exexuteメソッドをエンコードする。
-            var data = contract.methods.execute(txId).encodeABI();
-            // sendTx
-            await sendTx(data);
+             // submitメソッドをエンコードする。
+             var data = contract.methods.execute(txId).encodeABI();
+             // sendTx
+             await sendTx(data);
 
             setIsLoading(false);
             // popUpメソッドの呼び出し
@@ -260,6 +235,31 @@ const Txs = (props) => {
             }, 5000);
         }
     };
+
+     /**
+     * send Tx function
+     * @param data byte data
+     * @return yxHash Transaction Hash
+     */
+      const sendTx = async(data) => {
+        // トランザクションを作成する
+        const param = [{
+            from: account,
+            to: wallet,
+            gas: '0x76c0', // 30400
+            gasPrice: '0x9184e72a000', // 10000000000000
+            value: value, 
+            data: data,
+        },];
+        // 送信する
+        const txHash = await blocto.ethereum.request({
+            method: 'eth_sendTransaction', 
+            params: param,
+        });
+        
+        return txHash;
+    }  
+
 
     /**
      * ページングするための関数
