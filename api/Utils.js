@@ -1,5 +1,5 @@
 require('dotenv/config');
-const { ethers } = require('ethers');
+const { ethers, BigNumber } = require('ethers');
 
 // get Mnemonic code
 const {
@@ -55,4 +55,52 @@ const sendTx = async(logger, abi, address, functionName, args, rpc_url, chainId)
     return true;
 }
 
-module.exports = { sendTx };
+/**
+ * 送金処理のみのトランザクションメソッド
+ * @param logger logger
+ * @param to 送金先アドレス
+ * @param value 送金額
+ * @param rpc_url 任意のAPI RPC エンドポイント
+ * @param chainId チェーンID
+ * @return 送信結果
+ */
+const sendEth = async(logger, to, value, rpc_url, chainId) => {
+    // create wallet object
+    var wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+    // create provider
+    var provider = new ethers.providers.JsonRpcProvider(rpc_url);
+    // conncet provider
+    wallet.connect(provider);
+    // get nonce
+    var nonce = await provider.getTransactionCount(wallet.address);
+   
+    // create tx data
+    var tx = {
+        gasPrice: 25000000000,
+        gasLimit: 185000,
+        data: '0x0',
+        to: to,
+        nonce: nonce,
+        chainId: chainId,
+        value: ethers.utils.parseEther(value).toString()
+    }
+    // sign tx
+    var signedTransaction = await wallet.signTransaction(tx).then(ethers.utils.serializeTransaction(tx));
+
+    try {
+        // send tx
+        const res = await provider.sendTransaction(signedTransaction);
+        logger.log("Tx send result:", res);
+    } catch(e) {
+        logger.error("Tx send error:", e);
+        return false;
+    }
+
+    return true;
+}
+
+
+module.exports = { 
+    sendTx, 
+    sendEth 
+};

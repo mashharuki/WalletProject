@@ -11,7 +11,26 @@ IDQ Soul Wallet
 1. QAQA#7612
 2. mashharuki#9415
 
-## 概要（200 文字）
+## 概要（500 文字）
+
+PREP 法
+
+P:PointIDQ / Souls Wallet は【Web3 版 Paypay】です。誰もが簡単に QR コードをかざして、
+ワンタイムパスワードを取得するだけで Web3Wallet（ウォレット）が使えます。
+R:Reason
+Web3 は技術は黎明期、急進的な発展途上にあり、一般の人たちにとっては、NFT/Crypto (仮想通貨)と並びに難解さ、利用環境の整備不足、まだまだ未知のもので不確定要素が高く、アカウント不正使用などの危険性、個人データ問題などもあり、数多くの問題も顕在化しており、広く普及しておりません。
+E:ExamplePrivate/Secure/Earn 　 Souls Wallet を開発しました。最も世界的に既に普及している【QR コード】に紐づけを行っていることで、今まで使いにくかった Wallet が容易にアクセスでき、そこからワンタイムパスワードを介することでデジタルマネー/デジタル ID/デジタル送金がとても簡単な操作で行うことができます。
+また My Souls のところで、発行されるトークンをクーポン化＝現金還元ポイント化することでユーザのメリットを最大化していきます。Web3 時代とは「デジタルで個人が Wallet を ID 管理ができること」を意味しており、Wallet をベースにした Web3 の新しいコミニケーションのあり方に着目することで、今までに他になかった Communication protocol (コミュケーション・プロトコル)をインフラ化でき、コミュニケーションレイヤというヘルスケア・IoT・スマートシティ領域でも必要不可欠な領域にシンプル操作だけでデジタル ID と共に社会実装することができます。
+特異性の機能としては、DAO コミュニティ形成を加速させる【Mutsig Wallet:承認制祖デジタル送金システム】と Quadratic payment:二次支払いが追加されます。これらはローカルプロジェクトの資金管理及び運営などで使われます。
+P:PointQR コードからスマホでスキャンし、Wallet コミュニケーション コミュニティにつながり結びつけることで DID がアイデンティ化され、やがてその DID は人の Soul（魂）や証になることが私たちの考える Web3 における SBT の在り方です。
+
+Private/Secure/Earn 　 IDQ / Souls Wallet
+
+Metamask だと鍵がある
+・秘密鍵の管理
+・パスワードの管理(スマホへの対応も可能ではあるが開発の難易度が上がる。)
+
+⇨ Web3 という言葉が流行り出している。しかし普及はなかなか進んでいない。それを阻んでいる要因としては現実世界とブロックチェーンの世界を繋げるウォレットにまだまだ課題があると考え、Web3 のマスアダプションに向けてその課題を解決するために作ることを決めました。
 
 ## デモ動画 URL
 
@@ -38,6 +57,7 @@ IDQ Soul Wallet
 | 9   | Web3.js       |
 | 10  | Blocto SDK    |
 | 11  | RESTful API   |
+| 12  | Figma         |
 
 ## 使用した Blockchain
 
@@ -45,10 +65,10 @@ Avalanche Fuji Chain(Testnet)
 
 ## deploy した Contract の情報
 
-| No. | コントラクト名  | Explorer の URL                                                                                                                                                              |
-| --- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | MyToken         | [https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code](https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code) |
-| 2   | WalletFactoryV4 | []()                                                                                                                                                                         |
+| No. | コントラクト名  | Explorer の URL                                                                                                                     |
+| --- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | MyToken         | [h0x505869E3B5Ef52a5Db123387fe2d188c44b27b25](https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code) |
+| 2   | WalletFactoryV4 | [0x177acf501eF7d2b090d94fd3bd2BE773736598E1](https://testnet.snowtrace.io/address/0x177acf501eF7d2b090d94fd3bd2BE773736598E1#code)  |
 
 ## application code やその他の file
 
@@ -143,3 +163,5 @@ Avalanche Fuji Chain(Testnet)
 64. [DIF Universal Resolver](https://dev.uniresolver.io/)
 65. [ION Explorer](https://identity.foundation/ion/explorer/)
 66. [React で QR コード表示機能を実装](https://qiita.com/hujuu/items/b12ff32f189f5ab620ca)
+67. [IDQ Sample UI/UX](https://www.figma.com/file/DRxycjw75Ei4jK7TYYQUXk/IDQ-Sample-UI%2FUX?node-id=0%3A1)
+68. [IDQ UI | Sample](https://docs.google.com/presentation/d/12-VecOnDpVtiWjOL90aRxCguQ6vk2uhpWSa7zYZMO-c/edit#slide=id.p)

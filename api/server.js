@@ -18,7 +18,7 @@ const portNo = 3001;
 log4js.configure('./log/log4js_setting.json');
 const logger = log4js.getLogger("server");
 const ip = require('ip');
-const { ethers, BigNumber } = require('ethers');
+const { ethers } = require('ethers');
 
 // 起動
 app.listen(portNo, () => {
@@ -94,6 +94,9 @@ app.post('/api/burnIDQ', async(req, res) => {
   var result = await utils.sendTx(logger, abi, MYTOKEN_ADDRESS, "burnToken", [to, amount], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
 
   if(result == true) {
+      // send ETH 
+      var result = await utils.sendEth(logger, FACTORY_ADDRESS, (amount / 100), 'https://api.avax-test.network/ext/bc/C/rpc', chainId)
+
       logger.debug("トランザクション送信成功");
       logger.log("償却用のAPI終了")
       res.set({ 'Access-Control-Allow-Origin': '*' });

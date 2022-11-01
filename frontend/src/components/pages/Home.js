@@ -8,6 +8,7 @@ import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
+import Coupon from './../../assets/imgs/Coupon_2.png';
 import MyToken from './../../contracts/MyToken.json';
 import WalletFactory from './../../contracts/WalletFactoryV4.json';
 
@@ -31,6 +32,7 @@ const Home = (props) => {
         MYTOKEN_ADDRESS,
         provider,
         signer,
+        baseURL
     } = props;
 
     const [balance, setBalance] = useState(0);
@@ -41,7 +43,6 @@ const Home = (props) => {
     const [successFlg, setSuccessFlg] = useState(false);
     const [failFlg, setFailFlg] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    const [baseURL, setBaseURL] = useState('http://192.168.0.19:3001');
 
     /**
      * sign in/ sign up function 
@@ -211,6 +212,14 @@ const Home = (props) => {
                         </>
                     )}
                 </StyledPaper>
+                {isLogined ? (
+                    <Grid 
+                        container 
+                        justifyContent="center"
+                    >
+                        <img className="image_size_m" src={Coupon} /> 
+                    </Grid>
+                ) : <></>}
             </Box>
             {successFlg && (
                 /* 成功時のポップアップ */

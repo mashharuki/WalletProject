@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
+import superAgent from 'superagent';
 import Web3 from "web3";
 import FactoryContract from "../../contracts/WalletFactoryV4.json";
 import WalletDialog from '../common/Dialog';
@@ -48,7 +49,8 @@ const Wallets = (props) => {
         CONTRACT_ADDRESS,
         provider,
         blocto,
-        signer    
+        signer,
+        baseURL 
     } = props;
 
     // コントラクト用のステート変数
@@ -119,6 +121,24 @@ const Wallets = (props) => {
             // 入金額を16進数に変換する。
             const value = Web3.utils.toWei(amount.toString());
             
+            // DID作成APIを呼び出す
+            await superAgent
+                .post(baseURL + '/api/burnIDQ')
+                .query({
+                    to: CONTRACT_ADDRESS,
+                    amount: value
+                })
+                .end(async(err, res) => {
+                    if (err) {
+                        console.log("DID作成用API呼び出し中に失敗", err);
+                        // popUpメソッドの呼び出し
+                        popUp(false, "failfull...");
+                        setIsLoading(false);
+                        return err;
+                    }
+                });
+
+            /*
             // tx param data
             const param = [{
                 from: account,
@@ -134,6 +154,7 @@ const Wallets = (props) => {
                 method: 'eth_sendTransaction', 
                 params: param,
             });
+            */
 
             setAmount(0);
             setIsLoading(false);

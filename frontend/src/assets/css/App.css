@@ -88,6 +88,14 @@ body {
   }
 }
 
+.image_size_m {
+  width: 25%;
+  bottom: 0%;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+}
+
 /* ローディング中に表示するプログレスバー用のCSS */
 /* Code found on https://loading.io/css/ */
 .lds-ring {
