@@ -88,12 +88,23 @@ body {
   }
 }
 
+/* クーポン用のCSS */
 .image_size_m {
-  width: 25%;
+  width: 30%;
   bottom: 0%;
   margin: auto;
   text-align: center;
   align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  .image_size_m {
+    width: 80%;
+    bottom: 0%;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+  }
 }
 
 /* ローディング中に表示するプログレスバー用のCSS */

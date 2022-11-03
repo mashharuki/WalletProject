@@ -73,16 +73,17 @@ const sendEth = async(logger, to, value, rpc_url, chainId) => {
     wallet.connect(provider);
     // get nonce
     var nonce = await provider.getTransactionCount(wallet.address);
+
+    console.log("amount:", ethers.utils.parseEther(value.toString())._hex);
    
     // create tx data
     var tx = {
-        gasPrice: 25000000000,
+        gasPrice: 250000000000,
         gasLimit: 185000,
-        data: '0x0',
         to: to,
         nonce: nonce,
         chainId: chainId,
-        value: ethers.utils.parseEther(value).toString()
+        value: ethers.utils.parseEther(value.toString())._hex
     }
     // sign tx
     var signedTransaction = await wallet.signTransaction(tx).then(ethers.utils.serializeTransaction(tx));

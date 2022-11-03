@@ -76,14 +76,16 @@ app.post('/api/mintIDQ', async(req, res) => {
 
 /**
  * IDQTokenを償却するAPI
- * @param to 発行先アドレス
+ * @param to 償却アドレス
  * @param amount 償却量
+ * @param walletAddr ウォレットアドレス
  */
 app.post('/api/burnIDQ', async(req, res) => {
   logger.log("償却用のAPI開始")
 
   var to = req.query.to;
   var amount = req.query.amount;
+  var walletAddr = req.query.walletAddr;
 
   // コントラクトのABI
   const abi = abis.MyTokenABI;
@@ -91,11 +93,11 @@ app.post('/api/burnIDQ', async(req, res) => {
   const chainId = 43113;
 
   // call send Tx function
-  var result = await utils.sendTx(logger, abi, MYTOKEN_ADDRESS, "burnToken", [to, amount], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
+  var result = await utils.sendTx(logger, abi, MYTOKEN_ADDRESS, "burnToken", [to, (amount/1000000000000000000)], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
 
   if(result == true) {
       // send ETH 
-      var result = await utils.sendEth(logger, FACTORY_ADDRESS, (amount / 100), 'https://api.avax-test.network/ext/bc/C/rpc', chainId)
+      var result = await utils.sendEth(logger, walletAddr, (amount/10000000000000000000000), 'https://api.avax-test.network/ext/bc/C/rpc', chainId)
 
       logger.debug("トランザクション送信成功");
       logger.log("償却用のAPI終了")

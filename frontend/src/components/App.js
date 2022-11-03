@@ -26,7 +26,7 @@ const chainId = '43113';
 // rpc URL 
 const RPC_URL = `https://api.avax-test.network/ext/bc/C/rpc`;
 // API Base URL
-const baseURL = 'http://192.168.0.14:3001'
+const baseURL = 'http://192.168.0.3:3001'
 
 /**
  * Appコンポーネント

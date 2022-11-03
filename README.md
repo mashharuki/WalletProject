@@ -65,10 +65,10 @@ Avalanche Fuji Chain(Testnet)
 
 ## deploy した Contract の情報
 
-| No. | コントラクト名  | Explorer の URL                                                                                                                     |
-| --- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | MyToken         | [h0x505869E3B5Ef52a5Db123387fe2d188c44b27b25](https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code) |
-| 2   | WalletFactoryV4 | [0x177acf501eF7d2b090d94fd3bd2BE773736598E1](https://testnet.snowtrace.io/address/0x177acf501eF7d2b090d94fd3bd2BE773736598E1#code)  |
+| No. | コントラクト名  | Explorer の URL                                                                                                                    |
+| --- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | MyToken         | [0x505869E3B5Ef52a5Db123387fe2d188c44b27b25](https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code) |
+| 2   | WalletFactoryV4 | [0x177acf501eF7d2b090d94fd3bd2BE773736598E1](https://testnet.snowtrace.io/address/0x177acf501eF7d2b090d94fd3bd2BE773736598E1#code) |
 
 ## application code やその他の file
 
@@ -84,6 +84,7 @@ Avalanche Fuji Chain(Testnet)
 | intro-app  | QR コード表示用のフロントエンド用の資材を格納したフォルダ |
 | README.md  | 本ドキュメント                                            |
 | README2.md | スマートコントラクトのテスト手順をまとめた md ファイル    |
+| README3.md | ローカルでのプロジェクト起動方法をまとめた md ファイル    |
 
 ## テスト手順
 
@@ -91,9 +92,7 @@ Avalanche Fuji Chain(Testnet)
 
 ## 審査やテストのためにプロジェクトにアクセスする方法など
 
-下記 QR コードからアクセスするか直接[https://idq.vercel.app/](https://idq.vercel.app/)にアクセスしてください。
-
-<img src="./assets/img/qrcode.png">
+[プロジェクト起動手順書(ローカル環境)](https://github.com/mashharuki/IDQ/blob/main/README3.md)
 
 #### その他本プロダクトを開発するにあたり参考にした文献
 

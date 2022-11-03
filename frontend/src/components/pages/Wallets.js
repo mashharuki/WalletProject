@@ -115,22 +115,22 @@ const Wallets = (props) => {
     const depositAction = async (wallet) => {
 
         try {
-            setDepositAddr("");
             setOpen(false);
             setIsLoading(true);
             // 入金額を16進数に変換する。
             const value = Web3.utils.toWei(amount.toString());
             
-            // DID作成APIを呼び出す
+            // 償却用APIを呼び出す
             await superAgent
                 .post(baseURL + '/api/burnIDQ')
                 .query({
-                    to: CONTRACT_ADDRESS,
-                    amount: value
+                    to: signer,
+                    amount: value,
+                    walletAddr: depositAddr
                 })
                 .end(async(err, res) => {
                     if (err) {
-                        console.log("DID作成用API呼び出し中に失敗", err);
+                        console.log("償却用API呼び出し中に失敗", err);
                         // popUpメソッドの呼び出し
                         popUp(false, "failfull...");
                         setIsLoading(false);
@@ -138,24 +138,7 @@ const Wallets = (props) => {
                     }
                 });
 
-            /*
-            // tx param data
-            const param = [{
-                from: account,
-                to: wallet,
-                gas: '0x76c0', // 30400
-                gasPrice: '0x9184e72a000', //10000000000000
-                value: '0x' + value, 
-                data: "0x00",
-            },];
-
-            // 入金する。
-            const txHash = await blocto.ethereum.request({
-                method: 'eth_sendTransaction', 
-                params: param,
-            });
-            */
-
+            setDepositAddr("");
             setAmount(0);
             setIsLoading(false);
             // popUpメソッドを呼び出す

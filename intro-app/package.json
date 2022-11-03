@@ -13,7 +13,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3002 react-scripts start",
     "build": "rm -r ../docs && mkdir ../docs && react-scripts build && mv -f build/* ../docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
