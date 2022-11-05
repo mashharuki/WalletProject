@@ -33,6 +33,8 @@ Web3 Walletをセキュアに且つ自らで稼げることで情報の触り方
 
 ## デモ動画 URL
 
+[https://www.youtube.com/watch?v=D_JnmllHxW8](https://www.youtube.com/watch?v=D_JnmllHxW8)
+
 ## プロダクト URL
 
 [IDQ Soul Wallet](https://idq.vercel.app/)
@@ -40,6 +42,16 @@ Web3 Walletをセキュアに且つ自らで稼げることで情報の触り方
 ## Github repo(open) URL
 
 [https://github.com/mashharuki/IDQ](https://github.com/mashharuki/IDQ)
+
+## 開発した機能一覧表
+
+|No.|機能名|概要|
+|---|---|---|
+|1|DID作成機能|IONのモジュールを利用して初回登録時にDIDを作成する機能。APIサーバー側で処理を実装。|
+|2|承認制共有ウォレット機能|資金プールを共有できるマルチシグウォレット機能。スマートコントラクトで実装。資金のデポジット・承認・送金が可能|
+|3|IDQトークンReward機能|初回ログイン時にIDQトークンを付与する機能。現在は初回登録時のみだが、今後の追加実装で初回ログイン時以外でも付与できるようにする予定。|
+|4|IDQトークン償却機能|共有ウォレットに資金をデポジットする時などIDQトークンを使った処理を行う時に呼び出す機能。ユーザーからはトークンを使って実際の暗号資産を入金することができるため秘密鍵の存在を意識する必要がなくなる。|
+|5|クーポン発行機能|初回登録時にユーザーに対してクーポンが発行される機能。|
 
 ## 使用した tech stacks
 
@@ -57,6 +69,7 @@ Web3 Walletをセキュアに且つ自らで稼げることで情報の触り方
 | 10  | Blocto SDK    |
 | 11  | RESTful API   |
 | 12  | Figma         |
+| 13  | ERC20         |
 
 ## 使用した Blockchain
 
