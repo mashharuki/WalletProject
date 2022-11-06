@@ -86,7 +86,7 @@ Avalanche Fuji Chain(Testnet)
 
 ### IDQ Soul Wallet のシステム構成イメージ図
 
-<img src="./assets/img/system_2.png">
+<img src="./assets/img/system_3.png">
 
 ### IDQ Soul Wallet を利用した際の想定フロー
 
