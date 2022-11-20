@@ -92,6 +92,20 @@ Avalanche Fuji Chain(Testnet)
 
 [![](https://mermaid.ink/img/pako:eNqdVF1PE0EU_SuTfYIEH-jjPpCYVBMeTDSa-NKXtZ1qQ7vF7TYNISTsDNAiJXxES8BWKAKCKKgVwVLpj7nstv0X3pkpa0uLGPvQzM6ce-7HufdOauFkhGq6lqIv09QM02DMeG4ZiZBJ8GfH7Dglo8FHHq-4RxvA3wD_DLxGBrzCl-beUmP9vJX_Bs4CsHl39qtXnH9qxOPUdmd3W9kVcC7A-QDOkXfiAMsPKk4jbSfNdOIZtdrfYTtpEeB7yAvsB_533iczJrWG1c24YdmxcGzcMG2SGiZGilwFVAGeA7YvD_N9wAEBvvtwFNiJ8MKXfS-dsKhA3Zd-J4BV2rT8ANgxHnrxGYHvTLsXYgvIk-QYNclNjCpDcmdkhER1zCgLfE0kxXZ63u1b3tFehQNsD9gB8E_AOTq6_FX0cstePtvYqSqjqMRn9K7weyNUhsqkUyFpjRLopLMPLi9Kra12XVMqolRAJ-pRVn_VXamBU3GzVXDW28CADwReluocAttGHUX47CcaeRtr7tKpmy90WchiLYkE2SnwXXd6B5y88uWd5cCpy95jwBawPxvb1ebHRXSKn10sXVkJxmNRAlbH8gLfAr4iQhCXNRERW21NO5f18o0V-QcGnA331dvOUKJ-BaJGPEUR06y_vl4gTDc4GvyLkv6rus_4CudKXnGzPalIXc6DM9dFjW2FIy51r0ndK431KuK6BRq-UrJxsuy9KzbL-34M_VujbyviNgC-IdFn4Eil0SM7xyKR_yA7VJtmQI5FSXDKh8GeJnRnNt3F77c0oZyvP1VAaGOmhmZ9-iYjoItS4zlg74EXrllio8gVqCy1IS1BrYQRi-CqnRRMIc1-QRM0pOl4jBjWWEgLmVOIS49HDJvei8RwDWm67IghTSzNxxNmWNNtK02vQO1d7aOoNHqgFrrc61O_AdA44ms?type=png)](https://mermaid.live/edit#pako:eNqdVF1PE0EU_SuTfYIEH-jjPpCYVBMeTDSa-NKXtZ1qQ7vF7TYNISTsDNAiJXxES8BWKAKCKKgVwVLpj7nstv0X3pkpa0uLGPvQzM6ce-7HufdOauFkhGq6lqIv09QM02DMeG4ZiZBJ8GfH7Dglo8FHHq-4RxvA3wD_DLxGBrzCl-beUmP9vJX_Bs4CsHl39qtXnH9qxOPUdmd3W9kVcC7A-QDOkXfiAMsPKk4jbSfNdOIZtdrfYTtpEeB7yAvsB_533iczJrWG1c24YdmxcGzcMG2SGiZGilwFVAGeA7YvD_N9wAEBvvtwFNiJ8MKXfS-dsKhA3Zd-J4BV2rT8ANgxHnrxGYHvTLsXYgvIk-QYNclNjCpDcmdkhER1zCgLfE0kxXZ63u1b3tFehQNsD9gB8E_AOTq6_FX0cstePtvYqSqjqMRn9K7weyNUhsqkUyFpjRLopLMPLi9Kra12XVMqolRAJ-pRVn_VXamBU3GzVXDW28CADwReluocAttGHUX47CcaeRtr7tKpmy90WchiLYkE2SnwXXd6B5y88uWd5cCpy95jwBawPxvb1ebHRXSKn10sXVkJxmNRAlbH8gLfAr4iQhCXNRERW21NO5f18o0V-QcGnA331dvOUKJ-BaJGPEUR06y_vl4gTDc4GvyLkv6rus_4CudKXnGzPalIXc6DM9dFjW2FIy51r0ndK431KuK6BRq-UrJxsuy9KzbL-34M_VujbyviNgC-IdFn4Eil0SM7xyKR_yA7VJtmQI5FSXDKh8GeJnRnNt3F77c0oZyvP1VAaGOmhmZ9-iYjoItS4zlg74EXrllio8gVqCy1IS1BrYQRi-CqnRRMIc1-QRM0pOl4jBjWWEgLmVOIS49HDJvei8RwDWm67IghTSzNxxNmWNNtK02vQO1d7aOoNHqgFrrc61O_AdA44ms)
 
+### BBS署名 + Signature Schemeとは
+
+BBS+ Signature Schemeはマルチメッセージに特化した署名スキームで、その最大の特徴はZKP(ゼロ知識証明)によるメッセージの選択的開示が可能になることで、VCの署名形式として注目されている。DIDに紐づく情報として全てのデータを開示することなる。  
+
+通常の署名形式では、署名はメッセージ全体に対して作成されます。検証者は、メッセージ全体を知らなければ、署名が正しいことを検証できません。  
+
+これに対し、メッセージの一部だけを開示し、それが正しく署名されたメッセージの部分集合であることを証明することを、メッセージの選択的開示と呼びます。BBS+の選択的開示アルゴリズムでは、検証者はメッセージ全てを知ることも、署名の値そのものを知ることもありません。その代わりに、検証者は対応するゼロ知識証明(ZKP)を検証することで、開示されたメッセージの正しさを判断することができます。
+
+### BLS署名(ボン・リン・シャチャム署名)
+
+イーサリアム2.0のBeacon Chainから採用された新たな署名方式を指す。イーサリアム1.0で使用されている署名方式は楕円曲線DSA(通称ECDSA)であり、両署名ともに楕円曲線のある点を利用し、署名が確実に署名者によるものであることを検証することができる。  
+
+イーサリアム2.0ではBLS署名はECDSAより署名サイズが小さいのに強いセキュリティを持つという特徴を利用し、Casper FFGのバリデータの署名によるフォークチョイスルールのために採用されている。イーサリアム2.0に採用されているBLS署名では、Zcashが2017年に設計したBLS-12-381楕円曲線を採用している。
+
 ### リポジトリのフォルダ構造
 
 | フォルダ名 | 概要                                                      |
@@ -184,3 +198,13 @@ Avalanche Fuji Chain(Testnet)
 66. [React で QR コード表示機能を実装](https://qiita.com/hujuu/items/b12ff32f189f5ab620ca)
 67. [IDQ Sample UI/UX](https://www.figma.com/file/DRxycjw75Ei4jK7TYYQUXk/IDQ-Sample-UI%2FUX?node-id=0%3A1)
 68. [IDQ UI | Sample](https://docs.google.com/presentation/d/12-VecOnDpVtiWjOL90aRxCguQ6vk2uhpWSa7zYZMO-c/edit#slide=id.p)
+69. [entra-verifier](https://github.com/did-developer-community/entra-verifier)
+70. [Verify your DID Developer Community Credential](https://diddc-verify.azurewebsites.net/verifier)
+71. [Microsoft Entra Verified ID documentation](https://learn.microsoft.com/en-us/azure/active-directory/verifiable-credentials/)
+72. [Microsoft Entra Verified ID の概要](https://learn.microsoft.com/ja-jp/azure/active-directory/verifiable-credentials/decentralized-identifier-overview)
+73. [Verifiable Credentials Code Samples](https://github.com/Azure-Samples/active-directory-verifiable-credentials)
+74. [【W3C】DID Specification Registries](https://w3c.github.io/did-spec-registries/#did-methods)
+75. [Verifiable Credentials × ゼロ知識証明](https://zenn.dev/kyosuke/articles/a8a92e399e83f490e207)
+76. [BBS署名 + Signature Scheme](https://qiita.com/kazuhideYS/items/1bac1c277e5e45385f08)
+77. [DID Specifications 読み進めガイド](https://qiita.com/kazuhideYS/items/2f533bf14e8587c7c131)
+78. [【動画で学ぶブロックチェーン】BLS署名 - 安土 茂亨氏](https://goblockchain.network/2022/09/bls/)
