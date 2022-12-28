@@ -13,23 +13,23 @@ IDQ Soul Wallet
 
 ## 概要（500 文字）
 
-IDQ | Soul Wallet はWeb3版PayPayです。
+IDQ | Soul Wallet は Web3 版 PayPay です。
 
-Web3時代とは「デジタルで個人がWalletとPHRヘルスデータDIDで個人管理ができること」だと考えています。  
-Web3はまだ一般的には普及しておりません。これがその起爆剤になります。
+Web3 時代とは「デジタルで個人が Wallet と PHR ヘルスデータ DID で個人管理ができること」だと考えています。  
+Web3 はまだ一般的には普及しておりません。これがその起爆剤になります。
 
 機能性とポイントは３つ：
 
-１. 秘密鍵がいらないのにデジタルID/送金のセキュアで使い方がすごく簡単！  
-2. QRコードをスマホでスキャンするだけでWallet アクセスOK！  
-3. API ファースト（API接続のところで今回、産学連携のPDI認証システムをプラグインするだけで使用できます。また企業間連携やパートナシップも可能）
+1. 秘密鍵がいらないのにデジタル ID/送金のセキュアで使い方がすごく簡単！
+2. QR コードをスマホでスキャンするだけで Wallet アクセス OK！
+3. API ファースト（API 接続のところで今回、産学連携の PDI 認証システムをプラグインするだけで使用できます。また企業間連携やパートナシップも可能）
 
 【Private/Secure/Earn】
 
-Web3 Walletをセキュアに且つ自らで稼げることで情報の触り方とWeb3の新しいコミュケーションのあり方をCommunication protocolにすることで社会インフラ化を加速、DID連携をヘルスケア・IoT・スマートシティ領域でも活かすことできます。
-オムニチャンネル化、Superアプリ化を目指す。
+Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り方と Web3 の新しいコミュケーションのあり方を Communication protocol にすることで社会インフラ化を加速、DID 連携をヘルスケア・IoT・スマートシティ領域でも活かすことできます。
+オムニチャンネル化、Super アプリ化を目指す。
 
-特異性:承認制送金システム、二次支払い
+特異性:承認制送金システム、二次支払い、DID 連携
 
 ## デモ動画 URL
 
@@ -45,13 +45,13 @@ Web3 Walletをセキュアに且つ自らで稼げることで情報の触り方
 
 ## 開発した機能一覧表
 
-|No.|機能名|概要|
-|---|---|---|
-|1|DID作成機能|IONのモジュールを利用して初回登録時にDIDを作成する機能。APIサーバー側で処理を実装。|
-|2|承認制共有ウォレット機能|資金プールを共有できるマルチシグウォレット機能。スマートコントラクトで実装。資金のデポジット・承認・送金が可能|
-|3|IDQトークンReward機能|初回ログイン時にIDQトークンを付与する機能。現在は初回登録時のみだが、今後の追加実装で初回ログイン時以外でも付与できるようにする予定。|
-|4|IDQトークン償却機能|共有ウォレットに資金をデポジットする時などIDQトークンを使った処理を行う時に呼び出す機能。ユーザーからはトークンを使って実際の暗号資産を入金することができるため秘密鍵の存在を意識する必要がなくなる。|
-|5|クーポン発行機能|初回登録時にユーザーに対してクーポンが発行される機能。|
+| No. | 機能名                   | 概要                                                                                                                                                                                                    |
+| --- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | DID 作成機能             | ION のモジュールを利用して初回登録時に DID を作成する機能。API サーバー側で処理を実装。                                                                                                                 |
+| 2   | 承認制共有ウォレット機能 | 資金プールを共有できるマルチシグウォレット機能。スマートコントラクトで実装。資金のデポジット・承認・送金が可能                                                                                          |
+| 3   | IDQ トークン Reward 機能 | 初回ログイン時に IDQ トークンを付与する機能。現在は初回登録時のみだが、今後の追加実装で初回ログイン時以外でも付与できるようにする予定。                                                                 |
+| 4   | IDQ トークン償却機能     | 共有ウォレットに資金をデポジットする時など IDQ トークンを使った処理を行う時に呼び出す機能。ユーザーからはトークンを使って実際の暗号資産を入金することができるため秘密鍵の存在を意識する必要がなくなる。 |
+| 5   | クーポン発行機能         | 初回登録時にユーザーに対してクーポンが発行される機能。                                                                                                                                                  |
 
 ## 使用した tech stacks
 
@@ -92,19 +92,19 @@ Avalanche Fuji Chain(Testnet)
 
 [![](https://mermaid.ink/img/pako:eNqdVF1PE0EU_SuTfYIEH-jjPpCYVBMeTDSa-NKXtZ1qQ7vF7TYNISTsDNAiJXxES8BWKAKCKKgVwVLpj7nstv0X3pkpa0uLGPvQzM6ce-7HufdOauFkhGq6lqIv09QM02DMeG4ZiZBJ8GfH7Dglo8FHHq-4RxvA3wD_DLxGBrzCl-beUmP9vJX_Bs4CsHl39qtXnH9qxOPUdmd3W9kVcC7A-QDOkXfiAMsPKk4jbSfNdOIZtdrfYTtpEeB7yAvsB_533iczJrWG1c24YdmxcGzcMG2SGiZGilwFVAGeA7YvD_N9wAEBvvtwFNiJ8MKXfS-dsKhA3Zd-J4BV2rT8ANgxHnrxGYHvTLsXYgvIk-QYNclNjCpDcmdkhER1zCgLfE0kxXZ63u1b3tFehQNsD9gB8E_AOTq6_FX0cstePtvYqSqjqMRn9K7weyNUhsqkUyFpjRLopLMPLi9Kra12XVMqolRAJ-pRVn_VXamBU3GzVXDW28CADwReluocAttGHUX47CcaeRtr7tKpmy90WchiLYkE2SnwXXd6B5y88uWd5cCpy95jwBawPxvb1ebHRXSKn10sXVkJxmNRAlbH8gLfAr4iQhCXNRERW21NO5f18o0V-QcGnA331dvOUKJ-BaJGPEUR06y_vl4gTDc4GvyLkv6rus_4CudKXnGzPalIXc6DM9dFjW2FIy51r0ndK431KuK6BRq-UrJxsuy9KzbL-34M_VujbyviNgC-IdFn4Eil0SM7xyKR_yA7VJtmQI5FSXDKh8GeJnRnNt3F77c0oZyvP1VAaGOmhmZ9-iYjoItS4zlg74EXrllio8gVqCy1IS1BrYQRi-CqnRRMIc1-QRM0pOl4jBjWWEgLmVOIS49HDJvei8RwDWm67IghTSzNxxNmWNNtK02vQO1d7aOoNHqgFrrc61O_AdA44ms?type=png)](https://mermaid.live/edit#pako:eNqdVF1PE0EU_SuTfYIEH-jjPpCYVBMeTDSa-NKXtZ1qQ7vF7TYNISTsDNAiJXxES8BWKAKCKKgVwVLpj7nstv0X3pkpa0uLGPvQzM6ce-7HufdOauFkhGq6lqIv09QM02DMeG4ZiZBJ8GfH7Dglo8FHHq-4RxvA3wD_DLxGBrzCl-beUmP9vJX_Bs4CsHl39qtXnH9qxOPUdmd3W9kVcC7A-QDOkXfiAMsPKk4jbSfNdOIZtdrfYTtpEeB7yAvsB_533iczJrWG1c24YdmxcGzcMG2SGiZGilwFVAGeA7YvD_N9wAEBvvtwFNiJ8MKXfS-dsKhA3Zd-J4BV2rT8ANgxHnrxGYHvTLsXYgvIk-QYNclNjCpDcmdkhER1zCgLfE0kxXZ63u1b3tFehQNsD9gB8E_AOTq6_FX0cstePtvYqSqjqMRn9K7weyNUhsqkUyFpjRLopLMPLi9Kra12XVMqolRAJ-pRVn_VXamBU3GzVXDW28CADwReluocAttGHUX47CcaeRtr7tKpmy90WchiLYkE2SnwXXd6B5y88uWd5cCpy95jwBawPxvb1ebHRXSKn10sXVkJxmNRAlbH8gLfAr4iQhCXNRERW21NO5f18o0V-QcGnA331dvOUKJ-BaJGPEUR06y_vl4gTDc4GvyLkv6rus_4CudKXnGzPalIXc6DM9dFjW2FIy51r0ndK431KuK6BRq-UrJxsuy9KzbL-34M_VujbyviNgC-IdFn4Eil0SM7xyKR_yA7VJtmQI5FSXDKh8GeJnRnNt3F77c0oZyvP1VAaGOmhmZ9-iYjoItS4zlg74EXrllio8gVqCy1IS1BrYQRi-CqnRRMIc1-QRM0pOl4jBjWWEgLmVOIS49HDJvei8RwDWm67IghTSzNxxNmWNNtK02vQO1d7aOoNHqgFrrc61O_AdA44ms)
 
-### BBS署名 + Signature Schemeとは
+### BBS 署名 + Signature Scheme とは
 
-BBS+ Signature Schemeはマルチメッセージに特化した署名スキームで、その最大の特徴はZKP(ゼロ知識証明)によるメッセージの選択的開示が可能になることで、VCの署名形式として注目されている。DIDに紐づく情報として全てのデータを開示することなる。  
+BBS+ Signature Scheme はマルチメッセージに特化した署名スキームで、その最大の特徴は ZKP(ゼロ知識証明)によるメッセージの選択的開示が可能になることで、VC の署名形式として注目されている。DID に紐づく情報として全てのデータを開示することなる。
 
-通常の署名形式では、署名はメッセージ全体に対して作成されます。検証者は、メッセージ全体を知らなければ、署名が正しいことを検証できません。  
+通常の署名形式では、署名はメッセージ全体に対して作成されます。検証者は、メッセージ全体を知らなければ、署名が正しいことを検証できません。
 
 これに対し、メッセージの一部だけを開示し、それが正しく署名されたメッセージの部分集合であることを証明することを、メッセージの選択的開示と呼びます。BBS+の選択的開示アルゴリズムでは、検証者はメッセージ全てを知ることも、署名の値そのものを知ることもありません。その代わりに、検証者は対応するゼロ知識証明(ZKP)を検証することで、開示されたメッセージの正しさを判断することができます。
 
-### BLS署名(ボン・リン・シャチャム署名)
+### BLS 署名(ボン・リン・シャチャム署名)
 
-イーサリアム2.0のBeacon Chainから採用された新たな署名方式を指す。イーサリアム1.0で使用されている署名方式は楕円曲線DSA(通称ECDSA)であり、両署名ともに楕円曲線のある点を利用し、署名が確実に署名者によるものであることを検証することができる。  
+イーサリアム 2.0 の Beacon Chain から採用された新たな署名方式を指す。イーサリアム 1.0 で使用されている署名方式は楕円曲線 DSA(通称 ECDSA)であり、両署名ともに楕円曲線のある点を利用し、署名が確実に署名者によるものであることを検証することができる。
 
-イーサリアム2.0ではBLS署名はECDSAより署名サイズが小さいのに強いセキュリティを持つという特徴を利用し、Casper FFGのバリデータの署名によるフォークチョイスルールのために採用されている。イーサリアム2.0に採用されているBLS署名では、Zcashが2017年に設計したBLS-12-381楕円曲線を採用している。
+イーサリアム 2.0 では BLS 署名は ECDSA より署名サイズが小さいのに強いセキュリティを持つという特徴を利用し、Casper FFG のバリデータの署名によるフォークチョイスルールのために採用されている。イーサリアム 2.0 に採用されている BLS 署名では、Zcash が 2017 年に設計した BLS-12-381 楕円曲線を採用している。
 
 ### リポジトリのフォルダ構造
 
@@ -205,6 +205,6 @@ BBS+ Signature Schemeはマルチメッセージに特化した署名スキー�
 73. [Verifiable Credentials Code Samples](https://github.com/Azure-Samples/active-directory-verifiable-credentials)
 74. [【W3C】DID Specification Registries](https://w3c.github.io/did-spec-registries/#did-methods)
 75. [Verifiable Credentials × ゼロ知識証明](https://zenn.dev/kyosuke/articles/a8a92e399e83f490e207)
-76. [BBS署名 + Signature Scheme](https://qiita.com/kazuhideYS/items/1bac1c277e5e45385f08)
+76. [BBS 署名 + Signature Scheme](https://qiita.com/kazuhideYS/items/1bac1c277e5e45385f08)
 77. [DID Specifications 読み進めガイド](https://qiita.com/kazuhideYS/items/2f533bf14e8587c7c131)
-78. [【動画で学ぶブロックチェーン】BLS署名 - 安土 茂亨氏](https://goblockchain.network/2022/09/bls/)
+78. [【動画で学ぶブロックチェーン】BLS 署名 - 安土 茂亨氏](https://goblockchain.network/2022/09/bls/)
