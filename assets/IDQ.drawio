@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-12-28T14:10:04.781Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="rFG7Y40Exlwyeht1VBUW" version="20.6.0" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2022-12-28T14:15:57.152Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="4RSrfmpimkmTVwsd6xNy" version="20.6.0" type="github" pages="2">
   <diagram id="AgBQlWnoEHxcCPggjtpq" name="system image">
     <mxGraphModel dx="3080" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -200,7 +200,7 @@
         <mxCell id="FsVHkm6TuDkBYR7rk3on-8" value="Factory&lt;br&gt;コントラクト" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
           <mxGeometry x="-415" y="271.5" width="97" height="97" as="geometry" />
         </mxCell>
-        <mxCell id="FsVHkm6TuDkBYR7rk3on-9" value="Wallet&lt;br&gt;コントラクト" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+        <mxCell id="FsVHkm6TuDkBYR7rk3on-9" value="MultiSigWallet&lt;br&gt;コントラクト" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
           <mxGeometry x="-236" y="273.5" width="97" height="97" as="geometry" />
         </mxCell>
         <mxCell id="FsVHkm6TuDkBYR7rk3on-10" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontColor=#330000;width=10;endSize=6.67;" parent="1" edge="1">
