@@ -1,0 +1,9 @@
+// IDQTokenのコントラクトアドレス
+const MYTOKEN_ADDRESS = "0x17c803255c20C946E72855901c6C0B1C2195Cfc0";
+// Factoryコントラクトのアドレス
+const FACTORY_ADDRESS = "0xD776E3Dfc486e576304ABe13865D94d063F7b821";
+
+module.exports = { 
+      MYTOKEN_ADDRESS,
+      FACTORY_ADDRESS
+};

@@ -1,4 +1,5 @@
 // mui関連のコンポーネントのインポート
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -7,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import SendDialog from '../common/SendDialog';
 import './../../assets/css/App.css';
 import Coupon from './../../assets/imgs/Coupon_2.png';
 import MyToken from './../../contracts/MyToken.json';
@@ -43,6 +45,9 @@ const Home = (props) => {
     const [successFlg, setSuccessFlg] = useState(false);
     const [failFlg, setFailFlg] = useState(false);
     const [showToast, setShowToast] = useState(false);
+    const [to, setTo] = useState(null);
+    const [amount, setAmount] = useState(0);
+    const [open, setOpen] = useState(false);
 
     /**
      * sign in/ sign up function 
@@ -69,7 +74,7 @@ const Home = (props) => {
 
             setIsLoading(true);
             // DID作成APIを呼び出す
-            superAgent
+            await superAgent
                 .post(baseURL + '/api/create')
                 .query({addr: signer})
                 .end(async(err, res) => {
@@ -89,31 +94,60 @@ const Home = (props) => {
                     setDid(modStr);
                     setFullDid(result);
                     console.log("DID作成用API呼び出し結果：", result);  
+
+                    // IDQToken発行APIを呼び出す
+                    superAgent
+                        .post(baseURL + '/api/mintIDQ')
+                        .query({
+                            to: signer,
+                            amount: 10000
+                        })
+                        .end(async(err, res) => {
+                            if (err) {
+                                console.log("IDQToken発行用API呼び出し中に失敗", err);
+                                // popUpメソッドの呼び出し
+                                popUp(false, "failfull...");
+                                setIsLogined(false);
+                                setIsLoading(false);
+                                return err;
+                            }
+                        });
                 });
 
-            // IDQToken発行APIを呼び出す
-            superAgent
-                .post(baseURL + '/api/mintIDQ')
-                .query({
-                    to: signer,
-                    amount: 10000
-                })
-                .end(async(err, res) => {
-                    if (err) {
-                        console.log("IDQToken発行用API呼び出し中に失敗", err);
-                        // popUpメソッドの呼び出し
-                        popUp(false, "failfull...");
-                        setIsLogined(false);
-                        setIsLoading(false);
-                        return err;
-                    }
-                });
             // popUpメソッドの呼び出し
             popUp(true, "successfull!!");
             setIsLogined(true);
             setIsLoading(false);   
         }
     }
+
+    /**
+     * send function
+     */
+    const sendAction = async(to, amount) => {
+        setIsLoading(true);
+        
+        // 送金用のAPIを呼び出す
+        superAgent
+            .post(baseURL + '/api/send')
+            .query({
+                from: fullDid,
+                to: to,
+                amount: amount
+            })
+            .end(async(err, res) => {
+                if (err) {
+                    console.log("IDQToken送金用API呼び出し中に失敗", err);
+                    // popUpメソッドの呼び出し
+                    popUp(false, "failfull...");
+                    setIsLoading(false);
+                    return err;
+                }
+            });
+        // popUpメソッドの呼び出し
+        popUp(true, "successfull!!");
+        setIsLoading(false);   
+    };
 
     /**
      * ポップアップ時の処理を担当するメソッド
@@ -142,6 +176,35 @@ const Home = (props) => {
         }
     };
 
+    /**
+     * Open Dialog
+     * @param wallet MultoSig Wallet Addr
+     */
+     const handleOpen = (wallet) => {
+        setOpen(true);
+    }
+
+    /**
+     * Close Dialog
+     */
+     const handleClose = () => {
+        setOpen(false);
+    }
+
+    /**
+     * クリップボードでDIDをコピーするための機能
+     */
+    const copy = () => {
+        //コピー
+        navigator.clipboard.writeText(fullDid)
+            .then(function() {
+                console.log('Async: Copyed to clipboard was successful!');
+                alert("Copying to clipboard was successful!")
+            }, function(err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+    };
+
     useEffect(()=> {
         /**
          * init
@@ -163,6 +226,17 @@ const Home = (props) => {
             justifyContent="center"
             alignItems="center"
         >
+            { /* Dialog */ } 
+            <SendDialog 
+                open={open} 
+                amount={amount}
+                to={to}
+                handleClose={(e) => {handleClose()}} 
+                sendAction={(e) => {sendAction(to, amount)}} 
+                setTo={(e) => {setTo(e.target.value)}}
+                setAmountAction={(e) => {setAmount(e.target.value)}} 
+            />
+            { /* main content */ } 
             <Box 
                 sx={{ 
                     flexGrow: 1, 
@@ -199,8 +273,9 @@ const Home = (props) => {
                                     <p><strong>My Soul</strong></p>
                                     {isLogined ? (
                                         <>
-                                            <p>Your DID:{did}</p>
+                                            <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
                                             <p>Your IDQToken:{balance}</p>
+                                            <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
                                         </>
                                     ) : (
                                         <>

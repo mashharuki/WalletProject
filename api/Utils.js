@@ -6,6 +6,12 @@ const {
     MNEMONIC
 } = process.env
 
+// chain ID
+const chainId = 43113;
+
+// RPC URL
+const RPC_URL = `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`;
+
 /**
  * トランザクションを送信するメソッド
  * @param logger logger
@@ -102,6 +108,8 @@ const sendEth = async(logger, to, value, rpc_url, chainId) => {
 
 
 module.exports = { 
+    chainId,
+    RPC_URL,
     sendTx, 
     sendEth 
 };

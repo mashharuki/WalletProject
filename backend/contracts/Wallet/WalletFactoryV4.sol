@@ -17,6 +17,7 @@ contract WalletFactoryV4 {
     // mapping
     mapping(address => bool) public isRegistered;
     mapping(address => string) public dids;
+    mapping(string => address) public addrs;
 
     //modifier
     modifier onlyOwner() {
@@ -101,6 +102,7 @@ contract WalletFactoryV4 {
         // set
         isRegistered[_addr] = true;
         dids[_addr] = _did;
+        addrs[_did] = _addr;
 
         emit Registered(_addr, _did);
     }

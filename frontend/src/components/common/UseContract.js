@@ -1,6 +1,7 @@
 import superAgent from 'superagent';
-
-const baseURL = "http://192.168.0.19:3001";
+import {
+      baseURL
+} from "./Constant";
 
 /**
  * FactoryContractを使うための共有メソッド

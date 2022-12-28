@@ -170,6 +170,11 @@ body {
   font-weight: bold;
 }
 
+/* hover pointer */
+.pointer {
+  cursor:pointer
+}
+
 /* ポップアップ用のCSS */
 #toast {
   visibility: hidden;

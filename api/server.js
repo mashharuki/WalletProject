@@ -35,11 +35,8 @@ const ION = require('@decentralized-identity/ion-tools')
 const utils = require('./Utils');
 // ABI
 const abis = require('./contracts/ABI');
-
-// IDQTokenのコントラクトアドレス
-const MYTOKEN_ADDRESS = "0x505869E3B5Ef52a5Db123387fe2d188c44b27b25";
-// Factoryコントラクトのアドレス
-const FACTORY_ADDRESS= "0x177acf501eF7d2b090d94fd3bd2BE773736598E1";
+// contract address
+const contractAddr = require('./contracts/Address');
 
 // APIの定義
 
@@ -56,10 +53,9 @@ app.post('/api/mintIDQ', async(req, res) => {
 
   // コントラクトのABI
   const abi = abis.MyTokenABI;
-  const chainId = 43113;
 
   // call send Tx function
-  var result = await utils.sendTx(logger, abi, MYTOKEN_ADDRESS, "mint", [to, amount], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
+  var result = await utils.sendTx(logger, abi, contractAddr.MYTOKEN_ADDRESS, "mint", [to, amount], utils.RPC_URL, utils.chainId);
 
   if(result == true) {
       logger.debug("トランザクション送信成功");
@@ -89,15 +85,13 @@ app.post('/api/burnIDQ', async(req, res) => {
 
   // コントラクトのABI
   const abi = abis.MyTokenABI;
-  //const chainId = req.query.chainId;
-  const chainId = 43113;
 
   // call send Tx function
-  var result = await utils.sendTx(logger, abi, MYTOKEN_ADDRESS, "burnToken", [to, (amount/1000000000000000000)], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
+  var result = await utils.sendTx(logger, abi, contractAddr.MYTOKEN_ADDRESS, "burnToken", [to, (amount/1000000000000000000)], utils.RPC_URL, utils.chainId);
 
   if(result == true) {
       // send ETH 
-      var result = await utils.sendEth(logger, walletAddr, (amount/10000000000000000000000), 'https://api.avax-test.network/ext/bc/C/rpc', chainId)
+      var result = await utils.sendEth(logger, walletAddr, (amount/10000000000000000000000), utils.RPC_URL, utils.chainId)
 
       logger.debug("トランザクション送信成功");
       logger.log("償却用のAPI終了")
@@ -126,15 +120,87 @@ app.get('/api/balance/IDQ', async(req, res) => {
   // create wallet 
   const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
   // create provider
-  const provider = new ethers.providers.JsonRpcProvider('https://api.avax-test.network/ext/bc/C/rpc');
+  const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
   // create contract 
-  var contract = new ethers.Contract(MYTOKEN_ADDRESS, abi, await provider.getSigner(wallet.address));
+  var contract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, abi, await provider.getSigner(wallet.address));
 
   const balance = await contract.callStatic.balanceOf(addr);
 
   logger.log("残高取得用のAPI終了");
   res.set({ 'Access-Control-Allow-Origin': '*' });
   res.json({ balance: balance });
+});
+
+/**
+ * IDQTokenを送金するAPI
+ * @param from 送金元のDID
+ * @param to 送金先のDID
+ * @param amount 総金額
+ */
+app.post('/api/send', async(req, res) => {
+  logger.log("token送金用のAPI開始");
+
+  // get params
+  var from = req.query.from;
+  var to = req.query.to;
+  var amount = req.query.amount;  
+  // コントラクトのABI
+  const mytokenAbi = abis.MyTokenABI;
+  const factoryAbi = abis.FactoryABI;
+  
+  // create wallet 
+  const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+  // create provider
+  const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
+  // create mytoken contract 
+  var myTokenContract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, mytokenAbi, await provider.getSigner(wallet.address));
+  // create factory contract
+  var factoryContract = new ethers.Contract(contractAddr.FACTORY_ADDRESS, factoryAbi, await provider.getSigner(wallet.address));
+  // get addr from did
+  const balance = await myTokenContract.callStatic.balanceOf(from);
+
+  logger.log("送信元のbalance:", balance);
+
+  // check balance
+  if(balance >= amount) {
+    // get address from did
+    let fromAddr = await factoryContract.callStatic.addrs[from];
+    let receiveAddr = await factoryContract.callStatic.addrs[to];
+
+    // 結果を格納するための変数
+    var result;
+    // call burn function
+    result = await utils.sendTx(logger, mytokenAbi, contractAddr.MYTOKEN_ADDRESS, "burnToken", [fromAddr, (amount/1000000000000000000)], utils.RPC_URL, utils.chainId);
+    // call mint function
+    result = await utils.sendTx(logger, mytokenAbi, contractAddr.MYTOKEN_ADDRESS, "mint", [receiveAddr, amount], utils.RPC_URL, utils.chainId);
+    // check
+    resultCheck(result);
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.log("token送金用のAPI終了");
+    logger.log("DID:", didUrl);
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
+
+  /**
+   * check function
+   */
+  const resultCheck = (result) => {
+    if(result == true) {
+      logger.debug("トランザクション送信成功");
+      logger.log("token送金用のAPI終了")
+      logger.log("DID:", didUrl);
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result: 'success' });
+    } else {
+      logger.error("トランザクション送信失敗");
+      logger.log("token送金用のAPI終了");
+      logger.log("DID:", didUrl);
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result: 'fail' });
+    }
+  }
 });
 
 /**
@@ -178,9 +244,9 @@ app.post('/api/create', async(req, res) => {
   const didUrl = await did.getURI('short');
   // コントラクトのABI
   const abi = abis.FactoryABI;
-  const chainId = 43113;
+  
   // set to Factory contract
-  var result = await utils.sendTx(logger, abi, FACTORY_ADDRESS, "register", [addr, didUrl], 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
+  var result = await utils.sendTx(logger, abi, contractAddr.FACTORY_ADDRESS, "register", [addr, didUrl], utils.RPC_URL, utils.chainId);
 
   if(result == true) {
     logger.debug("トランザクション送信成功");
@@ -255,11 +321,9 @@ app.post('/api/excute/factory', async(req, res) => {
 
   // コントラクトのABI
   const abi = abis.FactoryABI;
-  //const chainId = req.query.chainId;
-  const chainId = 43113;
 
   // call send Tx function
-  var result = await utils.sendTx(logger, abi, FACTORY_ADDRESS, methodName, args, 'https://api.avax-test.network/ext/bc/C/rpc', chainId);
+  var result = await utils.sendTx(logger, abi, contractAddr.FACTORY_ADDRESS, methodName, args, utils.RPC_URL, utils.chainId);
 
   if(result == true) {
       logger.debug("トランザクション送信成功");

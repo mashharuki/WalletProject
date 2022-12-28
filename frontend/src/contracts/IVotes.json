@@ -1956,7 +1956,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-10-29T07:50:18.178Z",
+  "updatedAt": "2022-12-28T08:25:37.126Z",
   "devdoc": {
     "details": "Common interface for {ERC20Votes}, {ERC721Votes}, and other {Votes}-enabled contracts. _Available since v4.5._",
     "events": {

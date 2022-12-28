@@ -10,6 +10,9 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Web3 from 'web3';
 import './../assets/css/App.css';
+import {
+  baseURL, chainId, CONTRACT_ADDRESS, MYTOKEN_ADDRESS, RPC_URL
+} from "./common/Constant";
 import NoPage from './common/NoPage';
 import Web3Menu from "./common/Web3Menu";
 import Create from './pages/Create';
@@ -17,16 +20,6 @@ import Home from './pages/Home';
 import Txs from './pages/Txs';
 import Wallets from './pages/Wallets';
 
-// contract Address (WalletFactory)
-const CONTRACT_ADDRESS = "0x177acf501eF7d2b090d94fd3bd2BE773736598E1";
-// contract Address (MyToken)
-const MYTOKEN_ADDRESS = "0x505869E3B5Ef52a5Db123387fe2d188c44b27b25";
-// chain ID 
-const chainId = '43113';
-// rpc URL 
-const RPC_URL = `https://api.avax-test.network/ext/bc/C/rpc`;
-// API Base URL
-const baseURL = 'http://192.168.0.3:3001'
 
 /**
  * Appコンポーネント
