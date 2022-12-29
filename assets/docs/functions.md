@@ -9,29 +9,41 @@
 | IDQトークン送信機能 | IDQトークンを送金する機能                                                                      |
 |DID登録機能|新規ログイン時にDIDを発行し、スマコンに登録する機能|
 |共通資金プール作成機能|共通資金プールであるマルチシグコントラクトを作成する機能|
+|共通資金プール送金機能|マルチシグコントラクトから目的のアドレスへ送金する機能|
+|共通資金プール送金機能|共通資金プール送金のために承認する機能|
 |deposit機能|IDQトークンを使ってマルチシグコントラクトにネイティブトークンをdepositする機能|
 
 ## 変数一覧
 
-| 変数名           | タイプ                          | 内容                                                                       |
-| ---------------- | ------------------------------- | -------------------------------------------------------------------------- |
-| owner            | address                         | コントラクトの管理者                                                       |
-| patientName      | String                          | 患者の名前                                                                 |
-| bloodYype        | String                          | 血液型                                                                     |
-| lastUpdate       | String                          | 最終更新日時(yyyy/mm/dd HH:mm:ss 形式)                                     |
-| MedicalInsDatas  | Struct                          | 最終更新日時、最終更新医療機関                                             |
-| medicalMap       | (address ⇨ medicalData)         | 患者のアドレスと医療データを紐付ける Map                                   |
-| doctorMap        | (address → String)              | 医者のアドレスと名前を紐づける Map                                         |
-| doctorRoleMap    | (address → bool)                | アドレスが医者であることを紐づける Map                                     |
-| doctorBalanceMap | (address → uint256)             | 医者のアドレスと受け取る治療費を紐づける Map                               |
-| doctors          | [address]                       | 医療機関に所属する医者のアドレスを格納する                                 |
-| approveMap       | (address ⇨ (address ⇨ boolean)) | 患者のデータに対して医者側が閲覧権限を所有しているか保持するための Map     |
-| requireMap       | (address ⇨ (address ⇨ boolean)) | 患者のデータに対して医者側が閲覧権限を要求している状態を保持するための Map |
+|コントラクト名| 変数名           | タイプ                          | 内容                                                                       |
+| ---------------- | ---------------- | ------------------------------- | -------------------------------------------------------------------------- |
+|  | owner            | address                         | コントラクトの管理者                                                       |
+|  | patientName      | String                          | 患者の名前                                                                 |
+|  | bloodYype        | String                          | 血液型                                                                     |
+|  | lastUpdate       | String                          | 最終更新日時(yyyy/mm/dd HH:mm:ss 形式)                                     |
+|  | MedicalInsDatas  | Struct                          | 最終更新日時、最終更新医療機関                                             |
+|  | medicalMap       | (address ⇨ medicalData)         | 患者のアドレスと医療データを紐付ける Map                                   |
+|  | doctorMap        | (address → String)              | 医者のアドレスと名前を紐づける Map                                         |
+|  | doctorRoleMap    | (address → bool)                | アドレスが医者であることを紐づける Map                                     |
+|  | doctorBalanceMap | (address → uint256)             | 医者のアドレスと受け取る治療費を紐づける Map                               |
+|  | doctors          | [address]                       | 医療機関に所属する医者のアドレスを格納する                                 |
+|  | approveMap       | (address ⇨ (address ⇨ boolean)) | 患者のデータに対して医者側が閲覧権限を所有しているか保持するための Map     |
+|  | requireMap       | (address ⇨ (address ⇨ boolean)) | 患者のデータに対して医者側が閲覧権限を要求している状態を保持するための Map |
 
 ## メソッド一覧
 
-| メソッド名        | 内容                                     |
-| ----------------- | ---------------------------------------- |
-| approve           | 医者側に閲覧・編集権限を付与するメソッド |
-| changeStatus      | 閲覧・編集権限を停止するメソッド         |
-| createMedicalData | 医療データを新規で登録するメソッド       |
+|コントラクト名| メソッド名        | 内容                                     |
+| ----------------- | ----------------- | ---------------------------------------- |
+|   | approve           | 医者側に閲覧・編集権限を付与するメソッド |
+|   | changeStatus      | 閲覧・編集権限を停止するメソッド         |
+|   | createMedicalData | 医療データを新規で登録するメソッド       |
+
+## API一覧
+
+|API名|概要|
+|----|----|
+|||
+|||
+|||
+|||
+|||
