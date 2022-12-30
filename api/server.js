@@ -226,9 +226,9 @@ app.post('/api/create', async(req, res) => {
       ],
       services: [
         {
-          id: 'domain-1',
+          id: 'idq',
           type: 'LinkedDomains',
-          serviceEndpoint: 'https://foo.example.com'
+          serviceEndpoint: 'http://idq.vercel.app/'
         }
       ]
     }
