@@ -2,7 +2,8 @@
  * APIサーバー設定ファイル
  */
 
-require('dotenv').config()
+require('dotenv').config();
+
 // get Mnemonic code
 const {
   MNEMONIC,
@@ -20,12 +21,6 @@ const logger = log4js.getLogger("server");
 const ip = require('ip');
 const { ethers } = require('ethers');
 
-// 起動
-app.listen(portNo, () => {
-    logger.debug('起動しました', `https://${ip.address()}:${portNo}`);
-    console.log('起動しました', `https://${ip.address()}:${portNo}`)
-});
-
 // 暗号化用のモジュールを読み込む
 const crypto = require('crypto');
 // did用のモジュールを読み込む
@@ -38,7 +33,17 @@ const abis = require('./contracts/ABI');
 // contract address
 const contractAddr = require('./contracts/Address');
 
+// APIサーバー起動
+app.listen(portNo, () => {
+  logger.debug('起動しました', `https://${ip.address()}:${portNo}`);
+  console.log('起動しました', `https://${ip.address()}:${portNo}`)
+});
+
+
+////////////////////////////////////////////////////////////
 // APIの定義
+////////////////////////////////////////////////////////////
+
 
 /**
  * IDQTokenを発行するAPI
@@ -55,7 +60,15 @@ app.post('/api/mintIDQ', async(req, res) => {
   const abi = abis.MyTokenABI;
 
   // call send Tx function
-  var result = await utils.sendTx(logger, abi, contractAddr.MYTOKEN_ADDRESS, "mint", [to, amount], utils.RPC_URL, utils.chainId);
+  var result = await utils.sendTx(
+    logger, 
+    abi, 
+    contractAddr.MYTOKEN_ADDRESS, 
+    "mint", 
+    [to, amount], 
+    utils.RPC_URL, 
+    utils.chainId
+  );
 
   if(result == true) {
       logger.debug("トランザクション送信成功");
@@ -87,11 +100,25 @@ app.post('/api/burnIDQ', async(req, res) => {
   const abi = abis.MyTokenABI;
 
   // call send Tx function
-  var result = await utils.sendTx(logger, abi, contractAddr.MYTOKEN_ADDRESS, "burnToken", [to, (amount/1000000000000000000)], utils.RPC_URL, utils.chainId);
+  var result = await utils.sendTx(
+    logger, 
+    abi, 
+    contractAddr.MYTOKEN_ADDRESS, 
+    "burnToken", 
+    [to, (amount/1000000000000000000)], 
+    utils.RPC_URL, 
+    utils.chainId
+  );
 
   if(result == true) {
       // send ETH 
-      var result = await utils.sendEth(logger, walletAddr, (amount/10000000000000000000000), utils.RPC_URL, utils.chainId)
+      var result = await utils.sendEth(
+        logger, 
+        walletAddr, 
+        (amount/10000000000000000000000), 
+        utils.RPC_URL, 
+        utils.chainId
+      );
 
       logger.debug("トランザクション送信成功");
       logger.log("償却用のAPI終了")
@@ -170,9 +197,25 @@ app.post('/api/send', async(req, res) => {
     // 結果を格納するための変数
     var result;
     // call burn function
-    result = await utils.sendTx(logger, mytokenAbi, contractAddr.MYTOKEN_ADDRESS, "burnToken", [fromAddr, (amount/1000000000000000000)], utils.RPC_URL, utils.chainId);
+    result = await utils.sendTx(
+      logger, 
+      mytokenAbi, 
+      contractAddr.MYTOKEN_ADDRESS, 
+      "burnToken", 
+      [fromAddr, (amount/1000000000000000000)],
+      utils.RPC_URL, 
+      utils.chainId
+    );
     // call mint function
-    result = await utils.sendTx(logger, mytokenAbi, contractAddr.MYTOKEN_ADDRESS, "mint", [receiveAddr, amount], utils.RPC_URL, utils.chainId);
+    result = await utils.sendTx(
+      logger, 
+      mytokenAbi, 
+      contractAddr.MYTOKEN_ADDRESS, 
+      "mint", 
+      [receiveAddr, amount], 
+      utils.RPC_URL, 
+      utils.chainId
+    );
     // check
     resultCheck(result);
   } else {
@@ -246,7 +289,15 @@ app.post('/api/create', async(req, res) => {
   const abi = abis.FactoryABI;
   
   // set to Factory contract
-  var result = await utils.sendTx(logger, abi, contractAddr.FACTORY_ADDRESS, "register", [addr, didUrl], utils.RPC_URL, utils.chainId);
+  var result = await utils.sendTx(
+    logger, 
+    abi, 
+    contractAddr.FACTORY_ADDRESS, 
+    "register", 
+    [addr, didUrl], 
+    utils.RPC_URL, 
+    utils.chainId
+  );
 
   if(result == true) {
     logger.debug("トランザクション送信成功");
@@ -315,15 +366,24 @@ app.post('/api/verify', async(req, res) => {
  */
 app.post('/api/excute/factory', async(req, res) => {
   logger.log("FactoryWalletのメソッドを実行するためのAPI開始")
-
+  // 呼び出す関数名
   var methodName = req.query.methodName;
+  // 関数の引数
   var args = req.query.args;
 
   // コントラクトのABI
   const abi = abis.FactoryABI;
 
   // call send Tx function
-  var result = await utils.sendTx(logger, abi, contractAddr.FACTORY_ADDRESS, methodName, args, utils.RPC_URL, utils.chainId);
+  var result = await utils.sendTx(
+    logger, 
+    abi, 
+    contractAddr.FACTORY_ADDRESS, 
+    methodName, 
+    args, 
+    utils.RPC_URL, 
+    utils.chainId
+  );
 
   if(result == true) {
       logger.debug("トランザクション送信成功");
@@ -337,6 +397,3 @@ app.post('/api/excute/factory', async(req, res) => {
       res.json({ result: 'fail' });
   }
 });
-
-// QRコード画面を表示する。
-app.use('/', express.static('./../docs'));

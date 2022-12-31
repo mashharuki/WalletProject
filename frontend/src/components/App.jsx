@@ -64,7 +64,7 @@ function App() {
           <AppBar position="static" color="transparent">
             <Toolbar>
               <Typography variant="h6" color="black" sx={{ flexGrow: 1 }}>
-                <strong>IDQ DApp</strong>
+                <strong>IDQ</strong>
               </Typography>
               { /* ウォレットに接続していなければログインアイコンを表示する。 */ }
               <Typography variant="h6" color="inherit">
