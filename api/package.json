@@ -20,8 +20,15 @@
         "log4js": "^6.4.1",
         "twilio": "^3.67.2"
     },
+    "jest": {
+        "testEnvironment": "node",
+        "coveragePathIgnorePatterns": [
+            "/node_modules/"
+        ]
+    },
     "scripts": {
-        "start": "node server.js"
+        "start": "node server.js",
+        "test": "jest"
     },
     "eslintConfig": {
         "extends": [
@@ -40,5 +47,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "jest": "^29.3.1",
+        "supertest": "^6.3.3"
     }
 }

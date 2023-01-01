@@ -1,0 +1,387 @@
+require('dotenv').config();
+
+// get Mnemonic code
+const {
+  MNEMONIC,
+} = process.env
+
+const express = require('express');
+const app = express();
+const log4js = require('log4js');
+const { ethers } = require('ethers');
+// 暗号化用のモジュールを読み込む
+const crypto = require('crypto');
+// did用のモジュールを読み込む
+const ION = require('@decentralized-identity/ion-tools')
+// ブロックチェーン機能のモジュールを読み込む
+const utils = require('./Utils');
+// ABI
+const abis = require('../contracts/ABI');
+// contract address
+const contractAddr = require('../contracts/Address');
+
+// log4jsの設定
+log4js.configure('./log/log4js_setting.json');
+const logger = log4js.getLogger("server");
+
+////////////////////////////////////////////////////////////
+// APIの定義
+////////////////////////////////////////////////////////////
+
+/**
+ * IDQTokenを発行するAPI
+ * @param to 発行先アドレス
+ * @param amount 発行量
+ */
+app.post('/api/mintIDQ', async(req, res) => {
+      logger.log("発行用のAPI開始");
+    
+      var to = req.query.to;
+      var amount = req.query.amount;
+    
+      // コントラクトのABI
+      const abi = abis.MyTokenABI;
+    
+      // call send Tx function
+      var result = await utils.sendTx(
+        logger, 
+        abi, 
+        contractAddr.MYTOKEN_ADDRESS, 
+        "mint", 
+        [to, amount], 
+        utils.RPC_URL, 
+        utils.chainId
+      );
+    
+      if(result == true) {
+          logger.debug("トランザクション送信成功");
+          logger.log("発行用のAPI終了");
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'success' });
+      } else {
+          logger.error("トランザクション送信失敗");
+          logger.log("発行用のAPI終了");
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'fail' });
+      }
+});
+    
+/**
+ * IDQTokenを償却するAPI
+ * @param to 償却アドレス
+ * @param amount 償却量
+ * @param walletAddr ウォレットアドレス
+ */
+app.post('/api/burnIDQ', async(req, res) => {
+      logger.log("償却用のAPI開始")
+    
+      var to = req.query.to;
+      var amount = req.query.amount;
+      var walletAddr = req.query.walletAddr;
+    
+      // コントラクトのABI
+      const abi = abis.MyTokenABI;
+    
+      // call send Tx function
+      var result = await utils.sendTx(
+        logger, 
+        abi, 
+        contractAddr.MYTOKEN_ADDRESS, 
+        "burnToken", 
+        [to, (amount/1000000000000000000)], 
+        utils.RPC_URL, 
+        utils.chainId
+      );
+    
+      if(result == true) {
+          // send ETH 
+          var result = await utils.sendEth(
+            logger, 
+            walletAddr, 
+            (amount/10000000000000000000000), 
+            utils.RPC_URL, 
+            utils.chainId
+          );
+    
+          logger.debug("トランザクション送信成功");
+          logger.log("償却用のAPI終了")
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'success' });
+      } else {
+          logger.error("トランザクション送信失敗");
+          logger.log("償却用のAPI終了")
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'fail' });
+      }
+});
+    
+/**
+ * IDQTokenの残高を取得するAPI
+ * @param addr 残高を取得するアドレス
+ */
+app.get('/api/balance/IDQ', async(req, res) => {
+      logger.log("残高取得用のAPI開始");
+    
+      var addr = req.query.addr;
+    
+      // コントラクトのABI
+      const abi = abis.MyTokenABI;
+      
+      // create wallet 
+      const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+      // create provider
+      const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
+      // create contract 
+      var contract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, abi, await provider.getSigner(wallet.address));
+    
+      const balance = await contract.callStatic.balanceOf(addr);
+    
+      logger.log("残高取得用のAPI終了");
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ balance: balance });
+});
+    
+/**
+ * IDQTokenを送金するAPI
+ * @param from 送金元のDID
+ * @param to 送金先のDID
+ * @param amount 総金額
+ */
+app.post('/api/send', async(req, res) => {
+      logger.log("token送金用のAPI開始");
+    
+      // get params
+      var from = req.query.from;
+      var to = req.query.to;
+      var amount = req.query.amount;  
+      // コントラクトのABI
+      const mytokenAbi = abis.MyTokenABI;
+      const factoryAbi = abis.FactoryABI;
+      
+      // create wallet 
+      const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+      // create provider
+      const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
+      // create mytoken contract 
+      var myTokenContract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, mytokenAbi, await provider.getSigner(wallet.address));
+      // create factory contract
+      var factoryContract = new ethers.Contract(contractAddr.FACTORY_ADDRESS, factoryAbi, await provider.getSigner(wallet.address));
+      // get addr from did
+      const balance = await myTokenContract.callStatic.balanceOf(from);
+    
+      logger.log("送信元のbalance:", balance);
+    
+      // check balance
+      if(balance >= amount) {
+        // get address from did
+        let fromAddr = await factoryContract.callStatic.addrs[from];
+        let receiveAddr = await factoryContract.callStatic.addrs[to];
+    
+        // 結果を格納するための変数
+        var result;
+        // call burn function
+        result = await utils.sendTx(
+          logger, 
+          mytokenAbi, 
+          contractAddr.MYTOKEN_ADDRESS, 
+          "burnToken", 
+          [fromAddr, (amount/1000000000000000000)],
+          utils.RPC_URL, 
+          utils.chainId
+        );
+        // call mint function
+        result = await utils.sendTx(
+          logger, 
+          mytokenAbi, 
+          contractAddr.MYTOKEN_ADDRESS, 
+          "mint", 
+          [receiveAddr, amount], 
+          utils.RPC_URL, 
+          utils.chainId
+        );
+        // check
+        resultCheck(result);
+      } else {
+        logger.error("トランザクション送信失敗");
+        logger.log("token送金用のAPI終了");
+        logger.log("DID:", didUrl);
+        res.set({ 'Access-Control-Allow-Origin': '*' });
+        res.json({ result: 'fail' });
+      }
+    
+      /**
+       * check function
+       */
+      const resultCheck = (result) => {
+        if(result == true) {
+          logger.debug("トランザクション送信成功");
+          logger.log("token送金用のAPI終了")
+          logger.log("DID:", didUrl);
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'success' });
+        } else {
+          logger.error("トランザクション送信失敗");
+          logger.log("token送金用のAPI終了");
+          logger.log("DID:", didUrl);
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'fail' });
+        }
+      }
+});
+    
+/**
+ * DIDを作成するAPI
+ * @param addr 登録するアドレス
+ */
+app.post('/api/create', async(req, res) => {
+      logger.log("DID作成用のAPI開始");
+    
+      var addr = req.query.addr;
+      // create key pair
+      let authnKeys = await ION.generateKeyPair();
+      // new DID
+      let did = new ION.DID({
+        content: {
+          publicKeys: [
+            {
+              id: 'key-1',
+              type: 'EcdsaSecp256k1VerificationKey2019',
+              publicKeyJwk: authnKeys.publicJwk,
+              purposes: [ 'authentication' ]
+            }
+          ],
+          services: [
+            {
+              id: 'idq',
+              type: 'LinkedDomains',
+              serviceEndpoint: 'http://idq.vercel.app/'
+            }
+          ]
+        }
+      });
+    
+      // anchor DID
+      const requestBody = await did.generateRequest();
+      const request = new ION.AnchorRequest(requestBody);
+      let response = await request.submit();
+      logger.log("response:", response);
+      
+      // get DID URL
+      const didUrl = await did.getURI('short');
+      // コントラクトのABI
+      const abi = abis.FactoryABI;
+      
+      // set to Factory contract
+      var result = await utils.sendTx(
+        logger, 
+        abi, 
+        contractAddr.FACTORY_ADDRESS, 
+        "register", 
+        [addr, didUrl], 
+        utils.RPC_URL, 
+        utils.chainId
+      );
+    
+      if(result == true) {
+        logger.debug("トランザクション送信成功");
+        logger.log("DID作成用のAPI終了")
+        logger.log("DID:", didUrl);
+        res.set({ 'Access-Control-Allow-Origin': '*' });
+        res.json({ result: 'success' });
+      } else {
+        logger.error("トランザクション送信失敗");
+        logger.log("DID作成用のAPI終了")
+        res.set({ 'Access-Control-Allow-Origin': '*' });
+        res.json({ result: 'fail' });
+      }
+});
+    
+    
+/**
+ * DIDドキュメントを検索するAPI
+ */
+app.get('/api/resolve', async(req, res) => {
+      var uri = req.query.uri;
+      // resolve
+      const response = await ION.resolve(uri);
+      logger.log("response:", response);
+    
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result : response });
+});
+    
+/**
+ * DIDを利用して署名処理するAPI
+ */
+app.post('/api/sign', async(req, res) => {
+      /*
+      const privateKey = JSON.parse(await fs.readFile('privateKey.json'))
+      const myData = 'This message is signed and cannot be tampered with'
+      const signature = await ION.signJws({
+        payload: myData,
+        privateJwk: privateKey
+      });
+    
+      res.json({ signature : signature });
+      */
+});
+    
+/**
+ * DIDを利用して署名検証するAPI
+ */
+app.post('/api/verify', async(req, res) => {
+      /*
+      const publicKey = JSON.parse(await fs.readFile('publicKey.json'))
+      verifiedJws = await ION.verifyJws({
+        jws: signature,
+        publicJwk: publicKey
+      })
+      console.log("Verify with my public key:", verifiedJws)
+    
+      res.json({ verifiedJws : verifiedJws });
+      */
+});
+    
+/**
+ * FactoryWalletのメソッドを実行するためのAPI
+ * @param methodName メソッド名
+ * @param args 引数
+ */
+app.post('/api/excute/factory', async(req, res) => {
+      logger.log("FactoryWalletのメソッドを実行するためのAPI開始")
+      // 呼び出す関数名
+      var methodName = req.query.methodName;
+      // 関数の引数
+      var args = req.query.args;
+    
+      // コントラクトのABI
+      const abi = abis.FactoryABI;
+    
+      // call send Tx function
+      var result = await utils.sendTx(
+        logger, 
+        abi, 
+        contractAddr.FACTORY_ADDRESS, 
+        methodName, 
+        args, 
+        utils.RPC_URL, 
+        utils.chainId
+      );
+    
+      if(result == true) {
+          logger.debug("トランザクション送信成功");
+          logger.log("FactoryWalletのメソッドを実行するためのAPI終了")
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'success' });
+      } else {
+          logger.error("トランザクション送信失敗");
+          logger.log("FactoryWalletのメソッドを実行するためのAPI終了")
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'fail' });
+      }
+});
+
+module.exports = {
+      app,
+      logger
+};
