@@ -18,6 +18,7 @@
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "cryptocompare": "^1.0.0",
+    "enzyme": "^3.11.0",
     "ethers": "^5.6.9",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
@@ -59,5 +60,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-test-renderer": "^18.2.0"
   }
 }
