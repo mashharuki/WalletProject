@@ -66,13 +66,13 @@
 
 ## API 一覧
 
-| API 名              | 概要                                         |
-| ------------------- | -------------------------------------------- |
-| /api/mintIDQ        | IDQToken を発行する API                      |
-| /api/burnIDQ        | IDQToken を償却する API                      |
-| /api/balance/IDQ    | IDQToken の残高を取得する API                |
-| /api/send           | IDQToken を送金する API                      |
-| /api/create         | DID を作成する API                           |
-| /api/resolve        | DID ドキュメントを検索する API               |
-| /api/excute/factory | FactoryWallet のメソッドを実行するための API |
-|                     |                                              |
+| メソッド種類 | API 名              | 概要                                         |
+| ------------ | ------------------- | -------------------------------------------- |
+| POST         | /api/mintIDQ        | IDQToken を発行する API                      |
+| POST         | /api/burnIDQ        | IDQToken を償却する API                      |
+| GET          | /api/balance/IDQ    | IDQToken の残高を取得する API                |
+| POST         | /api/send           | IDQToken を送金する API                      |
+| POST         | /api/create         | DID を作成する API                           |
+| GET          | /api/resolve        | DID ドキュメントを検索する API               |
+| POST         | /api/excute/factory | FactoryWallet のメソッドを実行するための API |
+|              |                     |                                              |
