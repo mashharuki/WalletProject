@@ -213,3 +213,4 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 77. [DID Specifications 読み進めガイド](https://qiita.com/kazuhideYS/items/2f533bf14e8587c7c131)
 78. [【動画で学ぶブロックチェーン】BLS 署名 - 安土 茂亨氏](https://goblockchain.network/2022/09/bls/)
 79. [Blockcerts について調べる](https://zenn.dev/tatsuyasusukida/scraps/67bc1139e5410e#comment-6616e80c13f0b4)
+80. [Node.js でも綺麗なコードで WebAPI を作る（routing-controllers）](https://qiita.com/tonio0720/items/4694d33b20d05c25c2bf)
