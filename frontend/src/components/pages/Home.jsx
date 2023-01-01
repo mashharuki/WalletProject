@@ -180,14 +180,14 @@ const Home = (props) => {
      * Open Dialog
      * @param wallet MultoSig Wallet Addr
      */
-     const handleOpen = (wallet) => {
+    const handleOpen = (wallet) => {
         setOpen(true);
     }
 
     /**
      * Close Dialog
      */
-     const handleClose = () => {
+    const handleClose = () => {
         setOpen(false);
     }
 
