@@ -122,11 +122,16 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 
 ## テスト手順
 
-[テスト手順書](https://github.com/mashharuki/IDQ/blob/main/README2.md)
+[テスト手順書](https://github.com/mashharuki/IDQ/blob/main/assets/docs/README2.md)
 
 ## 審査やテストのためにプロジェクトにアクセスする方法など
 
-[プロジェクト起動手順書(ローカル環境)](https://github.com/mashharuki/IDQ/blob/main/README3.md)
+[プロジェクト起動手順書(ローカル環境)](https://github.com/mashharuki/IDQ/blob/main/assets/docs/README3.md)
+
+## その他ドキュメント
+
+- [概要設計書](https://github.com/mashharuki/IDQ/blob/main/assets/docs/design.md)
+- [機能設計書](https://github.com/mashharuki/IDQ/blob/main/assets/docs/functions.md)
 
 #### その他本プロダクトを開発するにあたり参考にした文献
 
