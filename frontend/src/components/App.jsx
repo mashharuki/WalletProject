@@ -13,12 +13,12 @@ import './../assets/css/App.css';
 import {
   baseURL, chainId, CONTRACT_ADDRESS, MYTOKEN_ADDRESS, RPC_URL
 } from "./common/Constant";
-import NoPage from './common/NoPage';
 import Web3Menu from "./common/Web3Menu";
 import Create from './pages/Create';
 import Home from './pages/Home';
-import Txs from './pages/Txs';
-import Wallets from './pages/Wallets';
+import NoPage from './pages/NoPage';
+import Txs from './pages/Tx/Txs';
+import Wallets from './pages/Wallet/Wallets';
 
 
 /**

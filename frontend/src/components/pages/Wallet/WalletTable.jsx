@@ -3,9 +3,9 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import walletContract from "../../contracts/MultiSigWallet.json";
-import ActionButton2 from '../common/ActionButton2';
-import './../../assets/css/App.css';
+import walletContract from "../../../contracts/MultiSigWallet.json";
+import ActionButton2 from '../../common/ActionButton2';
+import './../../../assets/css/App.css';
 
 /**
  * WalletTable

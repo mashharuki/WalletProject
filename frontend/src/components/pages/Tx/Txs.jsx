@@ -14,11 +14,11 @@ import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Web3 from "web3";
-import walletContract from "../../contracts/MultiSigWallet.json";
-import ActionButton from '../common/ActionButton';
-import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
-import UseFactory from '../common/UseContract';
-import './../../assets/css/App.css';
+import walletContract from "../../../contracts/MultiSigWallet.json";
+import ActionButton from '../../common/ActionButton';
+import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
+import UseFactory from '../../common/UseContract';
+import './../../../assets/css/App.css';
 import TxTable from './TxTable';
 
 /**

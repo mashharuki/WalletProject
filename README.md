@@ -86,7 +86,7 @@ Avalanche Fuji Chain(Testnet)
 
 ### IDQ Soul Wallet のシステム構成イメージ図
 
-<img src="./assets/img/system_3.png">
+<img src="./assets/img/IDQ-システム構成図.drawio.png">
 
 ### IDQ Soul Wallet を利用した際の想定フロー
 
@@ -108,17 +108,16 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 
 ### リポジトリのフォルダ構造
 
-| フォルダ名 | 概要                                                      |
-| ---------- | --------------------------------------------------------- |
-| api        | API サーバー用の資材を格納したフォルダ                    |
-| assets     | 画像ファイルなどを格納した資材用のフォルダ                |
-| backend    | スマートコントラクト用の資材を格納したフォルダ            |
-| docs       | intro-app のビルド成果物を格納したフォルダ                |
-| frontend   | IDQ 本体のフロントエンド用の資材を格納したフォルダ        |
-| intro-app  | QR コード表示用のフロントエンド用の資材を格納したフォルダ |
-| README.md  | 本ドキュメント                                            |
-| README2.md | スマートコントラクトのテスト手順をまとめた md ファイル    |
-| README3.md | ローカルでのプロジェクト起動方法をまとめた md ファイル    |
+```bash
+.
+├── README.md     本ドキュメント
+├── api           APIサーバー用ディレクトリ
+├── assets        画像などの資材用ディレクトリ
+├── backend       スマートコントラクト用ディレクトリ
+├── docs          ビルドした成果物用ディレクトリ
+├── frontend      フロントエンド用ディレクトリ
+└── intro-app     QRコード表示簡易アプリ用ディレクトリ
+```
 
 ## テスト手順
 
@@ -213,3 +212,4 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 76. [BBS 署名 + Signature Scheme](https://qiita.com/kazuhideYS/items/1bac1c277e5e45385f08)
 77. [DID Specifications 読み進めガイド](https://qiita.com/kazuhideYS/items/2f533bf14e8587c7c131)
 78. [【動画で学ぶブロックチェーン】BLS 署名 - 安土 茂亨氏](https://goblockchain.network/2022/09/bls/)
+79. [Blockcerts について調べる](https://zenn.dev/tatsuyasusukida/scraps/67bc1139e5410e#comment-6616e80c13f0b4)

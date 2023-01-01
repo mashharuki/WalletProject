@@ -3,9 +3,9 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
-import walletContract from "../../contracts/MultiSigWallet.json";
-import ActionButton2 from '../common/ActionButton2';
-import './../../assets/css/App.css';
+import walletContract from "../../../contracts/MultiSigWallet.json";
+import ActionButton2 from '../../common/ActionButton2';
+import './../../../assets/css/App.css';
 
 /**
  * TxTable
