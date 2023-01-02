@@ -157,54 +157,70 @@ app.post('/api/send', async(req, res) => {
       // コントラクトのABI
       const mytokenAbi = abis.MyTokenABI;
       const factoryAbi = abis.FactoryABI;
+      // get wallet address
+      logger.log("from:", from);
+      logger.log("to:", to);
+      logger.log("amount:", amount);
       
-      // create wallet 
-      const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
-      // create provider
-      const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
-      // create mytoken contract 
-      var myTokenContract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, mytokenAbi, await provider.getSigner(wallet.address));
-      // create factory contract
-      var factoryContract = new ethers.Contract(contractAddr.FACTORY_ADDRESS, factoryAbi, await provider.getSigner(wallet.address));
-      // get addr from did
-      const balance = await myTokenContract.callStatic.balanceOf(from);
-    
-      logger.log("送信元のbalance:", balance);
-    
-      // check balance
-      if(balance >= amount) {
+      try {
+        // create wallet 
+        const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+        // create provider
+        const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
+        // get signer 
+        const signer = await provider.getSigner(wallet.address)
+        // create mytoken contract 
+        var myTokenContract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, mytokenAbi, signer);
+        // create factory contract
+        var factoryContract = new ethers.Contract(contractAddr.FACTORY_ADDRESS, factoryAbi, signer);
         // get address from did
-        let fromAddr = await factoryContract.callStatic.addrs[from];
-        let receiveAddr = await factoryContract.callStatic.addrs[to];
+        let fromAddr = await factoryContract.callStatic.addrs(from);
+        let receiveAddr = await factoryContract.callStatic.addrs(to);
+        // get addr from did
+        const balance = await myTokenContract.callStatic.balanceOf(fromAddr);
+      
+        logger.log("fromAddr:", fromAddr);
+        logger.log("receiveAddr:", receiveAddr);
+        logger.log("送信元のbalance:", Number(balance._hex));
     
-        // 結果を格納するための変数
-        var result;
-        // call burn function
-        result = await utils.sendTx(
-          logger, 
-          mytokenAbi, 
-          contractAddr.MYTOKEN_ADDRESS, 
-          "burnToken", 
-          [fromAddr, (amount/1000000000000000000)],
-          utils.RPC_URL, 
-          utils.chainId
-        );
-        // call mint function
-        result = await utils.sendTx(
-          logger, 
-          mytokenAbi, 
-          contractAddr.MYTOKEN_ADDRESS, 
-          "mint", 
-          [receiveAddr, amount], 
-          utils.RPC_URL, 
-          utils.chainId
-        );
-        // check
-        resultCheck(result);
-      } else {
+        // check balance
+        if(Number(balance._hex) >= amount) {
+          // 結果を格納するための変数
+          var result;
+          // call burn function
+          result = await utils.sendTx(
+            logger, 
+            mytokenAbi, 
+            contractAddr.MYTOKEN_ADDRESS, 
+            "burnToken", 
+            [fromAddr, (amount)],
+            utils.RPC_URL, 
+            utils.chainId
+          ).then(
+             // call mint function
+            result = await utils.sendTx(
+              logger, 
+              mytokenAbi, 
+              contractAddr.MYTOKEN_ADDRESS, 
+              "mint", 
+              [receiveAddr, amount], 
+              utils.RPC_URL, 
+              utils.chainId
+            )
+          );
+          // check
+          resultCheck(result);
+        } else {
+          logger.error("トランザクション送信失敗");
+          logger.log("残高不足");
+          logger.log("token送金用のAPI終了");
+          res.set({ 'Access-Control-Allow-Origin': '*' });
+          res.json({ result: 'fail' });
+        }
+      } catch(err) {
         logger.error("トランザクション送信失敗");
+        logger.log("エラー原因：", err);
         logger.log("token送金用のAPI終了");
-        logger.log("DID:", didUrl);
         res.set({ 'Access-Control-Allow-Origin': '*' });
         res.json({ result: 'fail' });
       }
@@ -216,13 +232,11 @@ app.post('/api/send', async(req, res) => {
         if(result == true) {
           logger.debug("トランザクション送信成功");
           logger.log("token送金用のAPI終了")
-          logger.log("DID:", didUrl);
           res.set({ 'Access-Control-Allow-Origin': '*' });
           res.json({ result: 'success' });
         } else {
           logger.error("トランザクション送信失敗");
           logger.log("token送金用のAPI終了");
-          logger.log("DID:", didUrl);
           res.set({ 'Access-Control-Allow-Origin': '*' });
           res.json({ result: 'fail' });
         }

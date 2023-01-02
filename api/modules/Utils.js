@@ -80,11 +80,11 @@ const sendEth = async(logger, to, value, rpc_url, chainId) => {
     // get nonce
     var nonce = await provider.getTransactionCount(wallet.address);
 
-    console.log("amount:", ethers.utils.parseEther(value.toString())._hex);
+    logger.log("send ETH amount:", ethers.utils.parseEther(value.toString())._hex);
    
     // create tx data
     var tx = {
-        gasPrice: 250000000000,
+        gasPrice: 300000000000,
         gasLimit: 185000,
         to: to,
         nonce: nonce,

@@ -143,10 +143,10 @@ const Home = (props) => {
                     setIsLoading(false);
                     return err;
                 }
+                setIsLoading(false);
             });
         // popUpメソッドの呼び出し
         popUp(true, "successfull!!");
-        setIsLoading(false);   
     };
 
     /**
