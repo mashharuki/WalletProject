@@ -2,11 +2,11 @@
 
 ローカルで動かす手順は下記の通りです。
 
-1. API サーバーの起動
+1. API サーバーの設定と起動
 2. intro-app の起動
 3. IDQ Soul Wallet の起動
 
-## API サーバーの起動
+## API サーバーの設定と起動
 
 1. `api`ディレクトリに移動する。
 2. モジュールのインストールのため下記コマンドを実行
@@ -21,7 +21,15 @@ npm i
 MNEMONIC=<YOUR_DATA>
 ```
 
-4. 起動コマンドを入力する。
+4. `ABI.js`にコントラクトの ABI 情報を貼り付ける。
+
+```js
+const MyTokenABI = `ここにABIを貼り付ける`;
+
+const FactoryABI = `ここにABIを貼り付ける`;
+```
+
+5. 起動コマンドを入力する。
 
 ```zsh
 npm run start
@@ -88,33 +96,25 @@ npm run start
 npm i
 ```
 
-3. `App.js`の 29 行目のの変数`baseURL`に API サーバー起動時に出力されたエンドポイントの情報を入力する。
+3. `Constants.js`の 29 行目のの変数`baseURL`に API サーバー起動時に出力されたエンドポイントの情報を入力する。
+
+4. `Constants.js`の `CONTRACT_ADDRESS`と`MYTOKEN_ADDRESS`にデプロイしたアドレス情報を入力する。
 
 ```diff
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Web3 from 'web3';
-import './../assets/css/App.css';
-import NoPage from './common/NoPage';
-import Web3Menu from "./common/Web3Menu";
-import Create from './pages/Create';
-import Home from './pages/Home';
-import Txs from './pages/Txs';
-import Wallets from './pages/Wallets';
+/**
+ * 各種定数を管理するためのファイル
+ */
 
 // contract Address (WalletFactory)
-const CONTRACT_ADDRESS = "0x177acf501eF7d2b090d94fd3bd2BE773736598E1";
++ export const CONTRACT_ADDRESS = "0xD776E3Dfc486e576304ABe13865D94d063F7b821";
 // contract Address (MyToken)
-const MYTOKEN_ADDRESS = "0x505869E3B5Ef52a5Db123387fe2d188c44b27b25";
++ export const MYTOKEN_ADDRESS = "0x17c803255c20C946E72855901c6C0B1C2195Cfc0";
 // chain ID
-const chainId = '43113';
+export const chainId = '43113';
 // rpc URL
-const RPC_URL = `https://api.avax-test.network/ext/bc/C/rpc`;
+export const RPC_URL = `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`;
 // API Base URL
-+ const baseURL = 'http://192.168.0.3:3001' // please change
++ export const baseURL = 'http://192.168.0.16:3001'; // please change
 ```
 
 4. 起動コマンドを実行する。
