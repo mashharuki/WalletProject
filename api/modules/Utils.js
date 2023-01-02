@@ -39,7 +39,7 @@ const sendTx = async(logger, abi, address, functionName, args, rpc_url, chainId)
 
     // create tx data
     var tx = {
-        gasPrice: 25000000000,
+        gasPrice: 30000000000,
         gasLimit: 185000,
         data: func,
         to: address,
@@ -84,7 +84,7 @@ const sendEth = async(logger, to, value, rpc_url, chainId) => {
    
     // create tx data
     var tx = {
-        gasPrice: 300000000000,
+        gasPrice: 250000000000,
         gasLimit: 185000,
         to: to,
         nonce: nonce,
