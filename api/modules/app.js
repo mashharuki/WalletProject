@@ -44,7 +44,6 @@ app.post('/api/mintIDQ', async(req, res) => {
 
   // call send Tx function
   var result = await utils.sendTx(
-    logger, 
     abi, 
     contractAddr.MYTOKEN_ADDRESS, 
     "mint", 
@@ -84,7 +83,6 @@ app.post('/api/burnIDQ', async(req, res) => {
 
   // call send Tx function
   var result = await utils.sendTx(
-    logger, 
     abi, 
     contractAddr.MYTOKEN_ADDRESS, 
     "burnToken", 
@@ -96,7 +94,6 @@ app.post('/api/burnIDQ', async(req, res) => {
   if(result == true) {
     // send ETH 
     var result = await utils.sendEth(
-      logger, 
       walletAddr, 
       (amount/10000000000000000000000), 
       utils.RPC_URL, 
@@ -204,29 +201,34 @@ app.post('/api/send', async(req, res) => {
     if(Number(balance._hex) >= amount) {
       // 結果を格納するための変数
       var result;
-      // call burn function
-      result = await utils.sendTx(
-        logger, 
+
+      // Arrary for Tx 
+      const txs = [];
+      // create tx info
+      var tx = [
         mytokenAbi, 
         contractAddr.MYTOKEN_ADDRESS, 
         "burnToken", 
-        [fromAddr, (amount)],
+        [fromAddr, amount],
         utils.RPC_URL, 
         utils.chainId
-      ).then(async() => {
-        // call mint function
-        result = await utils.sendTx(
-          logger, 
-          mytokenAbi, 
-          contractAddr.MYTOKEN_ADDRESS, 
-          "mint", 
-          [receiveAddr, amount], 
-          utils.RPC_URL, 
-          utils.chainId
-        ),
-        // check
-        resultCheck(result)
-      });
+      ];
+      // push
+      txs.push(tx);
+      // create tx info
+      tx = [
+        mytokenAbi, 
+        contractAddr.MYTOKEN_ADDRESS, 
+        "mint", 
+        [receiveAddr, amount], 
+        utils.RPC_URL, 
+        utils.chainId
+      ];
+      // push
+      txs.push(tx);
+
+      // call sendBatchTxs function
+      result = await utils.sendBatchTx(txs).then((result) => resultCheck(result));
     } else {
       logger.error("トランザクション送信失敗");
       logger.log("残高不足");
@@ -287,7 +289,6 @@ app.post('/api/create', async(req, res) => {
   
   // set to Factory contract
   var result = await utils.sendTx(
-    logger, 
     abi, 
     contractAddr.FACTORY_ADDRESS, 
     "register", 
@@ -373,7 +374,6 @@ app.post('/api/excute/factory', async(req, res) => {
 
   // call send Tx function
   var result = await utils.sendTx(
-    logger, 
     abi, 
     contractAddr.FACTORY_ADDRESS, 
     methodName, 

@@ -143,10 +143,11 @@ const Home = (props) => {
                     setIsLoading(false);
                     return err;
                 }
+                getBalance();
                 setIsLoading(false);
+                // popUpメソッドの呼び出し
+                popUp(true, "successfull!!");
             });
-        // popUpメソッドの呼び出し
-        popUp(true, "successfull!!");
     };
 
     /**
@@ -205,18 +206,19 @@ const Home = (props) => {
             });
     };
 
+    /**
+     * getBalance function
+     */
+    const getBalance = async() => {
+        // コントラクト用のインスタンスを生成する。
+        const instance = new provider.eth.Contract(MyToken.abi, MYTOKEN_ADDRESS);
+        // 残高を取得する
+        const num = await instance.methods.balanceOf(signer).call();
+        setBalance(num);
+    }
+
     useEffect(()=> {
-        /**
-         * init
-         */
-        const init = async() => {
-            // コントラクト用のインスタンスを生成する。
-            const instance = new provider.eth.Contract(MyToken.abi, MYTOKEN_ADDRESS);
-            // 残高を取得する
-            const num = await instance.methods.balanceOf(signer).call();
-            setBalance(num);
-        }
-        init();
+        getBalance();
     }, []);
 
     return (
