@@ -216,3 +216,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 80. [Node.js でも綺麗なコードで WebAPI を作る（routing-controllers）](https://qiita.com/tonio0720/items/4694d33b20d05c25c2bf)
 81. [express 実践入門](https://gist.github.com/mitsuruog/fc48397a8e80f051a145)
 82. [async/await で処理を順番通りに出したい時の書き方](https://zenn.dev/minami_hiroto/articles/532d4a393feecb)
+83. [初めての npm パッケージ公開](https://qiita.com/TsutomuNakamura/items/f943e0490d509f128ae2)
+84. [初めて npm パッケージを一般公開する時の手順](https://nodachisoft.com/common/jp/article/jp000110/)
