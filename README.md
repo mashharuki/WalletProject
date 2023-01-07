@@ -229,3 +229,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 84. [初めて npm パッケージを一般公開する時の手順](https://nodachisoft.com/common/jp/article/jp000110/)
 85. [terraform](https://www.terraform.io/)
 86. [Blockcerts を使って Ethereum ブロックチェーン証明書を発行する方法](https://zenn.dev/tatsuyasusukida/articles/issuing-ethereum-certificates-using-blockcerts#comment-766d57f9c479f4)
+87. [Context でデータ管理(createContext, useContext)](https://www.wakuwakubank.com/posts/758-react-context/)
+88. [React Context](https://ja.reactjs.org/docs/context.html)
