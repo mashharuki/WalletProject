@@ -13,6 +13,7 @@ import './../assets/css/App.css';
 import {
   baseURL, chainId, CONTRACT_ADDRESS, MYTOKEN_ADDRESS, RPC_URL
 } from "./common/Constant";
+import { RegisterContext } from './common/Contexts';
 import Web3Menu from "./common/Web3Menu";
 import Create from './pages/Create';
 import Home from './pages/Home';
@@ -29,6 +30,9 @@ function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
   const [blocto, setBlocto] = useState(null);
   const [web3, setWeb3] = useState(null);
+
+  // register status
+  const isRegistered = false;
 
   /**
    * ウォレット接続ボタンを押した時の処理
@@ -57,49 +61,51 @@ function App() {
 
   return (
     <>
-      <GlobalStyles styles={{ body: { margin: 0, padding: 0 } }} />
-      <Router>
-        <div sx={{ flexGrow: 1 }}>
-        { /* 画面上部に表示するAppBarコンポーネント */ }
-          <AppBar position="static" color="transparent">
-            <Toolbar>
-              <Typography variant="h6" color="black" sx={{ flexGrow: 1 }}>
-                <strong>IDQ</strong>
-              </Typography>
-              { /* ウォレットに接続していなければログインアイコンを表示する。 */ }
-              <Typography variant="h6" color="inherit">
-                {currentAccount === null ? (
-                  <IconButton 
-                    aria-label="more"
-                    id="connect-wallet"
-                    aria-haspopup="true"
-                    onClick={connectWalletAction}
-                  >
-                    <StartIcon />
-                  </IconButton>
-                ) :
-                  /* 各画面に遷移するためのWeb3Menuコンポーネントを表示する。 */
-                  <Web3Menu/>
-                }
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          { currentAccount === null ? (
-            <header className="App-header">
-              <p>Welcome to IDQ Soul Wallet!!</p>
-            </header>
-          ) : (
-            <Routes>
-              <Route path="/" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
-              <Route path="/home" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
-              <Route path="/wallets" exact element={ <Wallets CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} baseURL={baseURL} /> } />
-              <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} /> } />
-              <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
-              <Route path="*" exact element={ <NoPage/> } />
-            </Routes>
-          )}
-        </div>
-      </Router>
+      <RegisterContext.Provider value={{isRegistered}}>
+        <GlobalStyles styles={{ body: { margin: 0, padding: 0 } }} />
+        <Router>
+          <div sx={{ flexGrow: 1 }}>
+          { /* 画面上部に表示するAppBarコンポーネント */ }
+            <AppBar position="static" color="transparent">
+              <Toolbar>
+                <Typography variant="h6" color="black" sx={{ flexGrow: 1 }}>
+                  <strong>IDQ</strong>
+                </Typography>
+                { /* ウォレットに接続していなければログインアイコンを表示する。 */ }
+                <Typography variant="h6" color="inherit">
+                  {currentAccount === null ? (
+                    <IconButton 
+                      aria-label="more"
+                      id="connect-wallet"
+                      aria-haspopup="true"
+                      onClick={connectWalletAction}
+                    >
+                      <StartIcon />
+                    </IconButton>
+                  ) :
+                    /* 各画面に遷移するためのWeb3Menuコンポーネントを表示する。 */
+                    <Web3Menu/>
+                  }
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            { currentAccount === null ? (
+              <header className="App-header">
+                <p>Welcome to IDQ Soul Wallet!!</p>
+              </header>
+            ) : (
+              <Routes>
+                <Route path="/" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
+                <Route path="/home" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
+                <Route path="/wallets" exact element={ <Wallets CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} baseURL={baseURL} /> } />
+                <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} /> } />
+                <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
+                <Route path="*" exact element={ <NoPage/> } />
+              </Routes>
+            )}
+          </div>
+        </Router>
+      </RegisterContext.Provider>
     </>
   );
 }

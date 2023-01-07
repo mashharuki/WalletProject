@@ -71,6 +71,15 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 12  | Figma         |
 | 13  | ERC20         |
 
+## これから使用する予定の tech stacks
+
+| No. | 名称        |
+| --- | ----------- |
+| 1   | AWS S3      |
+| 2   | AWS EC2     |
+| 3   | AWS Route53 |
+| 4   | VC          |
+
 ## 使用した Blockchain
 
 Avalanche Fuji Chain(Testnet)
@@ -218,3 +227,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 82. [async/await で処理を順番通りに出したい時の書き方](https://zenn.dev/minami_hiroto/articles/532d4a393feecb)
 83. [初めての npm パッケージ公開](https://qiita.com/TsutomuNakamura/items/f943e0490d509f128ae2)
 84. [初めて npm パッケージを一般公開する時の手順](https://nodachisoft.com/common/jp/article/jp000110/)
+85. [terraform](https://www.terraform.io/)
+86. [Blockcerts を使って Ethereum ブロックチェーン証明書を発行する方法](https://zenn.dev/tatsuyasusukida/articles/issuing-ethereum-certificates-using-blockcerts#comment-766d57f9c479f4)

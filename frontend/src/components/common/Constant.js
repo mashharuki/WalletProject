@@ -11,4 +11,4 @@ export const chainId = '43113';
 // rpc URL 
 export const RPC_URL = `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`;
 // API Base URL
-export const baseURL = 'http://192.168.0.26:3001';
+export const baseURL = 'http://192.168.0.12:3001';

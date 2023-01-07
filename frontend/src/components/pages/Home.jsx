@@ -38,10 +38,10 @@ const Home = (props) => {
     } = props;
 
     const [balance, setBalance] = useState(0);
-    const [isLogined, setIsLogined] = useState(false);
     const [did, setDid] = useState(null);
     const [fullDid, setFullDid] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(false);
     const [successFlg, setSuccessFlg] = useState(false);
     const [failFlg, setFailFlg] = useState(false);
     const [showToast, setShowToast] = useState(false);
@@ -49,76 +49,63 @@ const Home = (props) => {
     const [amount, setAmount] = useState(0);
     const [open, setOpen] = useState(false);
 
+    // use context
+    // var isRegistered = useContext(RegisterContext).isRegistered;
+
     /**
-     * sign in/ sign up function 
+     * Register function 
      */
-    const signInAction = async() => {
+    const registerAction = async() => {
         // Factory object
         const FactoryContract = new provider.eth.Contract(WalletFactory.abi, CONTRACT_ADDRESS);
-        // 登録ステータスを確認する。
-        const status = await FactoryContract.methods.isRegistered(signer).call();
-        console.log("status:", status);
         
-        if(status) { // 登録済みの場合
-            // DIDを取得する。
-            const didData = await FactoryContract.methods.dids(signer).call();
-            console.log("didData :", didData);
-            // short
-            var modStr = didData.substr(0, 9) + '...' + didData.substr(didData.length - 3, 3)
-            setDid(modStr);
-            setFullDid(didData);
-            setIsLogined(true);
-        } else { // 未登録の場合
+        var result;
 
-            var result;
+        setIsLoading(true);
+        // DID作成APIを呼び出す
+        superAgent
+            .post(baseURL + '/api/create')
+            .query({addr: signer})
+            .end(async(err, res) => {
+                if (err) {
+                    console.log("DID作成用API呼び出し中に失敗", err);
+                    // popUpメソッドの呼び出し
+                    popUp(false, "failfull...");
+                    //setIsLogined(false);
+                    setIsLoading(false);
+                    return err;
+                }
 
-            setIsLoading(true);
-            // DID作成APIを呼び出す
-            await superAgent
-                .post(baseURL + '/api/create')
-                .query({addr: signer})
-                .end(async(err, res) => {
-                    if (err) {
-                        console.log("DID作成用API呼び出し中に失敗", err);
-                        // popUpメソッドの呼び出し
-                        popUp(false, "failfull...");
-                        setIsLogined(false);
-                        setIsLoading(false);
-                        return err;
-                    }
+                // DIDを取得する。
+                const result = await FactoryContract.methods.dids(signer).call();
+                var modStr = result.substr(0, 9) + '...' + result.substr(result.length - 3, 3);
 
-                    // DIDを取得する。
-                    const result = await FactoryContract.methods.dids(signer).call();
-                    var modStr = result.substr(0, 9) + '...' + result.substr(result.length - 3, 3);
+                setDid(modStr);
+                setFullDid(result);
+                console.log("DID作成用API呼び出し結果：", result);  
 
-                    setDid(modStr);
-                    setFullDid(result);
-                    console.log("DID作成用API呼び出し結果：", result);  
+                // IDQToken発行APIを呼び出す
+                superAgent
+                    .post(baseURL + '/api/mintIDQ')
+                    .query({
+                        to: signer,
+                        amount: 10000
+                    })
+                    .end(async(err, res) => {
+                        if (err) {
+                            console.log("IDQToken発行用API呼び出し中に失敗", err);
+                            // popUpメソッドの呼び出し
+                            popUp(false, "failfull...");
+                            setIsLoading(false);
+                            return err;
+                        }
+                    });
 
-                    // IDQToken発行APIを呼び出す
-                    superAgent
-                        .post(baseURL + '/api/mintIDQ')
-                        .query({
-                            to: signer,
-                            amount: 10000
-                        })
-                        .end(async(err, res) => {
-                            if (err) {
-                                console.log("IDQToken発行用API呼び出し中に失敗", err);
-                                // popUpメソッドの呼び出し
-                                popUp(false, "failfull...");
-                                setIsLogined(false);
-                                setIsLoading(false);
-                                return err;
-                            }
-                        });
-                });
-
-            // popUpメソッドの呼び出し
-            popUp(true, "successfull!!");
-            setIsLogined(true);
-            setIsLoading(false);   
-        }
+                // popUpメソッドの呼び出し
+                popUp(true, "successfull!!");
+                await checkStatus();
+                setIsLoading(false);   
+            });
     }
 
     /**
@@ -143,7 +130,7 @@ const Home = (props) => {
                     setIsLoading(false);
                     return err;
                 }
-                getBalance();
+                await getBalance();
                 setIsLoading(false);
                 // popUpメソッドの呼び出し
                 popUp(true, "successfull!!");
@@ -217,8 +204,31 @@ const Home = (props) => {
         setBalance(num);
     }
 
+    /**
+     * checkStatus function
+     */
+    const checkStatus = async() => {
+        // Factory object
+        const FactoryContract = new provider.eth.Contract(WalletFactory.abi, CONTRACT_ADDRESS);
+        // 登録ステータスを確認する。
+        var status = await FactoryContract.methods.isRegistered(signer).call();
+        console.log("isRegistered:", isRegistered);
+        setIsRegistered(status);
+
+        if(status) {
+            // DIDを取得する。
+            const didData = await FactoryContract.methods.dids(signer).call();
+            console.log("didData :", didData);
+            // short
+            var modStr = didData.substr(0, 9) + '...' + didData.substr(didData.length - 3, 3)
+            setDid(modStr);
+            setFullDid(didData);
+        }
+    };
+
     useEffect(()=> {
         getBalance();
+        checkStatus();
     }, []);
 
     return (
@@ -273,7 +283,7 @@ const Home = (props) => {
                             >
                                 <div className="App-content">
                                     <p><strong>My Soul</strong></p>
-                                    {isLogined ? (
+                                    {isRegistered ? (
                                         <>
                                             <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
                                             <p>Your IDQToken:{balance}</p>
@@ -281,7 +291,7 @@ const Home = (props) => {
                                         </>
                                     ) : (
                                         <>
-                                            <ActionButton2 buttonName="Sign In / Up" color="primary" clickAction={signInAction} />
+                                            <ActionButton2 buttonName="Register" color="primary" clickAction={registerAction} />
                                         </>
                                     )}
                                 </div>
@@ -289,7 +299,7 @@ const Home = (props) => {
                         </>
                     )}
                 </StyledPaper>
-                {isLogined ? (
+                {isRegistered ? (
                     <Grid 
                         container 
                         justifyContent="center"
