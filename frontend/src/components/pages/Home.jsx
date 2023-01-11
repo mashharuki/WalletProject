@@ -49,9 +49,6 @@ const Home = (props) => {
     const [amount, setAmount] = useState(0);
     const [open, setOpen] = useState(false);
 
-    // use context
-    // var isRegistered = useContext(RegisterContext).isRegistered;
-
     /**
      * Register function 
      */

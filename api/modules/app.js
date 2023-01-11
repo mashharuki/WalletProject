@@ -231,14 +231,14 @@ app.post('/api/send', async(req, res) => {
       result = await utils.sendBatchTx(txs).then((result) => resultCheck(result));
     } else {
       logger.error("トランザクション送信失敗");
-      logger.log("残高不足");
+      logger.error("残高不足");
       logger.log("token送金用のAPI終了");
       res.set({ 'Access-Control-Allow-Origin': '*' });
       res.json({ result: 'fail' });
     }
   } catch(err) {
     logger.error("トランザクション送信失敗");
-    logger.log("エラー原因：", err);
+    logger.error("エラー原因：", err);
     logger.log("token送金用のAPI終了");
     res.set({ 'Access-Control-Allow-Origin': '*' });
     res.json({ result: 'fail' });

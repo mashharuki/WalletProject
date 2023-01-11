@@ -71,7 +71,7 @@ const sendTx = async(abi, address, functionName, args, rpc_url, chainId) => {
  * @return 送信結果
  */
 const sendBatchTx = async(txs) => {
-    logger.log("txs:", txs);
+    // logger.log("txs:", txs);
     // get tx count
     const count = txs.length;
     // Array for signedTx
