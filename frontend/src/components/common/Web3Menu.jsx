@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, NavLink } from "react-router-dom";
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 // Menu用の配列
 const options = [
       'Home',
+      'Buy',
       'Wallets',
       'Create'
 ];
