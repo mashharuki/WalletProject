@@ -15,6 +15,7 @@ import {
 } from "./common/Constant";
 import { RegisterContext } from './common/Contexts';
 import Web3Menu from "./common/Web3Menu";
+import Buy from './pages/Buy';
 import Create from './pages/Create';
 import Home from './pages/Home';
 import NoPage from './pages/NoPage';
@@ -99,6 +100,7 @@ function App() {
                 <Route path="/home" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
                 <Route path="/wallets" exact element={ <Wallets CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} baseURL={baseURL} /> } />
                 <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} /> } />
+                <Route path="/buy" exact element={ <Buy signer={currentAccount} baseURL={baseURL} /> } />
                 <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
                 <Route path="*" exact element={ <NoPage/> } />
               </Routes>
