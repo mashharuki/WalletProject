@@ -233,3 +233,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 88. [React Context](https://ja.reactjs.org/docs/context.html)
 89. [【Qita】Stripe と React で、銀行振込やコンビニ決済などの複数の決済手段を表示する方法と見た目のカスタマイズ方法](https://qiita.com/hideokamoto/items/e487b5dc48355a7976bf)
 90. [【Stripe Docs】Elements Appearance API](https://stripe.com/docs/elements/appearance-api?platform=web#variables)
+91. [GitHub の新機能「GitHub Actions」で試す CI/CD](https://knowledge.sakura.ad.jp/23478/)
+92. [リポジトリへのライセンスの追加](https://docs.github.com/ja/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository)
