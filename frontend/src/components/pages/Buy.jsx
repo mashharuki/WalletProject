@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import PaymentDialog from '../common/PaymentDialog';
 import './../../assets/css/App.css';
 
 /** 
@@ -34,6 +35,7 @@ const Buy = (props) => {
       const [failFlg, setFailFlg] = useState(false);
       const [showToast, setShowToast] = useState(false);
       const [amount, setAmount] = useState(0);
+      const [open, setOpen] = useState(false);
 
       /**
        * Buy function 
@@ -89,6 +91,21 @@ const Buy = (props) => {
             }
       };
 
+      /**
+       * Open Dialog
+       * @param wallet MultoSig Wallet Addr
+       */
+      const handleOpen = (wallet) => {
+            setOpen(true);
+      }
+
+      /**
+       * Close Dialog
+       */
+      const handleClose = () => {
+            setOpen(false);
+      }
+
       return (
             <Grid
                 container
@@ -96,6 +113,12 @@ const Buy = (props) => {
                 justifyContent="center"
                 alignItems="center"
             >
+                  { /* Payment Dialog */ } 
+                  <PaymentDialog 
+                        open={open} 
+                        handleClose={(e) => {handleClose()}} 
+                        buyAction={(e) => {buyAction()}}
+                  />
                   { /* main content */ } 
                   <Box 
                         sx={{ 
@@ -141,7 +164,7 @@ const Buy = (props) => {
                                                             variant="outlined" 
                                                             inputProps={{ 'aria-label': 'amount' }} 
                                                       />
-                                                      <ActionButton2 buttonName="buy" color="primary" clickAction={buyAction} /> 
+                                                      <ActionButton2 buttonName="buy" color="primary" clickAction={handleOpen} /> 
                                                 </div>
                                           </Grid>
                                     </>

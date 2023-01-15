@@ -3,6 +3,7 @@ require('dotenv').config();
 // get Mnemonic code
 const {
   MNEMONIC,
+  STRIPE_API_KEY
 } = process.env
 
 const express = require('express');
@@ -23,6 +24,11 @@ const contractAddr = require('../contracts/Address');
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');
 const logger = log4js.getLogger("server");
+
+// stripe用の変数定義
+const stripe = require("stripe")(`${STRIPE_API_KEY}`);
+app.use(express.static("public"));
+app.use(express.json());
 
 ////////////////////////////////////////////////////////////
 // APIの定義
@@ -393,6 +399,31 @@ app.post('/api/excute/factory', async(req, res) => {
     res.set({ 'Access-Control-Allow-Origin': '*' });
     res.json({ result: 'fail' });
   }
+});
+
+/**
+ * stripeのPayment elementを使うためのAPI
+ * ※ テスト用 (1400円分)
+ */
+app.post("/create-payment-intent", async (req, res) => {
+  logger.debug("Payment API開始");
+
+  // create paymentIntent 
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 1400,
+    currency: "jpy",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.set({ 'Access-Control-Allow-Origin': '*' });
+  // send
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+
+  logger.debug("Payment API終了");
 });
 
 module.exports = {
