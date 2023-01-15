@@ -9,6 +9,8 @@
     "@metamask/detect-provider": "^1.2.0",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.4",
+    "@stripe/react-stripe-js": "^1.16.3",
+    "@stripe/stripe-js": "^1.46.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
