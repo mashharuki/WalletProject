@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-01-16T12:41:22.494Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="dlwwOwrne0N0Yr8Xz015" version="20.7.4" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-01-16T12:42:03.637Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="MSiwbA9hRvjPcMTc-Ikn" version="20.7.4" type="github" pages="3">
   <diagram id="AgBQlWnoEHxcCPggjtpq" name="system image">
     <mxGraphModel dx="2987" dy="1004" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -449,7 +449,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="jRIxS9DEQ7q5cc-V1fLQ" name="画面遷移図">
-    <mxGraphModel dx="1333" dy="1004" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2160" dy="1004" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -536,6 +536,9 @@
             <mxPoint x="440" y="610" as="sourcePoint" />
             <mxPoint x="530" y="610" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="hO1s1OWml9G6nGkZwtHM-22" value="画面遷移図 (簡易版)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="160" width="170" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
