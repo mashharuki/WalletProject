@@ -32,10 +32,10 @@
     "backend:verify:fuji": "yarn workspace backend verify:fuji",
     "backend:verify:ftm": "yarn workspace backend verify:ftm",
     "backend:verify:aurora": "yarn workspace backend verify:aurora",
-    "frontned:start": "yarn workspace frontend start",
-    "frontned:build": "yarn workspace frontend build",
-    "frontned:test": "yarn workspace frontend test",
-    "frontned:eject": "yarn workspace frontend eject",
+    "frontend:start": "yarn workspace frontend start",
+    "frontend:build": "yarn workspace frontend build",
+    "frontend:test": "yarn workspace frontend test",
+    "frontend:eject": "yarn workspace frontend eject",
     "intro:start": "yarn workspace intro-app start",
     "intro:build": "yarn workspace intro-app build"
   }
