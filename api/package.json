@@ -1,5 +1,5 @@
 {
-    "name": "api server",
+    "name": "idq-api-server",
     "version": "0.1.0",
     "homepage": "./",
     "main": "server.js",
