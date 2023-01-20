@@ -1,0 +1,42 @@
+{
+  "name": "IDQ",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mashharuki/IDQ.git",
+  "author": "mashharuki",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "api:start": "yarn workspace api start",
+    "api:test": "yarn workspace api test",
+    "backend:test": "yarn workspace backend test",
+    "backend:compile": "yarn workspace backend compile",
+    "backend:build": "yarn workspace backend build",
+    "backend:deploy:goreli": "yarn workspace backend deploy:goreli",
+    "backend:deploy:mumbai": "yarn workspace backend deploy:mumbai",
+    "backend:deploy:bsctest": "yarn workspace backend deploy:bsctest",
+    "backend:deploy:harmony": "yarn workspace backend deploy:harmony",
+    "backend:deploy:ftm": "yarn workspace backend deploy:ftm",
+    "backend:deploy:fuji": "yarn workspace backend deploy:fuji",
+    "backend:deploy:op": "yarn workspace backend deploy:op",
+    "backend:deploy:arbitrum": "yarn workspace backend deploy:arbitrum",
+    "backend:deploy:aurora": "yarn workspace backend deploy:aurora",
+    "backend:verify:goreli": "yarn workspace backend verify:goreli",
+    "backend:verify:mumbai": "yarn workspace backend verify:mumbai",
+    "backend:verify:bsctest": "yarn workspace backend verify:bsctest",
+    "backend:verify:fuji": "yarn workspace backend verify:fuji",
+    "backend:verify:ftm": "yarn workspace backend verify:ftm",
+    "backend:verify:aurora": "yarn workspace backend verify:aurora",
+    "frontned:start": "yarn workspace frontend start",
+    "frontned:build": "yarn workspace frontend build",
+    "frontned:test": "yarn workspace frontend test",
+    "frontned:eject": "yarn workspace frontend eject",
+    "intro:start": "yarn workspace intro-app start",
+    "intro:build": "yarn workspace intro-app build"
+  }
+}

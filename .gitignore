@@ -1,1 +1,4 @@
 **/.DS_Store
+node_modules/
+.yarn/cache
+.yarn/install-state.gz

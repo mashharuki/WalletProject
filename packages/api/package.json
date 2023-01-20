@@ -1,12 +1,12 @@
 {
-    "name": "idq-api-server",
+    "name": "api",
     "version": "0.1.0",
     "homepage": "./",
     "main": "server.js",
     "private": true,
     "dependencies": {
         "@babel/register": "^7.16.0",
-        "@decentralized-identity/ion-tools": "^0.1.1",
+        "@decentralized-identity/ion-tools": "^0.1.0",
         "@grpc/grpc-js": "^1.4.4",
         "child_process": "^1.0.2",
         "config": "^3.3.6",
