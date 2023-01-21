@@ -18,6 +18,7 @@ import Web3Menu from "./common/Web3Menu";
 import Buy from './pages/Buy';
 import Create from './pages/Create';
 import Home from './pages/Home';
+import MyVC from './pages/MyVC';
 import NoPage from './pages/NoPage';
 import Txs from './pages/Tx/Txs';
 import Wallets from './pages/Wallet/Wallets';
@@ -102,6 +103,7 @@ function App() {
                 <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} /> } />
                 <Route path="/buy" exact element={ <Buy signer={currentAccount} baseURL={baseURL} /> } />
                 <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
+                <Route path="/myvc" exact element={ <MyVC/> } />
                 <Route path="*" exact element={ <NoPage/> } />
               </Routes>
             )}

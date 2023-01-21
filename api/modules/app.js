@@ -426,6 +426,27 @@ app.post("/create-payment-intent", async (req, res) => {
   logger.debug("Payment API終了");
 });
 
+/**
+ * VCを生成し、IPFSに登録するAPI
+ */
+app.post("/api/registerIpfs", async (req, res) => {
+  logger.debug("Register Ipfs API開始");
+
+  // VCの作成(テンプレから生成)
+
+  // ブロックチェーンに署名
+  
+  // IPFSに登録
+
+  res.set({ 'Access-Control-Allow-Origin': '*' });
+  // send
+  res.send({
+    result: true
+  });
+
+  logger.debug("Register Ipfs API終了");
+});
+
 module.exports = {
   app,
   logger
