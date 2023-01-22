@@ -10,7 +10,8 @@ const options = [
       'Home',
       'Buy',
       'Wallets',
-      'Create'
+      'Create',
+      'MyVC'
 ];
     
 // Menuコンポーネント用の定数
