@@ -28,7 +28,7 @@
   },
   "keywords": [],
   "author": "mashharuki",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@truffle/hdwallet-provider": "^2.1.0",
     "dotenv": "^16.0.3",
