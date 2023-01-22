@@ -73,12 +73,14 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 
 ## これから使用する予定の tech stacks
 
-| No. | 名称        |
-| --- | ----------- |
-| 1   | AWS S3      |
-| 2   | AWS EC2     |
-| 3   | AWS Route53 |
-| 4   | VC          |
+| No. | 名称            |
+| --- | --------------- |
+| 1   | AWS S3          |
+| 2   | AWS EC2         |
+| 3   | AWS Route53     |
+| 4   | VC              |
+| 5   | AWS API GateWay |
+| 6   | AWS Cloud Watch |
 
 ## 使用した Blockchain
 
