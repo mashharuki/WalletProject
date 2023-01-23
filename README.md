@@ -125,6 +125,7 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 ├── api           APIサーバー用ディレクトリ
 ├── assets        画像などの資材用ディレクトリ
 ├── backend       スマートコントラクト用ディレクトリ
+├── book          honkit
 ├── docs          ビルドした成果物用ディレクトリ
 ├── frontend      フロントエンド用ディレクトリ
 └── intro-app     QRコード表示簡易アプリ用ディレクトリ
@@ -241,3 +242,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 94. [初心者が５分で出来る簡単サーバレス API を構築してみる【Lambda】](https://recipe.kc-cloud.jp/archives/16877/)
 95. [パブリック API の構築](https://aws.amazon.com/jp/startups/start-building/how-to-build-a-public-facing-API/)
 96. [【MUI】Low-code admin builder](https://mui.com/toolpad/)
+97. [【Canva】プレゼン資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit)
+98. [【UNCHAIN】IDQ Soul Wallet](https://unchain-shiftbase.notion.site/IDQ-Soul-Wallet-65ff1af4271d43468d78e40190c0d710)
