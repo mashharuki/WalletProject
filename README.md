@@ -81,6 +81,7 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 4   | VC              |
 | 5   | AWS API GateWay |
 | 6   | AWS Cloud Watch |
+| 7   | AWS Elastic IP  |
 
 ## 使用した Blockchain
 
@@ -125,6 +126,7 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 ├── api           APIサーバー用ディレクトリ
 ├── assets        画像などの資材用ディレクトリ
 ├── backend       スマートコントラクト用ディレクトリ
+├── book          honkit用のディレクトリ
 ├── docs          ビルドした成果物用ディレクトリ
 ├── frontend      フロントエンド用ディレクトリ
 └── intro-app     QRコード表示簡易アプリ用ディレクトリ
@@ -132,16 +134,16 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 
 ## テスト手順
 
-[テスト手順書](https://github.com/mashharuki/IDQ/blob/main/assets/docs/README2.md)
+[テスト手順書](https://github.com/mashharuki/IDQ/blob/main/assets/spec/README2.md)
 
 ## 審査やテストのためにプロジェクトにアクセスする方法など
 
-[プロジェクト起動手順書(ローカル環境)](https://github.com/mashharuki/IDQ/blob/main/assets/docs/README3.md)
+[プロジェクト起動手順書(ローカル環境)](https://github.com/mashharuki/IDQ/blob/main/assets/spec/README3.md)
 
 ## その他ドキュメント
 
-- [概要設計書](https://github.com/mashharuki/IDQ/blob/main/assets/docs/design.md)
-- [機能設計書](https://github.com/mashharuki/IDQ/blob/main/assets/docs/functions.md)
+- [概要設計書](https://github.com/mashharuki/IDQ/blob/main/assets/spec/design.md)
+- [機能設計書](https://github.com/mashharuki/IDQ/blob/main/assets/spec/functions.md)
 
 #### その他本プロダクトを開発するにあたり参考にした文献
 
@@ -241,3 +243,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 94. [初心者が５分で出来る簡単サーバレス API を構築してみる【Lambda】](https://recipe.kc-cloud.jp/archives/16877/)
 95. [パブリック API の構築](https://aws.amazon.com/jp/startups/start-building/how-to-build-a-public-facing-API/)
 96. [【MUI】Low-code admin builder](https://mui.com/toolpad/)
+97. [【Canva】プレゼン資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit)
+98. [【UNCHAIN】IDQ Soul Wallet](https://unchain-shiftbase.notion.site/IDQ-Soul-Wallet-65ff1af4271d43468d78e40190c0d710)

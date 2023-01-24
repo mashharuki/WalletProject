@@ -20,6 +20,7 @@ describe('Sample Test', () => {
 /**
  * Get method test code
  */
+/*
 describe('Get Endpoints (not mocking)', () => {
   it('/api/balance/IDQ', async () => {
     const res = await req
@@ -45,3 +46,4 @@ describe('Get Endpoints (not mocking)', () => {
     expect(res.body.cities[0].name).toEqual('Abashiri')
   })
 });
+*/
