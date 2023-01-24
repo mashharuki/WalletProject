@@ -20,19 +20,6 @@ jobs:
       - name: api test
         run: cd api && npm i && npm run test && cd ../
 
-  Contract-Test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-      - name: backend test
-        run: cd backend && npm i && npm run test && cd ../
-
   Frontend-Test:
     runs-on: ubuntu-latest
     strategy:
@@ -44,6 +31,19 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - name: frontend test
-        run: cd frontend && npm i && npm run test
+        run: cd frontend && npm run test
       - name: frontend build
-        run: npm run build
+        run: npm run build && cd ../
+
+  Contract-Test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+      - name: backend test
+        run: cd backend && npm run test 
