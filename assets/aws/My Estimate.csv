@@ -1,0 +1,20 @@
+﻿見積りの要約
+前払いコスト,1 月あたりのコスト,Total 12 months cost,通貨
+0,111.03,1332.36,USD
+,,* 前払いコストを含む
+
+
+詳細な見積り
+グループ階層,リージョン,説明,サービス,前払い,毎月,First 12 months total,通貨,設定の概要
+My Estimate,米国西部 (シアトル),IDQ Soul Wallet用の見積もり,Amazon EC2 ,0,72,864.00,USD,"テナンシー (共有インスタンス), オペレーティングシステム (Linux), DT インバウンド: Not selected (0 TB/月), DT アウトバウンド: Not selected (0 TB/月), DT リージョン内: (0 TB/月), ワークロード (Consistent, インスタンス数: 1), 高度な EC2 インスタンス (r5d.2xlarge), Pricing strategy (オンデマンド)"
+My Estimate,米国東部 (オハイオ),IDQ Soul Wallet用の見積もり,Amazon Elastic IP,0,0,0.00,USD,"EC2 インスタンスの数 (1), インスタンスあたりの EIP の数 (1), EIP 再マッピングの数 (0)"
+My Estimate,米国東部 (オハイオ),IDQ Soul Wallet用の見積もり,Amazon API Gateway,0,35,420.00,USD,"HTTP API リクエスト単位 (百万), 各リクエストの平均サイズ (512 KB), REST API リクエストユニット (百万), キャッシュメモリサイズ (GB) (なし), WebSocket メッセージ単位 (千), 平均メッセージサイズ (32 KB), リクエスト (0 /月), リクエスト (10 /月)"
+My Estimate,米国東部 (オハイオ),IDQ Soul Wallet用見積もり,Amazon Route 53,0,2.3,27.60,USD,"ホストゾーン (1), IP (CIDR) ブロック (1), Elastic Network Interface の数 ()"
+My Estimate,米国東部 (オハイオ),IDQ Soul Wallet用の見積もり,Amazon CloudWatch,0,1.5,18.00,USD,メトリクスの数 (詳細メトリクスとカスタムメトリクスを含む) (5)
+My Estimate,米国東部 (オハイオ),IDQ Soul Wallet用の見積もり,S3 Standard,0,0.23,2.76,USD,S3 Standard ストレージ (10 GB あたり 月)
+My Estimate,米国東部 (オハイオ),IDQ Soul Wallet用の見積もり,Data Transfer,0,0,0.00,USD,
+
+
+
+承認
+* AWS 料金見積りツールでは、AWS の料金見積もりのみが提示され、適用される可能性がある税金は含まれていません。実際の料金は、AWS のサービスの実際の使用状況など、さまざまな要因によって異なります。
