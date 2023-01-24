@@ -17,9 +17,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
       - name: api test
         run: cd api && npm i && npm run test && cd ../
 
@@ -32,9 +29,6 @@ jobs:
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
       - name: backend test
         run: cd backend && npm i && npm run test && cd ../
 
@@ -47,9 +41,6 @@ jobs:
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
       - name: frontend test
         run: cd frontend && npm i && npm run test
       - name: frontend build
