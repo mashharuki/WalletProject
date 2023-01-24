@@ -7,24 +7,6 @@ on:
     branches: ["main"]
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        id: npm-cache
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.lock') }}
-      - name: setup
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-      - name: api install
-        run: cd api && npm install && cd ../
-      - name: backend install
-        run: cd backend && npm install && cd ../
-      - name: frontend
-        run: cd frontend && npm install && cd ../
-
   API-Test:
     runs-on: ubuntu-latest
     strategy:
@@ -43,7 +25,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - name: api test
-        run: cd api && npm run test && cd ../
+        run: cd api && npm i && npm run test && cd ../
 
   Contract-Test:
     runs-on: ubuntu-latest
@@ -63,7 +45,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - name: backend test
-        run: cd backend && npm run test && cd ../
+        run: cd backend && npm i && npm run test && cd ../
 
   Frontend-Test:
     runs-on: ubuntu-latest
@@ -83,6 +65,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
       - name: frontend test
-        run: cd frontend && npm run test
+        run: cd frontend && npm i && npm run test
       - name: frontend build
         run: npm run build
