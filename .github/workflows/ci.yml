@@ -31,7 +31,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - name: frontend test
-        run: cd frontend && npm run test
+        run: cd frontend && npm i && npm run test
       - name: frontend build
         run: npm run build && cd ../
 
@@ -46,4 +46,4 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
       - name: backend test
-        run: cd backend && npm run test 
+        run: cd backend && npm i && npm run test
