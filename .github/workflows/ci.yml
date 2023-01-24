@@ -45,26 +45,6 @@ jobs:
       - name: api test
         run: cd api && npm run test && cd ../
 
-  Contract-Test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    steps:
-      - uses: actions/checkout@v3
-        id: yarn-cache
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.lock') }}
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - name: backend test
-        run: cd backend && npm run test && cd ../
-
   Frontend-Test:
     runs-on: ubuntu-latest
     strategy:
@@ -85,4 +65,24 @@ jobs:
       - name: frontend test
         run: cd frontend && npm run test
       - name: frontend build
-        run: npm run build
+        run: npm run build && cd ../
+
+  Contract-Test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v3
+        id: yarn-cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.lock') }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: backend test
+        run: cd backend && npm run test && cd ../
