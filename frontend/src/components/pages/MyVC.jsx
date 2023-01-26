@@ -1,3 +1,4 @@
+import { Certificate } from '@blockcerts/cert-verifier-js';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -21,13 +22,28 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * MyVC Component
  */
 const MyVC = () => {
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState({});
 
     /**
      * verifyAction function
      */
-    const verifyAction = (e) => {
-
+    const verifyAction = async() => {
+        console.log("file:", file);
+        // get file data
+        let certificate = new Certificate(file);
+        await certificate.init();
+        
+        // verify VC data
+        const verificationResult = await certificate.verify(({code, label, status, errorMessage}) => {
+          console.log('Code:', code, label, ' - Status:', status);
+          if (errorMessage) {
+            console.log(`The step ${code} fails with the error: ${errorMessage}`);
+          }
+        });
+      
+        if (verificationResult.status === 'failure') {
+          console.log(`The certificate is not valid. Error: ${verificationResult.errorMessage}`);
+        }
     };
 
     /**
@@ -35,6 +51,7 @@ const MyVC = () => {
      * @param {*} newFile verifyするファイル
      */
     const handleChange = (newFile) => {
+        console.log("newFile;", newFile)
         setFile(newFile)
     }
     
@@ -80,7 +97,11 @@ const MyVC = () => {
                                     />
                                 </p>
                                 <p></p>
-                                <ActionButton2 buttonName="verify" color="primary" clickAction={e => verifyAction(e)} /> 
+                                <ActionButton2 
+                                    buttonName="verify" 
+                                    color="primary" 
+                                    clickAction={verifyAction} 
+                                /> 
                         </div>
                     </Grid>
                 </StyledPaper>
