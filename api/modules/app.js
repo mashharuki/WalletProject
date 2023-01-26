@@ -435,6 +435,8 @@ app.post("/api/registerIpfs", async (req, res) => {
   // VCの作成(テンプレから生成)
 
   // ブロックチェーンに署名
+
+  // 生成済みのVCを取得する。(最初のモックアップ)
   
   // IPFSに登録
 
