@@ -15,11 +15,16 @@ const crypto = require('crypto');
 // did用のモジュールを読み込む
 const ION = require('@decentralized-identity/ion-tools')
 // ブロックチェーン機能のモジュールを読み込む
-const utils = require('./Utils');
+const useContract = require('../contracts/UseContract');
 // ABI
 const abis = require('../contracts/ABI');
 // contract address
 const contractAddr = require('../contracts/Address');
+// get contants 
+const {
+  RPC_URL,
+  CHAIN_ID
+} = require('./../utils/constants');
 
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');
@@ -49,13 +54,13 @@ app.post('/api/mintIDQ', async(req, res) => {
   const abi = abis.MyTokenABI;
 
   // call send Tx function
-  var result = await utils.sendTx(
+  var result = await useContract.sendTx(
     abi, 
     contractAddr.MYTOKEN_ADDRESS, 
     "mint", 
     [to, amount], 
-    utils.RPC_URL, 
-    utils.chainId
+    RPC_URL, 
+    CHAIN_ID
   );
     
   if(result == true) {
@@ -88,22 +93,22 @@ app.post('/api/burnIDQ', async(req, res) => {
   const abi = abis.MyTokenABI;
 
   // call send Tx function
-  var result = await utils.sendTx(
+  var result = await useContract.sendTx(
     abi, 
     contractAddr.MYTOKEN_ADDRESS, 
     "burnToken", 
     [to, (amount/1000000000000000000)], 
-    utils.RPC_URL, 
-    utils.chainId
+    RPC_URL, 
+    CHAIN_ID
   );
     
   if(result == true) {
     // send ETH 
-    var result = await utils.sendEth(
+    var result = await useContract.sendEth(
       walletAddr, 
       (amount/10000000000000000000000), 
-      utils.RPC_URL, 
-      utils.chainId
+      RPC_URL, 
+      CHAIN_ID
     );
 
     logger.debug("トランザクション送信成功");
@@ -133,7 +138,7 @@ app.get('/api/balance/IDQ', async(req, res) => {
   // create wallet 
   const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
   // create provider
-  const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
+  const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
   // create contract 
   var contract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, abi, await provider.getSigner(wallet.address));
 
@@ -186,7 +191,7 @@ app.post('/api/send', async(req, res) => {
     // create wallet 
     const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
     // create provider
-    const provider = new ethers.providers.JsonRpcProvider(utils.RPC_URL);
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
     // get signer 
     const signer = await provider.getSigner(wallet.address)
     // create mytoken contract 
@@ -216,8 +221,8 @@ app.post('/api/send', async(req, res) => {
         contractAddr.MYTOKEN_ADDRESS, 
         "burnToken", 
         [fromAddr, amount],
-        utils.RPC_URL, 
-        utils.chainId
+        RPC_URL, 
+        CHAIN_ID
       ];
       // push
       txs.push(tx);
@@ -227,14 +232,14 @@ app.post('/api/send', async(req, res) => {
         contractAddr.MYTOKEN_ADDRESS, 
         "mint", 
         [receiveAddr, amount], 
-        utils.RPC_URL, 
-        utils.chainId
+        RPC_URL, 
+        CHAIN_ID
       ];
       // push
       txs.push(tx);
 
       // call sendBatchTxs function
-      result = await utils.sendBatchTx(txs).then((result) => resultCheck(result));
+      result = await useContract.sendBatchTx(txs).then((result) => resultCheck(result));
     } else {
       logger.error("トランザクション送信失敗");
       logger.error("残高不足");
@@ -294,13 +299,13 @@ app.post('/api/create', async(req, res) => {
   const abi = abis.FactoryABI;
   
   // set to Factory contract
-  var result = await utils.sendTx(
+  var result = await useContract.sendTx(
     abi, 
     contractAddr.FACTORY_ADDRESS, 
     "register", 
     [addr, didUrl], 
-    utils.RPC_URL, 
-    utils.chainId
+    RPC_URL, 
+    CHAIN_ID
   );
 
   if(result == true) {
@@ -335,32 +340,14 @@ app.get('/api/resolve', async(req, res) => {
  * DIDを利用して署名処理するAPI
  */
 app.post('/api/sign', async(req, res) => {
-      /*
-      const privateKey = JSON.parse(await fs.readFile('privateKey.json'))
-      const myData = 'This message is signed and cannot be tampered with'
-      const signature = await ION.signJws({
-        payload: myData,
-        privateJwk: privateKey
-      });
-    
-      res.json({ signature : signature });
-      */
+  // TO-DO
 });
     
 /**
  * DIDを利用して署名検証するAPI
  */
 app.post('/api/verify', async(req, res) => {
-      /*
-      const publicKey = JSON.parse(await fs.readFile('publicKey.json'))
-      verifiedJws = await ION.verifyJws({
-        jws: signature,
-        publicJwk: publicKey
-      })
-      console.log("Verify with my public key:", verifiedJws)
-    
-      res.json({ verifiedJws : verifiedJws });
-      */
+  // TO-DO
 });
     
 /**
@@ -379,13 +366,13 @@ app.post('/api/excute/factory', async(req, res) => {
   const abi = abis.FactoryABI;
 
   // call send Tx function
-  var result = await utils.sendTx(
+  var result = await useContract.sendTx(
     abi, 
     contractAddr.FACTORY_ADDRESS, 
     methodName, 
     args, 
-    utils.RPC_URL, 
-    utils.chainId
+    RPC_URL, 
+    CHAIN_ID
   );
     
   if(result == true) {
