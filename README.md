@@ -55,21 +55,24 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 
 ## 使用した tech stacks
 
-| No. | 名称          |
-| --- | ------------- |
-| 1   | truffle       |
-| 2   | React.js      |
-| 3   | express       |
-| 4   | superAgent    |
-| 5   | MutliSig      |
-| 6   | SmartContract |
-| 7   | ION(DID)      |
-| 8   | ethers.js     |
-| 9   | Web3.js       |
-| 10  | Blocto SDK    |
-| 11  | RESTful API   |
-| 12  | Figma         |
-| 13  | ERC20         |
+| No. | 名称                  |
+| --- | --------------------- |
+| 1   | truffle               |
+| 2   | React.js              |
+| 3   | express               |
+| 4   | superAgent            |
+| 5   | MutliSig              |
+| 6   | SmartContract         |
+| 7   | ION(DID)              |
+| 8   | ethers.js             |
+| 9   | Web3.js               |
+| 10  | Blocto SDK            |
+| 11  | RESTful API           |
+| 12  | Figma                 |
+| 13  | ERC20                 |
+| 14  | Verifiable Credential |
+| 15  | Pinata                |
+| 16  | Ipfs                  |
 
 ## これから使用する予定の tech stacks
 
@@ -78,10 +81,9 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 1   | AWS S3          |
 | 2   | AWS EC2         |
 | 3   | AWS Route53     |
-| 4   | VC              |
-| 5   | AWS API GateWay |
-| 6   | AWS Cloud Watch |
-| 7   | AWS Elastic IP  |
+| 4   | AWS API GateWay |
+| 5   | AWS Cloud Watch |
+| 6   | AWS Elastic IP  |
 
 ## 使用した Blockchain
 
@@ -129,6 +131,7 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 ├── book          honkit用のディレクトリ
 ├── docs          ビルドした成果物用ディレクトリ
 ├── frontend      フロントエンド用ディレクトリ
+├── script        Ipfsへファイルをアップロードするためのスクリプトを格納したディレクトリ
 └── intro-app     QRコード表示簡易アプリ用ディレクトリ
 ```
 
