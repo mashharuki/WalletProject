@@ -1,4 +1,3 @@
-import { Certificate } from '@blockcerts/cert-verifier-js';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -9,8 +8,7 @@ import React, { useState } from "react";
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
 import {
-    PINTABaseURL,
-    PINTAGatewayURL
+    PINTABaseURL
 } from './../common/Constant';
 
 const {
@@ -34,45 +32,6 @@ const MyVC = () => {
     const [file, setFile] = useState({});
     const [fileName, setFileName] = useState('blockcert json file');
     const [pendingFlg, setPendingFlg] = useState(false);
-
-    /**
-     * verifyAction function
-     */
-    const verifyAction = async() => {
-        // sample VC URL
-        const sampleVCURL = `${PINTAGatewayURL}/QmfXtyA91pvfiuiuDfCruNE9KerhwZEp4JTv18QNh2Ptpj`;
-
-        // get Sample VC data;
-        // POSTメソッドでデータを送信する
-        const res = await axios.get(
-            // APIのURL
-            sampleVCURL,
-            // ヘッダー情報
-            {
-                headers: {
-                    'Authorization': `${PINATA_API_JWT}`,
-                    'Content-Type': `application/json`,
-                },
-            }
-        );
-
-        console.log("file:", res);
-        // get file data
-        let certificate = new Certificate(file);
-        await certificate.init();
-        
-        // verify VC data
-        const verificationResult = await certificate.verify(({code, label, status, errorMessage}) => {
-          console.log('Code:', code, label, ' - Status:', status);
-          if (errorMessage) {
-            console.log(`The step ${code} fails with the error: ${errorMessage}`);
-          }
-        });
-      
-        if (verificationResult.status === 'failure') {
-          console.log(`The certificate is not valid. Error: ${verificationResult.errorMessage}`);
-        }
-    };
 
     /**
      * ファイルをIPFSにアップロードしてCIDをコントラクトと紐付けるメソッド
@@ -163,6 +122,7 @@ const MyVC = () => {
                                     <p><strong>You can verify VC</strong></p>
                                     <p></p>
                                     <blockcerts-verifier></blockcerts-verifier>
+                                    <p></p>
                                 </> 
                             )}
                         </div>
