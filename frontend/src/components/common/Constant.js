@@ -3,9 +3,9 @@
  */
 
 // contract Address (WalletFactory)
-export const CONTRACT_ADDRESS = "0xD776E3Dfc486e576304ABe13865D94d063F7b821";
+export const CONTRACT_ADDRESS = "0xD731c110bc106Aa60f768a1fd2707684A650Cc02";
 // contract Address (MyToken)
-export const MYTOKEN_ADDRESS = "0x17c803255c20C946E72855901c6C0B1C2195Cfc0";
+export const MYTOKEN_ADDRESS = "0x93fdd51462FB20fB631F8CA38c3DeB87583311Ea";
 // chain ID 
 export const chainId = '43113';
 // rpc URL 

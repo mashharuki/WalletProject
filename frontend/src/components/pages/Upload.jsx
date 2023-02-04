@@ -6,11 +6,12 @@ import axios from 'axios';
 import FormData from 'form-data';
 import { MuiFileInput } from 'mui-file-input';
 import React, { useState } from "react";
+import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
 import {
-      PINTABaseURL
+      baseURL, PINTABaseURL
 } from './../common/Constant';
 
 const {
@@ -55,7 +56,7 @@ const Upload = () => {
                   // フラグ ON
                   setPendingFlg(true);
                   // POSTメソッドでデータを送信する
-                  const res = await axios.post(
+                  await axios.post(
                         // APIのURL
                         PINTABaseURL + '/pinning/pinFileToIPFS',
                         // リクエストパラメータ
@@ -68,16 +69,33 @@ const Upload = () => {
                                     'pinata_secret_api_key': `${REACT_APP_PINATA_API_SECRET}`,
                               },
                         }
-                  );
-
-                  console.log(res);
-                  // CIDを取得
-                  console.log("CID:", res.data.IpfsHash);
-                  // フラグ OFF
-                  setPendingFlg(false);
-                  // CIDを出力
-                  popUp(true);
-                  alert(`upload Successfull!! CID:${res.data.IpfsHash}`);
+                  ).then(function(res) {
+                        // CIDを取得
+                        console.log("CID:", res.data.IpfsHash);
+                        // VCのCID情報をIPFSに登録するAPIを呼び出す
+                        superAgent
+                              .post(baseURL + '/api/registerIpfs')
+                              .query({
+                                    did: "",
+                                    name: fileName,
+                                    cid: res.data.IpfsHash
+                              })
+                              .end(async(err, res) => {
+                                    if (err) {
+                                          console.log("VCのCID情報をIPFSに登録するAPI呼び出し中に失敗", err);
+                                          // popUpメソッドの呼び出し
+                                          popUp(false);
+                                          // フラグ OFF
+                                          setPendingFlg(false);
+                                          return err;
+                                    }
+                                    console.log(res);
+                                    // フラグ OFF
+                                    setPendingFlg(false);
+                                    // CIDを出力
+                                    popUp(true);
+                              });
+                  });
             } catch (e) {
                   // フラグ OFF
                   setPendingFlg(false);

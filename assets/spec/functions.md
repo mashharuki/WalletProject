@@ -103,5 +103,5 @@
 | GET          | /api/resolve           | DID ドキュメントを検索する API               |
 | POST         | /api/excute/factory    | FactoryWallet のメソッドを実行するための API |
 | POST         | /create-payment-intent | stripe の Payment element を使うための API   |
-| POST         | /api/registerIpfs      | VC を生成し、IPFS に登録する API             |
+| POST         | /api/registerIpfs      | VC の CID 情報を IPFS に登録する API         |
 |              |                        |                                              |
