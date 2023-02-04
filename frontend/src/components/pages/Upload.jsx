@@ -13,6 +13,9 @@ import './../../assets/css/App.css';
 import {
       baseURL, PINTABaseURL
 } from './../common/Constant';
+import {
+      getDid
+} from './../hooks/UseContract';
 
 const {
     REACT_APP_PINATA_API_KEY,
@@ -32,7 +35,12 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 /**
  * Upload Component
  */
-const Upload = () => {
+const Upload = (props) => {
+      // 引数からデータを取得する。
+      const {
+            signer
+      } = props;
+
       const [file, setFile] = useState({});
       const [fileName, setFileName] = useState('blockcert json file');
       const [pendingFlg, setPendingFlg] = useState(false);
@@ -51,6 +59,8 @@ const Upload = () => {
             postData.append('file', file);
             postData.append('pinataOptions', '{"cidVersion": 1}');
             postData.append('pinataMetadata', `{"name": "${fileName}", "keyvalues": {"company": "vc"}}`);
+            // get did
+            var did = await getDid(signer);
             
             try {
                   // フラグ ON
@@ -76,7 +86,7 @@ const Upload = () => {
                         superAgent
                               .post(baseURL + '/api/registerIpfs')
                               .query({
-                                    did: "",
+                                    did: did,
                                     name: fileName,
                                     cid: res.data.IpfsHash
                               })

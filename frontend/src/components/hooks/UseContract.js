@@ -42,10 +42,11 @@ export const connectWallet = async() => {
       });
       // request
       const signers = await bloctoSDK.ethereum.request({ method: 'eth_requestAccounts' });
+      const signer = signers[0]
 
       return {
             bloctoSDK,
-            signers
+            signer
       };
 };
 
@@ -67,7 +68,7 @@ export const getDid = async(signer) => {
  */
 export const getIdqTokenBalanceOf = async(signer) => {
       // call createContractObject メソッド
-      const MyTokenContract = createContractObject(MyToken.abi, MYTOKEN_ADDRESS);
+      const MyTokenContract = await createContractObject(MyToken.abi, MYTOKEN_ADDRESS);
       // get token balance
       const num = await MyTokenContract.methods.balanceOf(signer).call();
       return num;
@@ -83,6 +84,18 @@ export const getRegisterStatus = async(signer) => {
       // get status info
       var status = await FactoryContract.methods.isRegistered(signer).call();
       return status;
+};
+
+/**
+ * getVcsメソッド
+ * @param did ログイン中のdid情報
+ */
+export const getVcs = async(did) => {
+      // call createContractObject メソッド
+      const FactoryContract = createContractObject(WalletFactory.abi, CONTRACT_ADDRESS);
+      // get Verifiable Credentials info
+      var vcs = await FactoryContract.methods.getVcs(did).call();
+      return vcs;
 };
 
 

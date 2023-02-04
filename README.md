@@ -93,8 +93,8 @@ Avalanche Fuji Chain(Testnet)
 
 | No. | コントラクト名  | Explorer の URL                                                                                                                    |
 | --- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | MyToken         | [0x505869E3B5Ef52a5Db123387fe2d188c44b27b25](https://testnet.snowtrace.io/address/0x505869E3B5Ef52a5Db123387fe2d188c44b27b25#code) |
-| 2   | WalletFactoryV4 | [0x177acf501eF7d2b090d94fd3bd2BE773736598E1](https://testnet.snowtrace.io/address/0x177acf501eF7d2b090d94fd3bd2BE773736598E1#code) |
+| 1   | MyToken         | [0x93fdd51462FB20fB631F8CA38c3DeB87583311Ea](https://testnet.snowtrace.io/address/0x93fdd51462FB20fB631F8CA38c3DeB87583311Ea#code) |
+| 2   | WalletFactoryV4 | [0xD731c110bc106Aa60f768a1fd2707684A650Cc02](https://testnet.snowtrace.io/address/0xD731c110bc106Aa60f768a1fd2707684A650Cc02#code) |
 
 ## application code やその他の file
 
@@ -253,3 +253,4 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 101. [MUI file input](https://viclafouch.github.io/mui-file-input/docs/getting-started/)
 102. [【GitHub】react-blockcerts](https://github.com/mashharuki/react-blockcerts)
 103. [React-blockcerts example](https://guix77.github.io/react-blockcerts/)
+104. [React でファイルをダウンロードする](https://www.delftstack.com/ja/howto/react/react-download-file/)

@@ -46,13 +46,13 @@ function App() {
   const connectWalletAction = async () => {
     try {
       // call createContractObject function
-      const { bloctoSDK, signers } = connectWallet();
+      const { bloctoSDK, signer } = await connectWallet();
       // call getProvider function
       const provider = getProvider();
   
       setBlocto(bloctoSDK);
       setWeb3(provider);
-      setCurrentAccount(signers[0]);
+      setCurrentAccount(signer);
     } catch (error) {
       console.log(error);
     }
@@ -100,8 +100,8 @@ function App() {
                 <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} signer={currentAccount} /> } />
                 <Route path="/buy" exact element={ <Buy signer={currentAccount} /> } />
                 <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
-                <Route path="/myvc" exact element={ <MyVC/> } />
-                <Route path="/upload" exact element={ <Upload/> } />
+                <Route path="/myvc" exact element={ <MyVC signer={currentAccount} /> } />
+                <Route path="/upload" exact element={ <Upload signer={currentAccount} /> } />
                 <Route path="/verify" exact element={ <Verify/> } />
                 <Route path="*" exact element={ <NoPage/> } />
               </Routes>
