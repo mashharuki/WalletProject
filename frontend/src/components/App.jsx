@@ -1,4 +1,3 @@
-import BloctoSDK from '@blocto/sdk';
 import StartIcon from '@mui/icons-material/Start';
 // mui関連をインポートする。
 import AppBar from '@mui/material/AppBar';
@@ -8,13 +7,16 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Web3 from 'web3';
 import './../assets/css/App.css';
 import {
-  baseURL, chainId, CONTRACT_ADDRESS, MYTOKEN_ADDRESS, RPC_URL
+  baseURL, CONTRACT_ADDRESS
 } from "./common/Constant";
 import { RegisterContext } from './common/Contexts';
 import Web3Menu from "./common/Web3Menu";
+import {
+  connectWallet,
+  getProvider
+} from './hooks/UseContract';
 import Buy from './pages/Buy';
 import Create from './pages/Create';
 import Home from './pages/Home';
@@ -43,17 +45,10 @@ function App() {
    */
   const connectWalletAction = async () => {
     try {
-      // create bloctoSDK object
-      const bloctoSDK = new BloctoSDK({
-        ethereum: {
-            chainId: chainId, 
-            rpc: RPC_URL,
-        }
-      });
-      // create web3 object
-      const provider = new Web3(RPC_URL);
-      // request
-      const signers = await bloctoSDK.ethereum.request({ method: 'eth_requestAccounts' });
+      // call createContractObject function
+      const { bloctoSDK, signers } = connectWallet();
+      // call getProvider function
+      const provider = getProvider();
   
       setBlocto(bloctoSDK);
       setWeb3(provider);
@@ -99,11 +94,11 @@ function App() {
               </header>
             ) : (
               <Routes>
-                <Route path="/" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
-                <Route path="/home" exact element={ <Home CONTRACT_ADDRESS={CONTRACT_ADDRESS} MYTOKEN_ADDRESS={MYTOKEN_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
-                <Route path="/wallets" exact element={ <Wallets CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} baseURL={baseURL} /> } />
-                <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} blocto={blocto} signer={currentAccount} /> } />
-                <Route path="/buy" exact element={ <Buy signer={currentAccount} baseURL={baseURL} /> } />
+                <Route path="/" exact element={ <Home signer={currentAccount} /> } />
+                <Route path="/home" exact element={ <Home signer={currentAccount} /> } />
+                <Route path="/wallets" exact element={ <Wallets CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
+                <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} signer={currentAccount} /> } />
+                <Route path="/buy" exact element={ <Buy signer={currentAccount} /> } />
                 <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
                 <Route path="/myvc" exact element={ <MyVC/> } />
                 <Route path="/upload" exact element={ <Upload/> } />

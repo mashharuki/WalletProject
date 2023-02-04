@@ -9,6 +9,9 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import PaymentDialog from '../common/PaymentDialog';
 import './../../assets/css/App.css';
+import {
+      baseURL
+} from "./../common/Constant";
 
 /** 
  * StyledPaperコンポーネント
@@ -26,8 +29,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const Buy = (props) => {
       // 引数からデータを取得する。
       const {
-            signer,
-            baseURL
+            signer
       } = props;
 
       const [isLoading, setIsLoading] = useState(false);
