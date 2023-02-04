@@ -12,7 +12,7 @@ import {
 } from './../common/Constant';
 
 const {
-    PINATA_API_JWT
+    REACT_APP_PINATA_API_JWT
 } = process.env;
 
 /** 
@@ -57,7 +57,7 @@ const MyVC = () => {
                 // ヘッダー情報
                 {
                     headers: {
-                        'Authorization': `${PINATA_API_JWT}`,
+                        'Authorization': `${REACT_APP_PINATA_API_JWT}`,
                         'Content-Type': `application/json`,
                     },
                 }
