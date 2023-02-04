@@ -51,6 +51,7 @@ export const connectWallet = async() => {
 
 /**
  * getDidメソッド
+ * @param signer ログイン中のsignerオブジェクト
  */
 export const getDid = async(signer) => {
       // call createContractObject メソッド
@@ -62,6 +63,7 @@ export const getDid = async(signer) => {
 
 /**
  * getIdqTokenBalanceOf メソッド
+ * @param signer ログイン中のsignerオブジェクト
  */
 export const getIdqTokenBalanceOf = async(signer) => {
       // call createContractObject メソッド
@@ -73,6 +75,7 @@ export const getIdqTokenBalanceOf = async(signer) => {
 
 /**
  * getRegisterStatusメソッド
+ * @param signer ログイン中のsignerオブジェクト
  */
 export const getRegisterStatus = async(signer) => {
       // call createContractObject メソッド
