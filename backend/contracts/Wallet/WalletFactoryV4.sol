@@ -7,6 +7,14 @@ import "./MultiSigWallet.sol";
  * WalletFactoryV4コントラクト
  */
 contract WalletFactoryV4 {
+    // Verifiable Credentials用の構造体
+    struct VcInfo {
+        // VCのファイル名
+        string name;
+        // VCのCID情報(IPFS)
+        string cid;
+    }
+
     // MultiSigWallet型の配列
     MultiSigWallet[] public wallets;
     // 関数から返すことのできる最大値
@@ -18,6 +26,7 @@ contract WalletFactoryV4 {
     mapping(address => bool) public isRegistered;
     mapping(address => string) public dids;
     mapping(string => address) public addrs;
+    mapping(string => VcInfo[]) public vcs;
 
     //modifier
     modifier onlyOwner() {
@@ -105,5 +114,34 @@ contract WalletFactoryV4 {
         addrs[_did] = _addr;
 
         emit Registered(_addr, _did);
+    }
+
+    /**
+     * getVcs function
+     * @param _did DID
+     * @return vcs[_did] Verifiable Credentials
+     */
+    function getVcs(string memory _did) public view returns (VcInfo[] memory) {
+        return vcs[_did];
+    }
+
+    /**
+     * updatVc function
+     * @param _did DID
+     * @param _name VC Name
+     * @param _cid VC's CID
+     */
+    function updateVc(
+        string memory _did,
+        string memory _name,
+        string memory _cid
+    ) public {
+        // get Vcinfo
+        VcInfo[] storage coll = vcs[_did];
+
+        // puch new Vc info
+        coll.push(VcInfo({name: _name, cid: _cid}));
+        // register again
+        vcs[_did] = coll;
     }
 }
