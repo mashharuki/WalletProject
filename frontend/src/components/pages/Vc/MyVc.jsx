@@ -2,8 +2,12 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import React from "react";
+import React, { useEffect } from "react";
 import './../../../assets/css/App.css';
+import {
+    getDid,
+    getVcs
+} from './../../hooks/UseContract';
 
 /** 
  * StyledPaperコンポーネント
@@ -18,7 +22,24 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 /**
  * MyVC Component
  */
-const MyVC = () => {
+const MyVC = (props) => {
+
+    // 引数からデータを取得する。
+    const {
+        signer
+    } = props;
+
+    useEffect(() => {
+        const init = async()=> {
+            // get did
+            var did = await getDid(signer);
+            var vcs = await getVcs(did);
+            console.log("vcs:", vcs);
+        }
+
+        init();
+    });
+
     return (
         <Grid
             container

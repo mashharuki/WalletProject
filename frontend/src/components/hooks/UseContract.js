@@ -55,7 +55,6 @@ export const connectWallet = async() => {
  * @param signer ログイン中のsignerオブジェクト
  */
 export const getDid = async(signer) => {
-      console.log("signer:", signer)
       // call createContractObject メソッド
       const FactoryContract = createContractObject(WalletFactory.abi, CONTRACT_ADDRESS);
       // get did info
@@ -80,12 +79,23 @@ export const getIdqTokenBalanceOf = async(signer) => {
  * @param signer ログイン中のsignerオブジェクト
  */
 export const getRegisterStatus = async(signer) => {
-      console.log("signer:", signer)
       // call createContractObject メソッド
       const FactoryContract = createContractObject(WalletFactory.abi, CONTRACT_ADDRESS);
       // get status info
       var status = await FactoryContract.methods.isRegistered(signer).call();
       return status;
+};
+
+/**
+ * getVcsメソッド
+ * @param did ログイン中のdid情報
+ */
+export const getVcs = async(did) => {
+      // call createContractObject メソッド
+      const FactoryContract = createContractObject(WalletFactory.abi, CONTRACT_ADDRESS);
+      // get Verifiable Credentials info
+      var vcs = await FactoryContract.methods.getVcs(did).call();
+      return vcs;
 };
 
 
