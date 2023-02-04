@@ -21,6 +21,7 @@ import Home from './pages/Home';
 import MyVC from './pages/MyVC';
 import NoPage from './pages/NoPage';
 import Txs from './pages/Tx/Txs';
+import Upload from './pages/Upload';
 import Wallets from './pages/Wallet/Wallets';
 
 
@@ -104,6 +105,7 @@ function App() {
                 <Route path="/buy" exact element={ <Buy signer={currentAccount} baseURL={baseURL} /> } />
                 <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
                 <Route path="/myvc" exact element={ <MyVC/> } />
+                <Route path="/upload" exact element={ <Upload/> } />
                 <Route path="*" exact element={ <NoPage/> } />
               </Routes>
             )}

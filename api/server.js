@@ -18,4 +18,6 @@ const server = app.listen(portNo, () => {
   console.log('起動しました', `https://${ip.address()}:${portNo}`);
 });
 
-module.exports = server
+module.exports = {
+  server
+}
