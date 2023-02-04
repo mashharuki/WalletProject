@@ -68,3 +68,21 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### verify ボタンと upload ボタンの実装案
+
+```js
+<p className="file-ui">
+      <MuiFileInput
+            value={file}
+            placeholder='select your file'
+            onChange={handleChange}
+      />
+</p>
+<p></p>
+<ActionButton2
+      buttonName="verify"
+      color="primary"
+      clickAction={verifyAction}
+/>
+```

@@ -150,6 +150,11 @@ body {
   }
 }
 
+/* ファイル選択UI用のCSS */
+.file-ui {
+  margin: 10%;
+}
+
 /* フッター用のCSS */
 .footer-container {
   display: flex;

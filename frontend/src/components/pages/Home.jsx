@@ -10,7 +10,6 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import SendDialog from '../common/SendDialog';
 import './../../assets/css/App.css';
-import Coupon from './../../assets/imgs/Coupon_2.png';
 import MyToken from './../../contracts/MyToken.json';
 import WalletFactory from './../../contracts/WalletFactoryV4.json';
 
@@ -55,10 +54,8 @@ const Home = (props) => {
     const registerAction = async() => {
         // Factory object
         const FactoryContract = new provider.eth.Contract(WalletFactory.abi, CONTRACT_ADDRESS);
-        
-        var result;
-
         setIsLoading(true);
+        
         // DID作成APIを呼び出す
         superAgent
             .post(baseURL + '/api/create')
@@ -301,7 +298,8 @@ const Home = (props) => {
                         container 
                         justifyContent="center"
                     >
-                        <img className="image_size_m" src={Coupon} /> 
+                        {/* <img className="image_size_m" src={Coupon} />  */}
+                        <></>
                     </Grid>
                 ) : <></>}
             </Box>

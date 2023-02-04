@@ -5,17 +5,10 @@ const log4js = require('log4js');
 log4js.configure('./log/log4js_setting.json');
 const logger = log4js.getLogger("server");
 
-
 // get Mnemonic code
 const {
     MNEMONIC
 } = process.env
-
-// chain ID
-const chainId = 43113;
-
-// RPC URL
-const RPC_URL = `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`;
 
 /**
  * トランザクションを送信するメソッド
@@ -169,8 +162,6 @@ const sendEth = async(to, value, rpc_url, chainId) => {
 
 
 module.exports = { 
-    chainId,
-    RPC_URL,
     sendTx,
     sendBatchTx, 
     sendEth 
