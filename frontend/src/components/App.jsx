@@ -46,13 +46,15 @@ function App() {
   const connectWalletAction = async () => {
     try {
       // call createContractObject function
-      const { bloctoSDK, signers } = connectWallet();
+      const { bloctoSDK, signer } = await connectWallet();
       // call getProvider function
       const provider = getProvider();
+
+      console.log("signer:", signer);
   
       setBlocto(bloctoSDK);
       setWeb3(provider);
-      setCurrentAccount(signers[0]);
+      setCurrentAccount(signer);
     } catch (error) {
       console.log(error);
     }
