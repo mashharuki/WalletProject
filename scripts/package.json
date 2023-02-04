@@ -1,0 +1,27 @@
+{
+  "name": "IDQ-scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "calculate-cid": "node ./src/calculate-cid.js",
+    "calculate-hashe": "node ./src/calculate-hashes.js",
+    "download-cid": "node ./src/download-cids.js",
+    "upload": "node ./src/upload-file.js"
+  },
+  "keywords": [
+    "nft",
+    "pinata"
+  ],
+  "dependencies": {
+    "@pinata/sdk": "^1.1.23",
+    "axios": "^0.24.0",
+    "base-path-converter": "^1.0.2",
+    "bottleneck": "^2.19.5",
+    "dotenv": "^10.0.0",
+    "form-data": "^4.0.0",
+    "fs-extra": "^10.0.0",
+    "ipfs-only-hash": "^4.0.0",
+    "recursive-fs": "^2.1.0"
+  }
+}

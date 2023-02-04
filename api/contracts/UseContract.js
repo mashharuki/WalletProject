@@ -1,5 +1,5 @@
 require('dotenv/config');
-const { ethers, BigNumber} = require('ethers');
+const { ethers } = require('ethers');
 const log4js = require('log4js');
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');

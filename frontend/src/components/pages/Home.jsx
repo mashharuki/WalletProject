@@ -10,8 +10,14 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import SendDialog from '../common/SendDialog';
 import './../../assets/css/App.css';
-import MyToken from './../../contracts/MyToken.json';
-import WalletFactory from './../../contracts/WalletFactoryV4.json';
+import {
+    baseURL
+} from './../common/Constant';
+import {
+    getDid,
+    getIdqTokenBalanceOf,
+    getRegisterStatus
+} from './../hooks/UseContract';
 
 /** 
  * StyledPaperコンポーネント
@@ -29,11 +35,7 @@ import WalletFactory from './../../contracts/WalletFactoryV4.json';
 const Home = (props) => {
     // 引数からデータを取得する。
     const {
-        CONTRACT_ADDRESS,
-        MYTOKEN_ADDRESS,
-        provider,
-        signer,
-        baseURL
+        signer
     } = props;
 
     const [balance, setBalance] = useState(0);
@@ -52,8 +54,6 @@ const Home = (props) => {
      * Register function 
      */
     const registerAction = async() => {
-        // Factory object
-        const FactoryContract = new provider.eth.Contract(WalletFactory.abi, CONTRACT_ADDRESS);
         setIsLoading(true);
         
         // DID作成APIを呼び出す
@@ -71,7 +71,7 @@ const Home = (props) => {
                 }
 
                 // DIDを取得する。
-                const result = await FactoryContract.methods.dids(signer).call();
+                const result = await getDid(signer);
                 var modStr = result.substr(0, 9) + '...' + result.substr(result.length - 3, 3);
 
                 setDid(modStr);
@@ -191,10 +191,8 @@ const Home = (props) => {
      * getBalance function
      */
     const getBalance = async() => {
-        // コントラクト用のインスタンスを生成する。
-        const instance = new provider.eth.Contract(MyToken.abi, MYTOKEN_ADDRESS);
         // 残高を取得する
-        const num = await instance.methods.balanceOf(signer).call();
+        const num = await getIdqTokenBalanceOf(signer);
         setBalance(num);
     }
 
@@ -202,16 +200,15 @@ const Home = (props) => {
      * checkStatus function
      */
     const checkStatus = async() => {
-        // Factory object
-        const FactoryContract = new provider.eth.Contract(WalletFactory.abi, CONTRACT_ADDRESS);
+        
         // 登録ステータスを確認する。
-        var status = await FactoryContract.methods.isRegistered(signer).call();
+        var status = await getRegisterStatus(signer);
         console.log("isRegistered:", isRegistered);
         setIsRegistered(status);
 
         if(status) {
             // DIDを取得する。
-            const didData = await FactoryContract.methods.dids(signer).call();
+            const didData = await getDid(signer);
             console.log("didData :", didData);
             // short
             var modStr = didData.substr(0, 9) + '...' + didData.substr(didData.length - 3, 3)

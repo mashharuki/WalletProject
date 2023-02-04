@@ -414,26 +414,42 @@ app.post("/create-payment-intent", async (req, res) => {
 });
 
 /**
- * VCを生成し、IPFSに登録するAPI
+ * VCのCID情報をIPFSに登録するAPI
+ * @param did DID
+ * @param name VCのファイル名
+ * @param cid CID情報
  */
 app.post("/api/registerIpfs", async (req, res) => {
   logger.debug("Register Ipfs API開始");
 
-  // VCの作成(テンプレから生成)
-
-  // ブロックチェーンに署名
-
-  // 生成済みのVCを取得する。(最初のモックアップ)
+  // リクエストパラメータから情報を取得する。
+  var did = req.query.did;
+  var name = req.query.name;
+  var cid = req.query.cid;
+  // コントラクトのABI
+  const abi = abis.FactoryABI;
   
   // IPFSに登録
+  var result = await useContract.sendTx(
+    abi, 
+    contractAddr.FACTORY_ADDRESS, 
+    "updateVc", 
+    [did, name, cid], 
+    RPC_URL, 
+    CHAIN_ID
+  );
 
-  res.set({ 'Access-Control-Allow-Origin': '*' });
-  // send
-  res.send({
-    result: true
-  });
-
-  logger.debug("Register Ipfs API終了");
+  if(result == true) {
+    logger.debug("トランザクション送信成功");
+    logger.log("Register Ipfs API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'success' });
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.log("Register Ipfs API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
 });
 
 module.exports = {

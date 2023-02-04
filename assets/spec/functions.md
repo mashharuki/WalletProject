@@ -33,6 +33,7 @@
 | Home 画面               | DID と保有している IDQ トークン・DID と紐づく情報を表示する画面 |
 | 送金画面                | 指定した DID に対して送金する画面                               |
 | 購入画面                | IDQ トークンを購入する画面                                      |
+| DID 関連情報登録画面    | 自身の DID に紐づく VC を登録するための画面                     |
 | DID 関連情報検証画面    | 自身の DID に紐づく VC を表示・検証するための画面               |
 | MultiSigWallet 画面     | Wallet を管理する画面。deposit 機能が使える                     |
 | create Transaction 画面 | トランザクションデータを作成する画面                            |
@@ -50,7 +51,7 @@
 | WalletFactoryV4 | isRegistered | mapping(address => bool)                     | コントラクトウォレットアドレスに紐づく DID が生成されているチェックするための map                                 |
 | WalletFactoryV4 | dids         | mapping(address => string)                   | DID とコントラクトウォレットのアドレスを格納する Map (アドレスから DID を求めるための map)                        |
 | WalletFactoryV4 | addrs        | mapping(string => address)                   | DID とコントラクトウォレットのアドレスを格納する Map (DID からコントラクトウォレットのアドレスを求めるための map) |
-| WalletFactoryV4 | vcs          | mapping(address => string)                   | コントラクトウォレットと VC までの URL を格納する Map                                                             |
+| WalletFactoryV4 | vcs          | mapping(string => [VcInfo])                  | コントラクトウォレットと VC までの CID 情報 を格納する Map                                                        |
 | MultiSigWallet  | Transaction  | struct                                       | トランザクションデータ用の構造体                                                                                  |
 | MultiSigWallet  | walletName   | string                                       | マルチシグウォレットの名前                                                                                        |
 | MultiSigWallet  | owners       | [address]                                    | Owner のアドレスを格納する配列                                                                                    |
@@ -76,6 +77,8 @@
 | WalletFactoryV4 | createWallet          | MultiSigWallet のインスタンス生成関数                          |
 | WalletFactoryV4 | getWallets            | 作成済みウォレットの情報を取得するメソッド                     |
 | WalletFactoryV4 | register              | DID とコントラクトウォレットのアドレスを紐づけるためのメソッド |
+| WalletFactoryV4 | getVcs                | DID に紐づく VC 情報一覧を取得するためのメソッド               |
+| WalletFactoryV4 | updateVc              | DID に紐づく VC 情報を新たに登録するためのメソッド             |
 | MultiSigWallet  | receive()             | 入金用のメソッド                                               |
 | MultiSigWallet  | submit                | トランザクションデータを作成するメソッド                       |
 | MultiSigWallet  | approve               | 指定した ID のトランザクションを承認するメソッド               |
@@ -100,5 +103,5 @@
 | GET          | /api/resolve           | DID ドキュメントを検索する API               |
 | POST         | /api/excute/factory    | FactoryWallet のメソッドを実行するための API |
 | POST         | /create-payment-intent | stripe の Payment element を使うための API   |
-| POST         | /api/registerIpfs      | VC を生成し、IPFS に登録する API             |
+| POST         | /api/registerIpfs      | VC の CID 情報を IPFS に登録する API         |
 |              |                        |                                              |
