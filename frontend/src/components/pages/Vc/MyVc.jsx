@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import React from "react";
-import './../../assets/css/App.css';
+import './../../../assets/css/App.css';
 
 /** 
  * StyledPaperコンポーネント
@@ -35,7 +35,7 @@ const MyVC = () => {
                     height: '80vh'
                 }}
             >
-                <StyledPaper 
+                <StyledPaper
                     sx={{
                         my: 1, 
                         mx: "auto", 

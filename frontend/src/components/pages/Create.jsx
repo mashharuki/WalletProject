@@ -77,7 +77,7 @@ const Create = (props) => {
         console.log("owners:", owners)
         try {
             setIsLoading(true);
-            // factoryコントラクトを使うためのAPIを呼び出す
+            // factoryコントラクトを使うためのAPIを呼び出す。(引数に課題あり)
             const res = await UseFactory("createWallet", [walletName, owners, required]);
             
             setIsLoading(false);

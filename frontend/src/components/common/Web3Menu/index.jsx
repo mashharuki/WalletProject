@@ -11,8 +11,9 @@ const options = [
       'Buy',
       'Wallets',
       'Create',
+      'Upload',
       'MyVC',
-      'Upload'
+      'Verify'
 ];
     
 // Menuコンポーネント用の定数
