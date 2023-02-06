@@ -8,6 +8,7 @@
         "@babel/register": "^7.16.0",
         "@decentralized-identity/ion-tools": "^0.1.1",
         "@grpc/grpc-js": "^1.4.4",
+        "@pinata/sdk": "^2.1.0",
         "child_process": "^1.0.2",
         "config": "^3.3.6",
         "crypto": "^1.0.1",

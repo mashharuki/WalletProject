@@ -25,6 +25,8 @@ const {
   RPC_URL,
   CHAIN_ID
 } = require('./../utils/constants');
+const { generateDID } = require('./did/did');
+const { uploadFileToIpfs } = require('./ipfs/ipfs');
 
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');
@@ -264,34 +266,15 @@ app.post('/api/create', async(req, res) => {
   logger.log("DID作成用のAPI開始");
 
   var addr = req.query.addr;
-  // create key pair
-  let authnKeys = await ION.generateKeyPair();
-  // new DID
-  let did = new ION.DID({
-    content: {
-      publicKeys: [
-        {
-          id: 'key-1',
-          type: 'EcdsaSecp256k1VerificationKey2019',
-          publicKeyJwk: authnKeys.publicJwk,
-          purposes: [ 'authentication' ]
-        }
-      ],
-      services: [
-        {
-          id: 'idq',
-          type: 'LinkedDomains',
-          serviceEndpoint: 'http://idq.vercel.app/'
-        }
-      ]
-    }
-  });
 
-  // anchor DID
-  const requestBody = await did.generateRequest();
-  const request = new ION.AnchorRequest(requestBody);
-  let response = await request.submit();
+  // generate DID document
+  let {
+    response,
+    did
+  } = await generateDID();
   logger.log("response:", response);
+  // upload to ipfs
+  await uploadFileToIpfs(response, addr);
   
   // get DID URL
   const didUrl = await did.getURI('short');
@@ -351,7 +334,7 @@ app.post('/api/verify', async(req, res) => {
 });
     
 /**
- * FactoryWalletのメソッドを実行するためのAPI
+ * FactoryWalletのメソッドを実行するためのAPI (配列を渡せない課題あり)
  * @param methodName メソッド名
  * @param args 引数
  */
@@ -414,7 +397,7 @@ app.post("/create-payment-intent", async (req, res) => {
 });
 
 /**
- * VCのCID情報をIPFSに登録するAPI
+ * VCのCID情報をスマートコントラクトに登録するAPI
  * @param did DID
  * @param name VCのファイル名
  * @param cid CID情報
