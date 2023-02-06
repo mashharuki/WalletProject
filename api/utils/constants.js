@@ -40,6 +40,9 @@ const TEMPLATE_DID = {
       '@context': ['https://www.w3.org/ns/did/v1'],
 }
 
+// DIDドキュメントを格納するフォルダパス
+const FOLDER_PATH = 'data';
+
 module.exports = {
       RPC_URL,
       CHAIN_ID,
@@ -47,5 +50,6 @@ module.exports = {
       CONTROLLER,
       TEMPLATE_VC,
       TEMPLATE_PROFILE,
-      TEMPLATE_DID
+      TEMPLATE_DID,
+      FOLDER_PATH
 };
