@@ -3,9 +3,11 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
-import walletContract from "../../../contracts/MultiSigWallet.json";
 import ActionButton2 from '../../common/ActionButton2';
 import './../../../assets/css/App.css';
+import {
+    getApprovalCount, getRequired
+} from './../../hooks/UseContract';
 
 /**
  * TxTable
@@ -21,20 +23,13 @@ const TxTable = (props) => {
         approveAction,
         revokeAction,
         executeAction,
-        provider,
         signer
     } = props;
 
-    // 送金先アドレスを格納するためのステート変数
-    const [to, setTo] = useState(null);
-    // 送金額を格納するためのステート変数
-    const [value, setValue] = useState(0);
     // トランザクションのステータス
     const [isExecuted, setIsExecuted] = useState(false);
     // アカウント用のステート変数
     const [approved, setApproved] = useState(0);
-    // コントラクト用のステート変数
-    const [contract, setContract] = useState(null); 
     // アカウント用のステート変数
     const [account, setAccount] = useState(null);
     // 閾値用のステート変数
@@ -44,19 +39,16 @@ const TxTable = (props) => {
      * 初期化メソッド
      */
     const init = async(_wallet) => {
-        // コントラクトをインスタンス化する。
-        const instance = new provider.eth.Contract(walletContract.abi, _wallet);
         console.log("row:", row)
         // トランザクションデータの情報を取得する。
         const executed = row.executed;
         // 承認済みの数を求める
-        const approvement = await instance.methods._getApprovalCount(index).call();
+        const approvement = await getApprovalCount(_wallet, index);
         // 閾値を取得する。
-        const req = await instance.methods.getRequired().call();
+        const req = await getRequired(_wallet);
 
         // ステート変数を更新する。
         setIsExecuted(executed);
-        setContract(instance);
         setAccount(signer);
         setApproved(approvement);
         setRequired(req);

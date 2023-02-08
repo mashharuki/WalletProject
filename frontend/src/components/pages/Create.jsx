@@ -10,6 +10,9 @@ import FactoryContract from "../../contracts/WalletFactoryV4.json";
 import ActionButton from '../common/ActionButton';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
+import {
+    CONTRACT_ADDRESS
+} from './../common/Constant';
 import UseFactory from './../common/UseContract';
 
 /** 
@@ -27,9 +30,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const Create = (props) => {
     // 引数からデータを取得する。
     const {
-        CONTRACT_ADDRESS,
         provider,
-        blocto,
         signer    
     } = props;
     

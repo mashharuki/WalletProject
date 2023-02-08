@@ -8,9 +8,6 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './../assets/css/App.css';
-import {
-  baseURL, CONTRACT_ADDRESS
-} from "./common/Constant";
 import { RegisterContext } from './common/Contexts';
 import Web3Menu from "./common/Web3Menu";
 import {
@@ -96,10 +93,10 @@ function App() {
               <Routes>
                 <Route path="/" exact element={ <Home signer={currentAccount} /> } />
                 <Route path="/home" exact element={ <Home signer={currentAccount} /> } />
-                <Route path="/wallets" exact element={ <Wallets CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} signer={currentAccount} baseURL={baseURL} /> } />
-                <Route path="/create" exact element={ <Create CONTRACT_ADDRESS={CONTRACT_ADDRESS} provider={web3} signer={currentAccount} /> } />
+                <Route path="/wallets" exact element={ <Wallets signer={currentAccount} /> } />
+                <Route path="/create" exact element={ <Create provider={web3} signer={currentAccount} /> } />
                 <Route path="/buy" exact element={ <Buy signer={currentAccount} /> } />
-                <Route path="/txs" exact element={ <Txs provider={web3} blocto={blocto} signer={currentAccount} /> } />
+                <Route path="/txs" exact element={ <Txs signer={currentAccount} /> } />
                 <Route path="/myvc" exact element={ <MyVC signer={currentAccount} /> } />
                 <Route path="/upload" exact element={ <Upload signer={currentAccount} /> } />
                 <Route path="/verify" exact element={ <Verify/> } />
