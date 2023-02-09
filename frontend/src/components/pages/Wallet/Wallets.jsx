@@ -17,11 +17,11 @@ import WalletDialog from '../../common/Dialog';
 import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
 import './../../../assets/css/App.css';
 import {
+    baseURL
+} from './../../common/Constant';
+import {
     getWallets, walletsCount
 } from './../../hooks/UseContract';
-import {
-    baseURL
-} from './../common/Constant';
 import WalletTable from './WalletTable';
 
 /**
