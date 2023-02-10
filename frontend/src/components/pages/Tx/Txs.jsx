@@ -13,11 +13,14 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import superAgent from 'superagent';
 import Web3 from "web3";
 import ActionButton from '../../common/ActionButton';
 import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
-import UseFactory from '../../common/UseContract';
 import './../../../assets/css/App.css';
+import {
+    baseURL
+} from './../../common/Constant';
 import {
     getTxs
 } from './../../hooks/UseContract';
@@ -116,12 +119,31 @@ const Txs = (props) => {
 
         try {
             setIsLoading(true);    
-            // factoryコントラクトを使うためのAPIを呼び出す
-            const res = await UseFactory("submit", [to, sendValue, inputData]);
 
-            setIsLoading(false);
-            // popUpメソッドの呼び出し
-            popUp(true, "Transaction successfull!!");
+            // submit用のAPIを呼び出す
+            superAgent
+                .post(baseURL + '/api/wallet/submit')
+                .query({
+                    to: to,
+                    value: sendValue,
+                    data: inputData,
+                    address: wallet
+                })
+                .end(async(err, res) => {
+                    if (err) {
+                        console.log("submitを使うためのAPI呼び出し中に失敗", err);
+                        // popUpメソッドの呼び出し
+                        popUp(false, "Transaction failfull...");
+                        // フラグ OFF
+                        setIsLoading(false);
+                        return err;
+                    };
+                    console.log(res);
+                    // フラグ OFF
+                    setIsLoading(false);
+                    // popUpメソッドの呼び出し
+                    popUp(true, "Transaction successfull!!");
+                });
         } catch(err) {
             console.error("err:", err);
             setIsLoading(false);
@@ -137,15 +159,28 @@ const Txs = (props) => {
     const approveAction = async(txId) => {
         try {
             setIsLoading(true);
-            
-            // submitメソッドをエンコードする。
-            var data = contract.methods.approve(txId).encodeABI();
-            // sendTx
-            //await sendTx(data);
-
-            setIsLoading(false);
-            // popUpメソッドの呼び出し
-            popUp(true, "Transaction successfull!!");
+            // approve用のAPIを呼び出す
+            superAgent
+                .post(baseURL + '/api/wallet/approve')
+                .query({
+                    txId: txId,
+                    address: wallet
+                })
+                .end(async(err, res) => {
+                    if (err) {
+                        console.log("approveを使うためのAPI呼び出し中に失敗", err);
+                        // popUpメソッドの呼び出し
+                        popUp(false, "Transaction failfull...");
+                        // フラグ OFF
+                        setIsLoading(false);
+                        return err;
+                    };
+                    console.log(res);
+                    // フラグ OFF
+                    setIsLoading(false);
+                    // popUpメソッドの呼び出し
+                    popUp(true, "Transaction successfull!!");
+                });
         } catch(err) {
             console.error("err:", err);
             setIsLoading(false);
@@ -162,14 +197,28 @@ const Txs = (props) => {
         try {
             setIsLoading(true);
             
-            // submitメソッドをエンコードする。
-            var data = contract.methods.revoke(txId).encodeABI();
-            // sendTx
-            //await sendTx(data);
-            
-            setIsLoading(false);
-            // popUpメソッドの呼び出し
-            popUp(true, "Transaction successfull!!");
+            // revoke用のAPIを呼び出す
+            superAgent
+                .post(baseURL + '/api/wallet/revoke')
+                .query({
+                    txId: txId,
+                    address: wallet
+                })
+                .end(async(err, res) => {
+                    if (err) {
+                        console.log("revokeを使うためのAPI呼び出し中に失敗", err);
+                        // popUpメソッドの呼び出し
+                        popUp(false, "Transaction failfull...");
+                        // フラグ OFF
+                        setIsLoading(false);
+                        return err;
+                    };
+                    console.log(res);
+                    // フラグ OFF
+                    setIsLoading(false);
+                    // popUpメソッドの呼び出し
+                    popUp(true, "Transaction successfull!!");
+                });
         } catch(err) {
             console.error("err:", err);
             setIsLoading(false);
@@ -185,15 +234,29 @@ const Txs = (props) => {
     const executeAction = async(txId) => {
         try {
             setIsLoading(true);
-            
-             // submitメソッドをエンコードする。
-             var data = contract.methods.execute(txId).encodeABI();
-             // sendTx
-             //await sendTx(data);
-
-            setIsLoading(false);
-            // popUpメソッドの呼び出し
-            popUp(true, "Transaction successfull!!");
+        
+            // execute用のAPIを呼び出す
+            superAgent
+                .post(baseURL + '/api/wallet/execute')
+                .query({
+                    txId: txId,
+                    address: wallet
+                })
+                .end(async(err, res) => {
+                    if (err) {
+                        console.log("executeを使うためのAPI呼び出し中に失敗", err);
+                        // popUpメソッドの呼び出し
+                        popUp(false, "Transaction failfull...");
+                        // フラグ OFF
+                        setIsLoading(false);
+                        return err;
+                    };
+                    console.log(res);
+                    // フラグ OFF
+                    setIsLoading(false);
+                    // popUpメソッドの呼び出し
+                    popUp(true, "Transaction successfull!!");
+                });
         } catch(err) {
             console.error("err:", err);
             setIsLoading(false);
