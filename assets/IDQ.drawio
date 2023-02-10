@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-02-10T15:23:47.547Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="PD6-8D232HBkNsfDgVPN" version="20.7.4" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-02-10T15:24:07.800Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="iRPLR5EbUucXdjg_AcrG" version="20.7.4" type="github" pages="3">
   <diagram id="AgBQlWnoEHxcCPggjtpq" name="system image">
     <mxGraphModel dx="2653" dy="675" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -185,7 +185,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="FsVHkm6TuDkBYR7rk3on-5" value="IDQのシステム構成イメージと立ち位置" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#330000;fontSize=21;" parent="1" vertex="1">
+        <mxCell id="FsVHkm6TuDkBYR7rk3on-5" value="IDQ Soul Walletのシステム構成イメージ図" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#330000;fontSize=21;" parent="1" vertex="1">
           <mxGeometry x="-1310" y="19" width="480" height="50" as="geometry" />
         </mxCell>
         <mxCell id="FsVHkm6TuDkBYR7rk3on-6" value="IDQ&lt;br&gt;Soul&amp;nbsp;&lt;br&gt;Wallet&lt;br&gt;(front)" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=14;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
