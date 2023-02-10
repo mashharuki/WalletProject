@@ -38,7 +38,7 @@ Web3 はまだ一般的には普及しておりません。これがその起爆
 Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り方と Web3 の新しいコミュケーションのあり方を Communication protocol にすることで社会インフラ化を加速、DID 連携をヘルスケア・IoT・スマートシティ領域でも活かすことできます。
 オムニチャンネル化、Super アプリ化を目指す。
 
-特異性: DID 連携
+特異性: DID 連携、承認制送金システム
 
 ## プロダクト URL
 
@@ -267,3 +267,4 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 103. [React-blockcerts example](https://guix77.github.io/react-blockcerts/)
 104. [React でファイルをダウンロードする](https://www.delftstack.com/ja/howto/react/react-download-file/)
 105. [GitHub API](https://docs.github.com/ja/rest/commits/commits?apiVersion=2022-11-28)
+106. [過去のデモ動画](https://www.youtube.com/watch?v=yyLkcT2IkuA&t=4s)

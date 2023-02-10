@@ -17,16 +17,22 @@ npm i
 
 3. `.env`ファイルを作成し、MetaMask のニーモニックコードを貼り付ける。
 
-```txt:
-MNEMONIC=<YOUR_DATA>
+```txt
+MNEMONIC=YOUR_DATA
+STRIPE_API_KEY=YOUR_DATA
+PINATA_API_KEY=YOUR_DATA
+PINATA_API_SECRET=YOUR_DATA
+PINATA_API_JWT=YOUR_DATA
 ```
 
-4. `ABI.js`にコントラクトの ABI 情報を貼り付ける。
+4. `ABI.js`にコンパイルしたコントラクトの ABI 情報を貼り付ける。
 
 ```js
 const MyTokenABI = `ここにABIを貼り付ける`;
 
 const FactoryABI = `ここにABIを貼り付ける`;
+
+const WalletABI = `ここにABIを貼り付ける`;
 ```
 
 5. 起動コマンドを入力する。
@@ -89,7 +95,7 @@ npm run start
 
 ## IDQ Soul Wallet の起動
 
-1. `fronted`ディレクトリに移動する。
+1. `frontend`ディレクトリに移動する。
 2. モジュールのインストールのため下記コマンドを実行
 
 ```zsh
@@ -117,7 +123,16 @@ export const RPC_URL = `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`;
 + export const baseURL = 'http://192.168.0.16:3001'; // please change
 ```
 
-4. 起動コマンドを実行する。
+4. `.env`ファイルにストライプと pinata の API の環境変数を記載する。
+
+```txt
+REACT_APP_STRIPE_API_KEY=<YOUR_DATA>
+REACT_APP_PINATA_API_KEY=<YOUR_DATA>
+REACT_APP_PINATA_API_SECRET=<YOUR_DATA>
+REACT_APP_PINATA_API_JWT=<YOUR_DATA>
+```
+
+5. 起動コマンドを実行する。
 
 ```zsh
 npm run start
