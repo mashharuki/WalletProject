@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-02-10T15:21:53.989Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="FgW8UHliVYAyaoMgjtVp" version="20.7.4" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-02-10T15:23:47.547Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" etag="PD6-8D232HBkNsfDgVPN" version="20.7.4" type="github" pages="3">
   <diagram id="AgBQlWnoEHxcCPggjtpq" name="system image">
     <mxGraphModel dx="2653" dy="675" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -335,7 +335,7 @@
           <mxGeometry x="-1237" y="66" width="490" height="57" as="geometry" />
         </mxCell>
         <mxCell id="NikSniwz_zqZwWtPhhYT-3" value="&lt;b&gt;※ 私達が考えるWeb3 Communication protocolとは&lt;br&gt;　Dappやブロックチェーンへのアクセスを含めたデジタル決済やNFT売買などの&lt;br&gt;　ユーザー間のやり取りがWallet内で完結している状態だと考えています。&lt;br&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-1237" y="140" width="490" height="40" as="geometry" />
+          <mxGeometry x="-1237" y="140" width="457" height="40" as="geometry" />
         </mxCell>
         <mxCell id="NikSniwz_zqZwWtPhhYT-6" value="" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;flipV=1;size=20;position=0.07;base=31;position2=0.04;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
           <mxGeometry x="-790" y="410" width="270" height="190" as="geometry" />
@@ -382,7 +382,7 @@
         <mxCell id="TJuVSiiJl-H6LIU0_fS9-1" value="イメージ図" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#330000;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="-709" y="600" width="115" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="TJuVSiiJl-H6LIU0_fS9-2" value="リポジトリー&lt;br&gt;(DIDと紐づけ)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" parent="1" vertex="1">
+        <mxCell id="TJuVSiiJl-H6LIU0_fS9-2" value="分散型インフラ&lt;br&gt;(DIDと紐づけ)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="-401" y="92" width="110" height="69" as="geometry" />
         </mxCell>
         <mxCell id="TJuVSiiJl-H6LIU0_fS9-3" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontColor=#330000;width=11;endSize=3.75;" parent="1" edge="1">
@@ -419,9 +419,6 @@
             <mxPoint x="-347" y="264.5" as="targetPoint" />
             <Array as="points" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="huMLxyEVPSgFiRnInnjS-1" value="AWS Cloud" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;container=1;pointerEvents=0;collapsible=0;recursiveResize=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#232F3E;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#232F3E;dashed=0;" parent="1" vertex="1">
-          <mxGeometry x="-587" y="277" width="100" height="90" as="geometry" />
         </mxCell>
         <mxCell id="huMLxyEVPSgFiRnInnjS-3" value="コントラクト&lt;br&gt;ウォレット" style="whiteSpace=wrap;html=1;aspect=fixed;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
           <mxGeometry x="-240" y="395.5" width="97" height="97" as="geometry" />
