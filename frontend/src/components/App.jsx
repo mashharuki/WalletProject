@@ -94,7 +94,7 @@ function App() {
                 <Route path="/" exact element={ <Home signer={currentAccount} /> } />
                 <Route path="/home" exact element={ <Home signer={currentAccount} /> } />
                 <Route path="/wallets" exact element={ <Wallets signer={currentAccount} /> } />
-                <Route path="/create" exact element={ <Create provider={web3} signer={currentAccount} /> } />
+                <Route path="/create" exact element={ <Create signer={currentAccount} /> } />
                 <Route path="/buy" exact element={ <Buy signer={currentAccount} /> } />
                 <Route path="/txs" exact element={ <Txs signer={currentAccount} /> } />
                 <Route path="/myvc" exact element={ <MyVC signer={currentAccount} /> } />
