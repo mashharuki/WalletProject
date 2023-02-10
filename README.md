@@ -64,6 +64,20 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 共通資金プール送金機能   | 共通資金プール送金のために承認する機能                                            |
 | deposit 機能             | IDQ トークンを使ってマルチシグコントラクトにネイティブトークンを deposit する機能 |
 
+## 使用した分散型インフラと API
+
+| No. | 名称   | 使用した API    |
+| --- | ------ | --------------- |
+| 1   | ION    | generateKeyPair |
+| 2   | ION    | generateRequest |
+| 3   | ION    | AnchorRequest   |
+| 4   | Pinata | pinFileToIPFS   |
+| 5   | Pinata | Gateway         |
+| 6   | Pinata | pinList         |
+| 7   |        |                 |
+
+pinList
+
 ## 使用した tech stacks
 
 | No. | 名称                  |
@@ -80,9 +94,9 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 10  | Blocto SDK            |
 | 11  | RESTful API           |
 | 12  | Figma                 |
-| 13  | ERC20                 |
+| 13  | ERC20 Token           |
 | 14  | Verifiable Credential |
-| 15  | Pinata                |
+| 15  | Pinata API            |
 | 16  | Ipfs                  |
 | 17  | Stripe API            |
 
