@@ -38,7 +38,7 @@ Web3 はまだ一般的には普及しておりません。これがその起爆
 Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り方と Web3 の新しいコミュケーションのあり方を Communication protocol にすることで社会インフラ化を加速、DID 連携をヘルスケア・IoT・スマートシティ領域でも活かすことできます。
 オムニチャンネル化、Super アプリ化を目指す。
 
-特異性: DID 連携
+特異性: DID 連携、承認制送金システム
 
 ## プロダクト URL
 
@@ -64,6 +64,20 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 共通資金プール送金機能   | 共通資金プール送金のために承認する機能                                            |
 | deposit 機能             | IDQ トークンを使ってマルチシグコントラクトにネイティブトークンを deposit する機能 |
 
+## 使用した分散型インフラと API
+
+| No. | 名称   | 使用した API    |
+| --- | ------ | --------------- |
+| 1   | ION    | generateKeyPair |
+| 2   | ION    | generateRequest |
+| 3   | ION    | AnchorRequest   |
+| 4   | Pinata | pinFileToIPFS   |
+| 5   | Pinata | Gateway         |
+| 6   | Pinata | pinList         |
+| 7   |        |                 |
+
+pinList
+
 ## 使用した tech stacks
 
 | No. | 名称                  |
@@ -80,9 +94,9 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 10  | Blocto SDK            |
 | 11  | RESTful API           |
 | 12  | Figma                 |
-| 13  | ERC20                 |
+| 13  | ERC20 Token           |
 | 14  | Verifiable Credential |
-| 15  | Pinata                |
+| 15  | Pinata API            |
 | 16  | Ipfs                  |
 | 17  | Stripe API            |
 
@@ -266,3 +280,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 102. [【GitHub】react-blockcerts](https://github.com/mashharuki/react-blockcerts)
 103. [React-blockcerts example](https://guix77.github.io/react-blockcerts/)
 104. [React でファイルをダウンロードする](https://www.delftstack.com/ja/howto/react/react-download-file/)
+105. [GitHub API](https://docs.github.com/ja/rest/commits/commits?apiVersion=2022-11-28)
+106. [過去のデモ動画](https://www.youtube.com/watch?v=yyLkcT2IkuA&t=4s)

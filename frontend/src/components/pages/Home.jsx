@@ -22,7 +22,7 @@ import {
 /** 
  * StyledPaperコンポーネント
  */
- const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
     maxWidth: 400,
     //minHeight: 200,

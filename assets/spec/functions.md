@@ -102,6 +102,11 @@
 | POST         | /api/create            | DID を作成する API                           |
 | GET          | /api/resolve           | DID ドキュメントを検索する API               |
 | POST         | /api/excute/factory    | FactoryWallet のメソッドを実行するための API |
+| POST         | /api/factory/create    | マルチシグウォレットを作成するための API     |
+| POST         | /api/wallet/submit     | トランザクションを submit するための API     |
+| POST         | /api/wallet/approve    | トランザクションを approve するための API    |
+| POST         | /api/wallet/revoke     | トランザクションを revoke するための API     |
+| POST         | /api/wallet/execute    | トランザクションを実行するための API         |
 | POST         | /create-payment-intent | stripe の Payment element を使うための API   |
 | POST         | /api/registerIpfs      | VC の CID 情報を IPFS に登録する API         |
 |              |                        |                                              |

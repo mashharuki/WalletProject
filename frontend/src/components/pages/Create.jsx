@@ -6,11 +6,14 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
-import FactoryContract from "../../contracts/WalletFactoryV4.json";
+import superAgent from 'superagent';
 import ActionButton from '../common/ActionButton';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
-import UseFactory from './../common/UseContract';
+import {
+    baseURL
+} from './../common/Constant';
+
 
 /** 
  * StyledPaperコンポーネント
@@ -27,14 +30,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const Create = (props) => {
     // 引数からデータを取得する。
     const {
-        CONTRACT_ADDRESS,
-        provider,
-        blocto,
         signer    
     } = props;
-    
-    // コントラクト用のステート変数
-    const [contract, setContract] = useState(null); 
+
     // アカウント用のステート変数
     const [account, setAccount] = useState(null);
     // ウォレットの名前を格納するステート変数
@@ -59,10 +57,6 @@ const Create = (props) => {
      */
     const init = async() => {
         try {
-            // コントラクトをインスタンス化
-            const instance = new provider.eth.Contract(FactoryContract.abi, CONTRACT_ADDRESS);
-            // コントラクトとアカウントの情報をステート変数に格納する。
-            setContract(instance);
             setAccount(signer);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
@@ -74,17 +68,37 @@ const Create = (props) => {
      * 「Create」ボタンを押した時の処理
      */
     const createAction = async() => {
-        console.log("owners:", owners)
+        console.log("owners:", owners);
+
         try {
             setIsLoading(true);
-            // factoryコントラクトを使うためのAPIを呼び出す。(引数に課題あり)
-            const res = await UseFactory("createWallet", [walletName, owners, required]);
-            
-            setIsLoading(false);
-            // ownersの配列を空にする。
-            setOwners([]);
-            // popUpメソッドを呼び出す
-            popUp(true);
+            // createWalletを使うためのAPIを呼び出す。(引数に課題あり)
+            superAgent
+                .post(baseURL + '/api/factory/create')
+                .query({
+                    name: walletName,
+                    owners: owners,
+                    required: required
+                })
+                .end(async(err, res) => {
+                    if (err) {
+                        console.log("createWalletを使うためのAPI呼び出し中に失敗", err);
+                        // popUpメソッドの呼び出し
+                        popUp(false);
+                        // フラグ OFF
+                        setIsLoading(false);
+                        // ownersの配列を空にする。
+                        setOwners([]);
+                        return err;
+                    };
+                    console.log(res);
+                    // フラグ OFF
+                    setIsLoading(false);
+                    // ownersの配列を空にする。
+                    setOwners([]);
+                    // CIDを出力
+                    popUp(true);
+                });
         } catch(err) {
             console.error("create wallet err:", err);
             setIsLoading(false);

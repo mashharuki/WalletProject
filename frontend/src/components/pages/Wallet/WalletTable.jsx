@@ -3,9 +3,11 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import walletContract from "../../../contracts/MultiSigWallet.json";
 import ActionButton2 from '../../common/ActionButton2';
 import './../../../assets/css/App.css';
+import {
+    getWalletInfo
+} from './../../hooks/UseContract';
 
 /**
  * WalletTable
@@ -20,7 +22,6 @@ const WalletTable = (props) => {
         row, 
         index, 
         depositAction, 
-        provider, 
     } = props;
 
     // ウォレットの名前を格納するステート変数
@@ -41,12 +42,13 @@ const WalletTable = (props) => {
      * initialization
      */
     const init = async(_wallet) => {
-        // コントラクトをインスタンス化
-        const instance = new provider.eth.Contract(walletContract.abi, _wallet);
         // ウォレットコントラクトの各情報を取得する。
-        const wName = await instance.methods.getName().call();
-        const required = await instance.methods.getRequired().call();
-        const counts = await instance.methods.getOwnersCount().call();
+        const { 
+            wName,
+            required,
+            counts 
+        } = await getWalletInfo(_wallet);
+        
         // ステート変数に格納する。
         setName(wName);
         setAddr(_wallet);

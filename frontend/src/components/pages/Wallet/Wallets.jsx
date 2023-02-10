@@ -13,10 +13,15 @@ import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import superAgent from 'superagent';
 import Web3 from "web3";
-import FactoryContract from "../../../contracts/WalletFactoryV4.json";
 import WalletDialog from '../../common/Dialog';
 import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
 import './../../../assets/css/App.css';
+import {
+    baseURL
+} from './../../common/Constant';
+import {
+    getWallets, walletsCount
+} from './../../hooks/UseContract';
 import WalletTable from './WalletTable';
 
 /**
@@ -46,15 +51,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const Wallets = (props) => {
     // 引数からデータを取得する。
     const {
-        CONTRACT_ADDRESS,
-        provider,
-        blocto,
-        signer,
-        baseURL 
+        signer
     } = props;
-
-    // コントラクト用のステート変数
-    const [contract, setContract] = useState(null); 
+    
     // アカウント用のステート変数
     const [account, setAccount] = useState(null);
     // 作成済みのウォレットコントラクトを格納する配列
@@ -85,21 +84,18 @@ const Wallets = (props) => {
      */
     const init = async() => {
         try {
-            // コントラクト用のインスタンスを生成する。
-            const instance = new provider.eth.Contract(FactoryContract.abi, CONTRACT_ADDRESS);
             var multiSigWallets;
 
             // 作成済みウォレットアドレスを取得する。
-            const count = await instance.methods.walletsCount().call();
+            const count = await walletsCount();
             // ウォレットの数がゼロだった時はゼロフラグをオンにする。
             if (count === 0) {
                 setIsZero(true);
             } else {
-                multiSigWallets = await instance.methods.getWallets(10, 0).call();
+                multiSigWallets = await getWallets(10, 0);
             }
             
             // コントラクトとアカウントの情報をステート変数に格納する。
-            setContract(instance);
             setAccount(signer);
             setWallets(multiSigWallets);
         } catch (error) {
@@ -292,7 +288,6 @@ const Wallets = (props) => {
                                                                 _columns={columns} 
                                                                 row={row} 
                                                                 index={i} 
-                                                                provider={provider}
                                                                 depositAction={(e) => {
                                                                     handleOpen(row)
                                                                 }}

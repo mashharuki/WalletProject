@@ -27,6 +27,7 @@ const {
 } = require('./../utils/constants');
 const { generateDID } = require('./did/did');
 const { uploadFileToIpfs } = require('./ipfs/ipfs');
+const { CONTRACT_ADDRESS } = require('../../frontend/src/components/common/Constant');
 
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');
@@ -365,7 +366,208 @@ app.post('/api/excute/factory', async(req, res) => {
     res.json({ result: 'success' });
   } else {
     logger.error("トランザクション送信失敗");
-    logger.log("FactoryWalletのメソッドを実行するためのAPI終了")
+    logger.error("FactoryWalletのメソッドを実行するためのAPI終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
+});
+
+/**
+ * マルチシグウォレットを作成するための API
+ * @param name ウォレットの名前
+ * @param owners アドレスの配列
+ * @param required 閾値
+ */
+app.post('/api/factory/create', async(req, res) => {
+  logger.log("マルチシグウォレットを作成するための API開始");
+  // 関数の引数を取得する。
+  var name = req.query.name;
+  var owners = req.query.owners;
+  var required = req.query.required;
+  // 分割する
+  var ownerAddrs = owners.split(",");
+
+  // コントラクトのABI
+  const abi = abis.FactoryABI;
+
+  // call send Tx function
+  var result = await useContract.sendTx(
+    abi, 
+    CONTRACT_ADDRESS, 
+    "createWallet", 
+    [
+      name,
+      ownerAddrs,
+      required
+    ], 
+    RPC_URL, 
+    CHAIN_ID
+  );
+    
+  if(result == true) {
+    logger.debug("トランザクション送信成功");
+    logger.log("マルチシグウォレットを作成するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'success' });
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.error("マルチシグウォレットを作成するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
+});
+
+/**
+ * トランザクションを submit するための API
+ * @param to 送金先アドレス
+ * @param value 送金額
+ * @param data バイトデータ
+ * @param address ウォレットアドレス
+ */
+app.post('/api/wallet/submit', async(req, res) => {
+  logger.log("トランザクションを submit するための API開始");
+  // 関数の引数を取得する。
+  var to = req.query.to;
+  var value = req.query.value;
+  var data = req.query.data;
+  var address = req.query.address;
+
+  // コントラクトのABI
+  const abi = abis.WalletABI;
+
+  // call send Tx function
+  var result = await useContract.sendTx(
+    abi, 
+    address, 
+    "submit", 
+    [
+      to,
+      value,
+      data
+    ], 
+    RPC_URL, 
+    CHAIN_ID
+  );
+    
+  if(result == true) {
+    logger.debug("トランザクション送信成功");
+    logger.log("トランザクションを submit するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'success' });
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.error("トランザクションを submit するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
+});
+
+/**
+ * トランザクションを approve するための API
+ * @param txId トランザクションID
+ * @param address ウォレットアドレス
+ */
+app.post('/api/wallet/approve', async(req, res) => {
+  logger.log("トランザクションを approve するための API開始");
+  // 関数の引数を取得する。
+  var txId = req.query.txId;
+  var address = req.query.address;
+
+  // コントラクトのABI
+  const abi = abis.WalletABI;
+
+  // call send Tx function
+  var result = await useContract.sendTx(
+    abi, 
+    address, 
+    "approve", 
+    [txId], 
+    RPC_URL, 
+    CHAIN_ID
+  );
+    
+  if(result == true) {
+    logger.debug("トランザクション送信成功");
+    logger.log("トランザクションを approve するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'success' });
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.error("トランザクションを approve するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
+});
+
+/**
+ * トランザクションを revoke するための API
+ * @param txId トランザクションID
+ * @param address ウォレットアドレス
+ */
+app.post('/api/wallet/revoke', async(req, res) => {
+  logger.log("トランザクションを revoke するための API開始");
+  // 関数の引数を取得する。
+  var txId = req.query.txId;
+  var address = req.query.address;
+
+  // コントラクトのABI
+  const abi = abis.WalletABI;
+
+  // call send Tx function
+  var result = await useContract.sendTx(
+    abi, 
+    address, 
+    "revoke", 
+    [txId], 
+    RPC_URL, 
+    CHAIN_ID
+  );
+    
+  if(result == true) {
+    logger.debug("トランザクション送信成功");
+    logger.log("トランザクションを revoke するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'success' });
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.error("トランザクションを revoke するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'fail' });
+  }
+});
+
+/**
+ * トランザクションを execute するための API
+ * @param txId トランザクションID
+ * @param address ウォレットアドレス
+ */
+app.post('/api/wallet/execute', async(req, res) => {
+  logger.log("トランザクションを execute するための API開始");
+  // 関数の引数を取得する。
+  var txId = req.query.txId;
+  var address = req.query.address;
+
+  // コントラクトのABI
+  const abi = abis.WalletABI;
+
+  // call send Tx function
+  var result = await useContract.sendTx(
+    abi, 
+    address, 
+    "execute", 
+    [txId], 
+    RPC_URL, 
+    CHAIN_ID
+  );
+    
+  if(result == true) {
+    logger.debug("トランザクション送信成功");
+    logger.log("トランザクションを execute するための API終了")
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.json({ result: 'success' });
+  } else {
+    logger.error("トランザクション送信失敗");
+    logger.error("トランザクションを execute するための API終了")
     res.set({ 'Access-Control-Allow-Origin': '*' });
     res.json({ result: 'fail' });
   }
