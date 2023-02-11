@@ -18,7 +18,7 @@ IDQ Soul Wallet
 
 ## ピッチ資料
 
-[ピッチ資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit)
+[ピッチ資料](https://github.com/mashharuki/IDQ/blob/main/assets/pitch/pitch.md)
 
 ## キャッチフレーズ
 
@@ -102,6 +102,7 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 16  | Ipfs                  | Verifiable Credentials と DID ドキュメントの登録・保管・参照のため         |
 | 17  | Stripe API            | IDQ トークン購入機能実装のため                                             |
 | 18  | MUI Component         | フロントエンドの開発を効率化させるため                                     |
+| 19  | Protocol              | Avalanche Fuji Chain(Testnet)                                              |
 
 ## これから使用する予定の tech stacks
 
@@ -288,3 +289,4 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 107. [Neumorphism UI](https://demo.themesberg.com/neumorphism-ui/html/components/toasts.html)
 108. [ui-neumorphism](https://akaspanion.github.io/ui-neumorphism/)
 109. [React.js UI コンポーネント「ui-neumorphism」を使用する](https://mebee.info/2021/07/06/post-35062/)
+110. [【Canva】ピッチ資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit?utm_content=DAFYXl1D3PM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
