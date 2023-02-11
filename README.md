@@ -82,25 +82,26 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 
 ## 使用した tech stacks
 
-| No. | 名称                  |
-| --- | --------------------- |
-| 1   | truffle               |
-| 2   | React.js              |
-| 3   | express               |
-| 4   | superAgent            |
-| 5   | MutliSig              |
-| 6   | SmartContract         |
-| 7   | ION(DID)              |
-| 8   | ethers.js             |
-| 9   | Web3.js               |
-| 10  | Blocto SDK            |
-| 11  | RESTful API           |
-| 12  | Figma                 |
-| 13  | ERC20 Token           |
-| 14  | Verifiable Credential |
-| 15  | Pinata API            |
-| 16  | Ipfs                  |
-| 17  | Stripe API            |
+| No. | 名称                  | 用途                                                                       |
+| --- | --------------------- | -------------------------------------------------------------------------- |
+| 1   | truffle               | スマートコントラクトの開発のため                                           |
+| 2   | React.js              | フロントエンドの開発のため                                                 |
+| 3   | express               | API サーバー開発のため                                                     |
+| 4   | superAgent            | フロントエンドから API を呼び出すため                                      |
+| 5   | MutliSig              | 承認制送金システム実装のため                                               |
+| 6   | SmartContract         | 分散型アプリケーション開発のため                                           |
+| 7   | ION(DID)              | DID の生成及び DID ドキュメントの生成のため                                |
+| 8   | ethers.js             | API サーバー側でスマートコントラクトのメソッドを操作する処理を実装するため |
+| 9   | Web3.js               | React.js とスマートコントラクトを接続するため                              |
+| 10  | Blocto SDK            | ログイン機能の実装するため                                                 |
+| 11  | RESTful API           | API 開発・設計・公開のため                                                 |
+| 12  | Figma                 | 画面デザイン考案のため                                                     |
+| 13  | ERC20 Token           | IDQ Token 開発のため                                                       |
+| 14  | Verifiable Credential | DID と紐づくデータを検証可能な状態で公開するため                           |
+| 15  | Pinata API            | IPFS へのファイルアップロードのため                                        |
+| 16  | Ipfs                  | Verifiable Credentials と DID ドキュメントの登録・保管・参照のため         |
+| 17  | Stripe API            | IDQ トークン購入機能実装のため                                             |
+| 18  | MUI Component         | フロントエンドの開発を効率化させるため                                     |
 
 ## これから使用する予定の tech stacks
 
