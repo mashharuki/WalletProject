@@ -80,8 +80,6 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 6   | Pinata | pinList         |
 | 7   |        |                 |
 
-pinList
-
 ## 使用した tech stacks
 
 | No. | 名称                  |
