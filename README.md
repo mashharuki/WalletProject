@@ -20,9 +20,13 @@ IDQ Soul Wallet
 
 [ピッチ資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit)
 
+## キャッチフレーズ
+
+Web 3 Friendly / Web3 の一般的な普及
+
 ## 概要（500 文字）
 
-IDQ | Soul Wallet は Web3 版 PayPay です。
+IDQ | Soul Wallet は Web3 の一般的な普及を目指したウォレットプロダクトです。
 
 Web3 時代とは「デジタルで個人が Wallet と PHR ヘルスデータ DID で個人管理ができること」だと考えています。  
 Web3 はまだ一般的には普及しておりません。これがその起爆剤になります。
@@ -282,3 +286,6 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 104. [React でファイルをダウンロードする](https://www.delftstack.com/ja/howto/react/react-download-file/)
 105. [GitHub API](https://docs.github.com/ja/rest/commits/commits?apiVersion=2022-11-28)
 106. [過去のデモ動画](https://www.youtube.com/watch?v=yyLkcT2IkuA&t=4s)
+107. [Neumorphism UI](https://demo.themesberg.com/neumorphism-ui/html/components/toasts.html)
+108. [ui-neumorphism](https://akaspanion.github.io/ui-neumorphism/)
+109. [React.js UI コンポーネント「ui-neumorphism」を使用する](https://mebee.info/2021/07/06/post-35062/)
