@@ -14,7 +14,7 @@ IDQ Soul Wallet
 
 ## デモ動画
 
-[https://www.youtube.com/watch?v=yyLkcT2IkuA&t=4s](https://www.youtube.com/watch?v=yyLkcT2IkuA&t=4s)
+[https://www.youtube.com/watch?v=gYVFFzLEgvU](https://www.youtube.com/watch?v=gYVFFzLEgvU)
 
 ## ピッチ資料
 
