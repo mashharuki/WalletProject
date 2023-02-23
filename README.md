@@ -124,8 +124,14 @@ Avalanche Fuji Chain(Testnet)
 
 | No. | コントラクト名  | Explorer の URL                                                                                                                    |
 | --- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | MyToken         | [0x93fdd51462FB20fB631F8CA38c3DeB87583311Ea](https://testnet.snowtrace.io/address/0x93fdd51462FB20fB631F8CA38c3DeB87583311Ea#code) |
-| 2   | WalletFactoryV4 | [0xD731c110bc106Aa60f768a1fd2707684A650Cc02](https://testnet.snowtrace.io/address/0xD731c110bc106Aa60f768a1fd2707684A650Cc02#code) |
+| 1   | MyToken         | [0x45f73bdac06c8ba7c41e47ed7eefe85ef74bae07](https://testnet.snowtrace.io/address/0x45f73bdac06c8ba7c41e47ed7eefe85ef74bae07#code) |
+| 2   | WalletFactoryV4 | [0xf9d1A62058c6eE047a5f0FfC1797A19FEffe44b9](https://testnet.snowtrace.io/address/0xf9d1A62058c6eE047a5f0FfC1797A19FEffe44b9#code) |
+
+## AWS KMS 上の鍵で生成したウォレットアドレス
+
+| アドレス                                   | エクスプローラー URL                                                                                                                                               |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 0xeDf54d22e96B3053722308951799162508973486 | [https://testnet.snowtrace.io/address/0xeDf54d22e96B3053722308951799162508973486](https://testnet.snowtrace.io/address/0xeDf54d22e96B3053722308951799162508973486) |
 
 ## application code やその他の file
 

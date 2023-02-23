@@ -1,8 +1,8 @@
 import {
-      Dialog, DialogActions,
-      DialogContent,
-      DialogContentText, DialogTitle, FormControl,
-      Input
+    Dialog, DialogActions,
+    DialogContent,
+    DialogContentText, DialogTitle, FormControl,
+    Input
 } from '@mui/material';
 import React from 'react';
 import ActionButton from "./../ActionButton";
@@ -14,7 +14,15 @@ import './SendDialog.css';
  */
 const SendDialog = (props) => {
     // 引数から値を取得する。
-    const { open, to, amount, handleClose, sendAction, setTo,setAmountAction} = props;
+    const { 
+        open, 
+        to, 
+        amount, 
+        handleClose, 
+        sendAction, 
+        setTo,
+        setAmountAction
+    } = props;
 
     return (
         <>

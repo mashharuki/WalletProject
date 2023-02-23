@@ -1,11 +1,4 @@
 require('dotenv').config();
-
-// get Mnemonic code
-const {
-  MNEMONIC,
-  STRIPE_API_KEY
-} = process.env
-
 const express = require('express');
 const app = express();
 const log4js = require('log4js');
@@ -16,12 +9,15 @@ const crypto = require('crypto');
 const ION = require('@decentralized-identity/ion-tools')
 // ブロックチェーン機能のモジュールを読み込む
 const {
+  createKmsSigner,
   sendTx,
   sendBatchTx,
   sendEth
 }= require('../contracts/UseContract');
-// ABI
-const abis = require('../contracts/ABI');
+// ABIs
+const { FactoryABI } = require('../contracts/ABI/FactoryABI');
+const { MyTokenABI } = require('../contracts/ABI/MyTokenABI');
+const { WalletABI } = require('../contracts/ABI/WalletABI');
 // contract address
 const contractAddr = require('../contracts/Address');
 // get contants 
@@ -31,11 +27,15 @@ const {
 } = require('./../utils/constants');
 const { generateDID } = require('./did/did');
 const { uploadFileToIpfs } = require('./ipfs/ipfs');
-const { CONTRACT_ADDRESS } = require('../../frontend/src/components/common/Constant');
 
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');
 const logger = log4js.getLogger("server");
+
+// get Mnemonic code
+const {
+  STRIPE_API_KEY
+} = process.env
 
 // stripe用の変数定義
 const stripe = require("stripe")(`${STRIPE_API_KEY}`);
@@ -57,12 +57,9 @@ app.post('/api/mintIDQ', async(req, res) => {
   var to = req.query.to;
   var amount = req.query.amount;
 
-  // コントラクトのABI
-  const abi = abis.MyTokenABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
+    MyTokenABI, 
     contractAddr.MYTOKEN_ADDRESS, 
     "mint", 
     [to, amount], 
@@ -96,12 +93,9 @@ app.post('/api/burnIDQ', async(req, res) => {
   var amount = req.query.amount;
   var walletAddr = req.query.walletAddr;
 
-  // コントラクトのABI
-  const abi = abis.MyTokenABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
+    MyTokenABI, 
     contractAddr.MYTOKEN_ADDRESS, 
     "burnToken", 
     [to, (amount/1000000000000000000)], 
@@ -139,15 +133,12 @@ app.get('/api/balance/IDQ', async(req, res) => {
 
   var addr = req.query.addr;
 
-  // コントラクトのABI
-  const abi = abis.MyTokenABI;
-  
   // create wallet 
-  const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+  const wallet = createKmsSigner();
   // create provider
   const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
   // create contract 
-  var contract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, abi, await provider.getSigner(wallet.address));
+  var contract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, MyTokenABI, await provider.getSigner(await wallet.getAddress()));
 
   const balance = await contract.callStatic.balanceOf(addr);
 
@@ -169,9 +160,6 @@ app.post('/api/send', async(req, res) => {
   var from = req.query.from;
   var to = req.query.to;
   var amount = req.query.amount;  
-  // コントラクトのABI
-  const mytokenAbi = abis.MyTokenABI;
-  const factoryAbi = abis.FactoryABI;
   // get wallet address
   logger.log("from:", from);
   logger.log("to:", to);
@@ -196,15 +184,15 @@ app.post('/api/send', async(req, res) => {
       
   try {
     // create wallet 
-    const wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+    const wallet = createKmsSigner();
     // create provider
     const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
     // get signer 
-    const signer = await provider.getSigner(wallet.address)
+    const signer = await provider.getSigner(await wallet.getAddress())
     // create mytoken contract 
-    var myTokenContract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, mytokenAbi, signer);
+    var myTokenContract = new ethers.Contract(contractAddr.MYTOKEN_ADDRESS, MyTokenABI, signer);
     // create factory contract
-    var factoryContract = new ethers.Contract(contractAddr.FACTORY_ADDRESS, factoryAbi, signer);
+    var factoryContract = new ethers.Contract(contractAddr.FACTORY_ADDRESS, FactoryABI, signer);
     // get address from did
     let fromAddr = await factoryContract.callStatic.addrs(from);
     let receiveAddr = await factoryContract.callStatic.addrs(to);
@@ -224,7 +212,7 @@ app.post('/api/send', async(req, res) => {
       const txs = [];
       // create tx info
       var tx = [
-        mytokenAbi, 
+        MyTokenABI, 
         contractAddr.MYTOKEN_ADDRESS, 
         "burnToken", 
         [fromAddr, amount],
@@ -235,7 +223,7 @@ app.post('/api/send', async(req, res) => {
       txs.push(tx);
       // create tx info
       tx = [
-        mytokenAbi, 
+        MyTokenABI, 
         contractAddr.MYTOKEN_ADDRESS, 
         "mint", 
         [receiveAddr, amount], 
@@ -283,30 +271,36 @@ app.post('/api/create', async(req, res) => {
   
   // get DID URL
   const didUrl = await did.getURI('short');
-  // コントラクトのABI
-  const abi = abis.FactoryABI;
   
-  // set to Factory contract
-  var result = await useContract.sendTx(
-    abi, 
-    contractAddr.FACTORY_ADDRESS, 
-    "register", 
-    [addr, didUrl], 
-    RPC_URL, 
-    CHAIN_ID
-  );
+  try {
+    // set to Factory contract
+    var result = await sendTx(
+      FactoryABI, 
+      contractAddr.FACTORY_ADDRESS, 
+      "register", 
+      [addr, didUrl], 
+      RPC_URL, 
+      CHAIN_ID
+    );
 
-  if(result == true) {
-    logger.debug("トランザクション送信成功");
-    logger.log("DID作成用のAPI終了")
-    logger.log("DID:", didUrl);
-    res.set({ 'Access-Control-Allow-Origin': '*' });
-    res.json({ result: 'success' });
-  } else {
-    logger.error("トランザクション送信失敗");
-    logger.log("DID作成用のAPI終了")
-    res.set({ 'Access-Control-Allow-Origin': '*' });
-    res.json({ result: 'fail' });
+    if(result == true) {
+      logger.debug("トランザクション送信成功");
+      logger.log("DID作成用のAPI終了")
+      logger.log("DID:", didUrl);
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result: 'success' });
+    } else {
+      logger.error("トランザクション送信失敗");
+      logger.log("DID作成用のAPI終了")
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result: 'fail' });
+    }
+  } catch(err) {
+      logger.error("トランザクション送信失敗");
+      logger.error("エラー詳細：", err);
+      logger.log("DID作成用のAPI終了")
+      res.set({ 'Access-Control-Allow-Origin': '*' });
+      res.json({ result: 'fail' });
   }
 });
     
@@ -350,12 +344,9 @@ app.post('/api/excute/factory', async(req, res) => {
   // 関数の引数
   var args = req.query.args;
 
-  // コントラクトのABI
-  const abi = abis.FactoryABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
+    FactoryABI, 
     contractAddr.FACTORY_ADDRESS, 
     methodName, 
     args, 
@@ -391,13 +382,10 @@ app.post('/api/factory/create', async(req, res) => {
   // 分割する
   var ownerAddrs = owners.split(",");
 
-  // コントラクトのABI
-  const abi = abis.FactoryABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
-    CONTRACT_ADDRESS, 
+    FactoryABI, 
+    contractAddr.FACTORY_ADDRESS, 
     "createWallet", 
     [
       name,
@@ -436,12 +424,9 @@ app.post('/api/wallet/submit', async(req, res) => {
   var data = req.query.data;
   var address = req.query.address;
 
-  // コントラクトのABI
-  const abi = abis.WalletABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
+    WalletABI, 
     address, 
     "submit", 
     [
@@ -477,12 +462,9 @@ app.post('/api/wallet/approve', async(req, res) => {
   var txId = req.query.txId;
   var address = req.query.address;
 
-  // コントラクトのABI
-  const abi = abis.WalletABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
+    WalletABI, 
     address, 
     "approve", 
     [txId], 
@@ -514,12 +496,9 @@ app.post('/api/wallet/revoke', async(req, res) => {
   var txId = req.query.txId;
   var address = req.query.address;
 
-  // コントラクトのABI
-  const abi = abis.WalletABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
+    WalletABI, 
     address, 
     "revoke", 
     [txId], 
@@ -551,12 +530,9 @@ app.post('/api/wallet/execute', async(req, res) => {
   var txId = req.query.txId;
   var address = req.query.address;
 
-  // コントラクトのABI
-  const abi = abis.WalletABI;
-
   // call send Tx function
   var result = await sendTx(
-    abi, 
+    WalletABI, 
     address, 
     "execute", 
     [txId], 
@@ -615,12 +591,10 @@ app.post("/api/registerIpfs", async (req, res) => {
   var did = req.query.did;
   var name = req.query.name;
   var cid = req.query.cid;
-  // コントラクトのABI
-  const abi = abis.FactoryABI;
   
   // IPFSに登録
   var result = await sendTx(
-    abi, 
+    FactoryABI,
     contractAddr.FACTORY_ADDRESS, 
     "updateVc", 
     [did, name, cid], 

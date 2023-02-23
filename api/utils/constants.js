@@ -7,8 +7,8 @@ const ISSUER_DID = 'https://blockcerts-20230113.storage.googleapis.com/profile.j
 const CONTROLLER = 'did:web:blockcerts-20230113.storage.googleapis.com';
 
 // AWS info
-const REGION_ID ="";
-const KEY_ID = "";
+const REGION_ID ="ap-northeast-1";
+const KEY_ID = "2f5733a1-e316-4aca-b0cd-bc10b71b56e1";
 
 /**
  * VCのテンプレ

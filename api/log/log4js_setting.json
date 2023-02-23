@@ -1,13 +1,17 @@
 {
     "appenders": { 
-          "server": { 
+          "out": { 
                 "type": "file", 
-                "filename": "./log/server.log" 
-          } 
+                "filename": "./log/server.log",
+                "layout": {
+                  "type": "pattern",
+                  "pattern": "[%f{1}:%l  %d{yyyy-MM-dd} %r %p %m %]"
+                }
+          }
     },
     "categories": { 
           "default": { 
-                "appenders": ["server"], 
+                "appenders": ["out"], 
                 "level": "debug" 
           } 
     }

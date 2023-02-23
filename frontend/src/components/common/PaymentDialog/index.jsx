@@ -14,7 +14,11 @@ import './PaymentDialog.CSS';
  */
 const PaymentDialog = (props) => {
       // 引数から値を取得する。
-      const { open, handleClose, buyAction} = props;
+      const { 
+            open, 
+            handleClose, 
+            buyAction
+      } = props;
 
       return (
             <>
