@@ -15,7 +15,11 @@ const crypto = require('crypto');
 // did用のモジュールを読み込む
 const ION = require('@decentralized-identity/ion-tools')
 // ブロックチェーン機能のモジュールを読み込む
-const useContract = require('../contracts/UseContract');
+const {
+  sendTx,
+  sendBatchTx,
+  sendEth
+}= require('../contracts/UseContract');
 // ABI
 const abis = require('../contracts/ABI');
 // contract address
@@ -57,7 +61,7 @@ app.post('/api/mintIDQ', async(req, res) => {
   const abi = abis.MyTokenABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     contractAddr.MYTOKEN_ADDRESS, 
     "mint", 
@@ -96,7 +100,7 @@ app.post('/api/burnIDQ', async(req, res) => {
   const abi = abis.MyTokenABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     contractAddr.MYTOKEN_ADDRESS, 
     "burnToken", 
@@ -107,7 +111,7 @@ app.post('/api/burnIDQ', async(req, res) => {
     
   if(result == true) {
     // send ETH 
-    var result = await useContract.sendEth(
+    var result = await sendEth(
       walletAddr, 
       (amount/10000000000000000000000), 
       RPC_URL, 
@@ -242,7 +246,7 @@ app.post('/api/send', async(req, res) => {
       txs.push(tx);
 
       // call sendBatchTxs function
-      result = await useContract.sendBatchTx(txs).then((result) => resultCheck(result));
+      result = await sendBatchTx(txs).then((result) => resultCheck(result));
     } else {
       logger.error("トランザクション送信失敗");
       logger.error("残高不足");
@@ -350,7 +354,7 @@ app.post('/api/excute/factory', async(req, res) => {
   const abi = abis.FactoryABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     contractAddr.FACTORY_ADDRESS, 
     methodName, 
@@ -391,7 +395,7 @@ app.post('/api/factory/create', async(req, res) => {
   const abi = abis.FactoryABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     CONTRACT_ADDRESS, 
     "createWallet", 
@@ -436,7 +440,7 @@ app.post('/api/wallet/submit', async(req, res) => {
   const abi = abis.WalletABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     address, 
     "submit", 
@@ -477,7 +481,7 @@ app.post('/api/wallet/approve', async(req, res) => {
   const abi = abis.WalletABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     address, 
     "approve", 
@@ -514,7 +518,7 @@ app.post('/api/wallet/revoke', async(req, res) => {
   const abi = abis.WalletABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     address, 
     "revoke", 
@@ -551,7 +555,7 @@ app.post('/api/wallet/execute', async(req, res) => {
   const abi = abis.WalletABI;
 
   // call send Tx function
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     address, 
     "execute", 
@@ -615,7 +619,7 @@ app.post("/api/registerIpfs", async (req, res) => {
   const abi = abis.FactoryABI;
   
   // IPFSに登録
-  var result = await useContract.sendTx(
+  var result = await sendTx(
     abi, 
     contractAddr.FACTORY_ADDRESS, 
     "updateVc", 
