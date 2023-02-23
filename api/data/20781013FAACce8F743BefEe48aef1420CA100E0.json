@@ -1,0 +1,43 @@
+{
+  "@context": "https://w3id.org/did-resolution/v1",
+  "didDocument": {
+    "id": "did:ion:EiDNxostO8ysrs4JPj52ZX87lkgDNziZ-LgmtbZHQ_AaNQ",
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      {
+        "@base": "did:ion:EiDNxostO8ysrs4JPj52ZX87lkgDNziZ-LgmtbZHQ_AaNQ"
+      }
+    ],
+    "service": [
+      {
+        "id": "#idq",
+        "type": "LinkedDomains",
+        "serviceEndpoint": "http://idq.vercel.app/"
+      }
+    ],
+    "verificationMethod": [
+      {
+        "id": "#key-1",
+        "controller": "did:ion:EiDNxostO8ysrs4JPj52ZX87lkgDNziZ-LgmtbZHQ_AaNQ",
+        "type": "EcdsaSecp256k1VerificationKey2019",
+        "publicKeyJwk": {
+          "kty": "EC",
+          "crv": "secp256k1",
+          "x": "siTUyUaRx66eUZrdL4IPM0z6E64YlHwW-895rECZGyA",
+          "y": "rmpHRC55gQy_pXUgetuZahz3Ae17NkMkphYkFutzbXQ"
+        }
+      }
+    ],
+    "authentication": [
+      "#key-1"
+    ]
+  },
+  "didDocumentMetadata": {
+    "method": {
+      "published": false,
+      "recoveryCommitment": "EiCVv6qrun8uH0n1SgqjgPV0i_dbqoojA00KK8Tl3lKNBg",
+      "updateCommitment": "EiCqJY8YH_aga-zdgK6Z5-L0ocxXEDZHOlPKwMPZ6_OHEQ"
+    },
+    "canonicalId": "did:ion:EiDNxostO8ysrs4JPj52ZX87lkgDNziZ-LgmtbZHQ_AaNQ"
+  }
+}

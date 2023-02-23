@@ -1,15 +1,12 @@
-import React, {useState} from 'react';
-import './WalletDialog.css';
-import { 
-    Dialog,
-    DialogTitle,
-    DialogActions,
+import {
+    Dialog, DialogActions,
     DialogContent,
-    DialogContentText,
-    FormControl,
+    DialogContentText, DialogTitle, FormControl,
     Input
 } from '@mui/material';
+import React from 'react';
 import ActionButton from "./../ActionButton";
+import './WalletDialog.css';
 
 /**
  * WalletDialogコンポーネント
@@ -17,7 +14,13 @@ import ActionButton from "./../ActionButton";
  */
 const WalletDialog = (props) => {
     // 引数から値を取得する。
-    const { open, amount, handleClose, depositAction, setAmountAction} = props;
+    const { 
+        open, 
+        amount, 
+        handleClose, 
+        depositAction, 
+        setAmountAction
+    } = props;
 
     return (
         <>

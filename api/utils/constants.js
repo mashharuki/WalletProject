@@ -6,6 +6,10 @@ const RPC_URL = `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`;
 const ISSUER_DID = 'https://blockcerts-20230113.storage.googleapis.com/profile.json';
 const CONTROLLER = 'did:web:blockcerts-20230113.storage.googleapis.com';
 
+// AWS info
+const REGION_ID ="ap-northeast-1";
+const KEY_ID = "2f5733a1-e316-4aca-b0cd-bc10b71b56e1";
+
 /**
  * VCのテンプレ
  */
@@ -51,5 +55,7 @@ module.exports = {
       TEMPLATE_VC,
       TEMPLATE_PROFILE,
       TEMPLATE_DID,
-      FOLDER_PATH
+      FOLDER_PATH,
+      REGION_ID,
+      KEY_ID,
 };
