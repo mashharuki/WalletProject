@@ -103,6 +103,7 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 17  | Stripe API            | IDQ トークン購入機能実装のため                                             |
 | 18  | MUI Component         | フロントエンドの開発を効率化させるため                                     |
 | 19  | Protocol              | Avalanche Fuji Chain(Testnet)                                              |
+| 20  | AWS KMS               | 署名に必要な秘密鍵を管理するため(秘密鍵本体の流出リスクを抑える)           |
 
 ## これから使用する予定の tech stacks
 
