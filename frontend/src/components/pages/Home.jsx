@@ -13,6 +13,7 @@ import './../../assets/css/App.css';
 import {
     baseURL
 } from './../common/Constant';
+import QrCodeDialog from './../common/QrCodeDialog';
 import {
     getDid,
     getIdqTokenBalanceOf,
@@ -49,6 +50,7 @@ const Home = (props) => {
     const [to, setTo] = useState(null);
     const [amount, setAmount] = useState(0);
     const [open, setOpen] = useState(false);
+    const [qrOpen, setQrOpen] = useState(false);
 
     /**
      * Register function 
@@ -174,6 +176,21 @@ const Home = (props) => {
     }
 
     /**
+     * Open Dialog
+     * @param wallet MultoSig Wallet Addr
+     */
+    const handleQrOpen = (wallet) => {
+        setQrOpen(true);
+    }
+
+    /**
+     * Close Dialog
+     */
+    const handleQrClose = () => {
+        setQrOpen(false);
+    }
+
+    /**
      * クリップボードでDIDをコピーするための機能
      */
     const copy = () => {
@@ -239,6 +256,12 @@ const Home = (props) => {
                 setTo={(e) => {setTo(e.target.value)}}
                 setAmountAction={(e) => {setAmount(e.target.value)}} 
             />
+            {/* QrCodeDialog */}
+            <QrCodeDialog
+                open={qrOpen}
+                did={fullDid}
+                handleClose={(e) => {handleQrClose()}} 
+            />
             { /* main content */ } 
             <Box 
                 sx={{ 
@@ -278,7 +301,16 @@ const Home = (props) => {
                                         <>
                                             <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
                                             <p>Your IDQToken:{balance}</p>
-                                            <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
+                                            <Grid
+                                                container
+                                                direction="row"
+                                                justifyContent="center"
+                                                alignItems="center"
+                                                flex={true}
+                                            >
+                                                <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
+                                                <ActionButton2 buttonName="My QR Code" color="secondary" clickAction={handleQrOpen} />
+                                            </Grid>
                                         </>
                                     ) : (
                                         <>

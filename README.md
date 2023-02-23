@@ -297,3 +297,6 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 108. [ui-neumorphism](https://akaspanion.github.io/ui-neumorphism/)
 109. [React.js UI コンポーネント「ui-neumorphism」を使用する](https://mebee.info/2021/07/06/post-35062/)
 110. [【Canva】ピッチ資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit?utm_content=DAFYXl1D3PM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+111. [【Qita】react-qr-reader を利用した QR コードリーダーの作成](https://qiita.com/KenNagami/items/1493b498ff197f8f7689)
+112. [バーコードリーダーをブラウザから使えるようにしたい！JS のバーコードリーダーライブラリを調査しました](https://blog.ecbeing.tech/entry/2020/06/30/114023)
+113. [](https://stak.tech/news/14668)

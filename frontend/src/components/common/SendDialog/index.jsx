@@ -4,15 +4,18 @@ import {
     DialogContentText, DialogTitle, FormControl,
     Input
 } from '@mui/material';
-import React from 'react';
+import Grid from "@mui/material/Grid";
+import React, { useState } from 'react';
 import ActionButton from "./../ActionButton";
 import './SendDialog.css';
+
 
 /**
  * SendDialogコンポーネント
  * @param props 引数
  */
 const SendDialog = (props) => {
+    const [readFlg, setReadFlg] = useState(false);
     // 引数から値を取得する。
     const { 
         open, 
@@ -23,6 +26,14 @@ const SendDialog = (props) => {
         setTo,
         setAmountAction
     } = props;
+
+    /**
+     * readerを起動させる。
+     */
+    const startReader = () => {
+        setReadFlg(true);  
+    };
+
 
     return (
         <>
@@ -53,9 +64,19 @@ const SendDialog = (props) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <ActionButton buttonName="send" clickAction={sendAction} color="primary"/>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        flex={true}
+                    >
+                        <ActionButton buttonName="send" color="primary" clickAction={sendAction}/>
+                        <ActionButton buttonName="Scan" color="secondary" clickAction={startReader} />
+                    </Grid>
                 </DialogActions>
             </Dialog>
+            {readFlg && <video style={{ maxWidth: "100%", maxHeight: "100%",height:"100%" }} ref={{}} /> }
         </>
     );
 };
