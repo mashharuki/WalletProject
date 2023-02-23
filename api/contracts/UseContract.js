@@ -1,14 +1,36 @@
 require('dotenv/config');
 const { ethers } = require('ethers');
+const { KmsEthersSigner } = require('aws-kms-ethers-signer');
 const log4js = require('log4js');
+const { KEY_ID, REGION_ID } = require('../utils/constants');
 // log4jsの設定
 log4js.configure('./log/log4js_setting.json');
 const logger = log4js.getLogger("server");
 
 // get Mnemonic code
 const {
-    MNEMONIC
+    AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY,
 } = process.env
+
+/**
+ * AWS KMS上の鍵を使ってイーサリアムクライアントインスタンスを生成するメソッド
+ */
+const createKmsSigner = () => {
+    // create singer object
+    const signer = new KmsEthersSigner({
+        keyId: KEY_ID,
+        kmsClientConfig: {
+            region: REGION_ID,
+            credentials: {
+                accessKeyId: AWS_ACCESS_KEY_ID,
+                secretAccessKey: AWS_SECRET_ACCESS_KEY
+            }
+        },
+    });
+
+    return signer;
+}
 
 /**
  * トランザクションを送信するメソッド
@@ -26,13 +48,13 @@ const sendTx = async(abi, address, functionName, args, rpc_url, chainId) => {
     // crate contract function data
     var func = contract.encodeFunctionData(functionName, args);
     // create wallet object
-    var wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+    var wallet = createKmsSigner();
     // create provider
     var provider = new ethers.providers.JsonRpcProvider(rpc_url);
     // conncet provider
     wallet.connect(provider);
     // get nonce
-    var nonce = await provider.getTransactionCount(wallet.address);
+    var nonce = await provider.getTransactionCount(await wallet.getAddress());
 
     // create tx data
     var tx = {
@@ -76,13 +98,13 @@ const sendBatchTx = async(txs) => {
         // crate contract function data
         var func = contract.encodeFunctionData(txs[i][2], txs[i][3]);
         // create wallet object
-        var wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+        var wallet = createKmsSigner();
         // create provider
         var provider = new ethers.providers.JsonRpcProvider(txs[i][4]);
         // conncet provider
         wallet.connect(provider);
         // get nonce
-        var nonce = await provider.getTransactionCount(wallet.address) + i;
+        var nonce = await provider.getTransactionCount(await wallet.getAddress()) + i;
         // create tx data
         var tx = {
             gasPrice: 30000000000,
@@ -126,13 +148,13 @@ const sendBatchTx = async(txs) => {
  */
 const sendEth = async(to, value, rpc_url, chainId) => {
     // create wallet object
-    var wallet = new ethers.Wallet.fromMnemonic(MNEMONIC);
+    var wallet = createKmsSigner();
     // create provider
     var provider = new ethers.providers.JsonRpcProvider(rpc_url);
     // conncet provider
     wallet.connect(provider);
     // get nonce
-    var nonce = await provider.getTransactionCount(wallet.address);
+    var nonce = await provider.getTransactionCount(await wallet.getAddress());
 
     logger.log("send ETH amount:", ethers.utils.parseEther(value.toString())._hex);
    
@@ -162,6 +184,7 @@ const sendEth = async(to, value, rpc_url, chainId) => {
 
 
 module.exports = { 
+    createKmsSigner,
     sendTx,
     sendBatchTx, 
     sendEth 

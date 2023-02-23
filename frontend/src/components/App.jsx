@@ -1,5 +1,5 @@
-import StartIcon from '@mui/icons-material/Start';
 // mui関連をインポートする。
+import StartIcon from '@mui/icons-material/Start';
 import AppBar from '@mui/material/AppBar';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import IconButton from '@mui/material/IconButton';

@@ -8,7 +8,7 @@ import './../../../assets/css/App.css';
  */
 const ActionButton2 = (props) => {
     // propsからボタンの色と実行する関数の要素を取り出す。
-    const { buttonName, color, clickAction, element } = props;
+    const { buttonName, color, clickAction} = props;
 
     // 描画する内容
     return (

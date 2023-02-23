@@ -5,16 +5,16 @@ import PaymentForm from '../PaymentForm';
 import { baseURL } from "./../../common/Constant";
 import './PaymentElement.CSS';
 
+// API Secret key
+const { REACT_APP_STRIPE_API_KEY } = process.env;
+
 /**
  * PaymentElement Component
  * @returns 
  */
 const PaymentElement = () => {
-      const hasAPICalledRef = useRef(false)
-      const [piClientSecret, setPiClientSecret] = useState('')
-
-      // API Secret key
-      const apiKey = process.env.REACT_APP_STRIPE_API_KEY;
+      const hasAPICalledRef = useRef(false);
+      const [piClientSecret, setPiClientSecret] = useState('');
       
       /**
        * 副作用フック
@@ -34,7 +34,7 @@ const PaymentElement = () => {
 
       return (
             <Elements
-                  stripe={loadStripe(apiKey)}
+                  stripe={loadStripe(REACT_APP_STRIPE_API_KEY)}
                   options={{
                         clientSecret: piClientSecret,
                   }}

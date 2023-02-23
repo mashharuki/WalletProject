@@ -14,7 +14,7 @@ IDQ Soul Wallet
 
 ## デモ動画
 
-[https://www.youtube.com/watch?v=yyLkcT2IkuA&t=4s](https://www.youtube.com/watch?v=yyLkcT2IkuA&t=4s)
+[https://www.youtube.com/watch?v=gYVFFzLEgvU](https://www.youtube.com/watch?v=gYVFFzLEgvU)
 
 ## ピッチ資料
 
@@ -103,6 +103,7 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 17  | Stripe API            | IDQ トークン購入機能実装のため                                             |
 | 18  | MUI Component         | フロントエンドの開発を効率化させるため                                     |
 | 19  | Protocol              | Avalanche Fuji Chain(Testnet)                                              |
+| 20  | AWS KMS               | 署名に必要な秘密鍵を管理するため(秘密鍵本体の流出リスクを抑える)           |
 
 ## これから使用する予定の tech stacks
 
@@ -123,8 +124,14 @@ Avalanche Fuji Chain(Testnet)
 
 | No. | コントラクト名  | Explorer の URL                                                                                                                    |
 | --- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | MyToken         | [0x93fdd51462FB20fB631F8CA38c3DeB87583311Ea](https://testnet.snowtrace.io/address/0x93fdd51462FB20fB631F8CA38c3DeB87583311Ea#code) |
-| 2   | WalletFactoryV4 | [0xD731c110bc106Aa60f768a1fd2707684A650Cc02](https://testnet.snowtrace.io/address/0xD731c110bc106Aa60f768a1fd2707684A650Cc02#code) |
+| 1   | MyToken         | [0x45f73bdac06c8ba7c41e47ed7eefe85ef74bae07](https://testnet.snowtrace.io/address/0x45f73bdac06c8ba7c41e47ed7eefe85ef74bae07#code) |
+| 2   | WalletFactoryV4 | [0xf9d1A62058c6eE047a5f0FfC1797A19FEffe44b9](https://testnet.snowtrace.io/address/0xf9d1A62058c6eE047a5f0FfC1797A19FEffe44b9#code) |
+
+## AWS KMS 上の鍵で生成したウォレットアドレス
+
+| アドレス                                   | エクスプローラー URL                                                                                                                                               |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 0xeDf54d22e96B3053722308951799162508973486 | [https://testnet.snowtrace.io/address/0xeDf54d22e96B3053722308951799162508973486](https://testnet.snowtrace.io/address/0xeDf54d22e96B3053722308951799162508973486) |
 
 ## application code やその他の file
 
