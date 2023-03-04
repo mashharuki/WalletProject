@@ -7,7 +7,7 @@ import { MuiFileInput } from 'mui-file-input';
 import React, { useState } from "react";
 import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
-import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../common/LoadingIndicator';
 import './../../assets/css/App.css';
 import { useIDQContext } from './../../Contexts';
 import { baseURL, PINTABaseURL } from './../common/Constant';

@@ -15,7 +15,7 @@ import { useLocation } from "react-router-dom";
 import superAgent from 'superagent';
 import Web3 from "web3";
 import ActionButton from '../../common/ActionButton';
-import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../../common/LoadingIndicator';
 import './../../../assets/css/App.css';
 import { useIDQContext } from './../../../Contexts';
 import {

@@ -16,29 +16,29 @@ export const useIDQContext = () => {
  * @param 子コンポーネント
  */
 export const ContextProvider = ({ children }) => {
-      // ステート変数
-      const [currentAccount, setCurrentAccount] = useState(null);
-      const [width, setWidth] = useState(0);
+  // ステート変数
+  const [currentAccount, setCurrentAccount] = useState(null);
+  const [width, setWidth] = useState(0);
 
-      /**
-       * 画面の幅を変更する
-       * @param {*} event 
-       */
-      const updateWidth = (event) => {
-        setWidth(window.innerWidth)
-      }
+  /**
+   * 画面の幅を変更する
+   * @param {*} event 
+   */
+  const updateWidth = (event) => {
+    setWidth(window.innerWidth)
+  }
 
-      return (
-            <IDQContext.Provider 
-                value={{
-                  currentAccount,
-                  setCurrentAccount,
-                  updateWidth,
-                  width,
-                  setWidth,
-                }}
-            >
-                {children}
-            </IDQContext.Provider>
-      );
+  return (
+    <IDQContext.Provider 
+      value={{
+        currentAccount,
+        setCurrentAccount,
+        updateWidth,
+        width,
+        setWidth,
+      }}
+    >
+      {children}
+    </IDQContext.Provider>
+  );
 };

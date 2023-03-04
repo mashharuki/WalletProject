@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
 import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
-import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../common/LoadingIndicator';
 import SendDialog from '../common/SendDialog';
 import './../../assets/css/App.css';
 import { useIDQContext } from './../../Contexts';
@@ -42,6 +42,7 @@ const Home = (props) => {
         currentAccount,
         updateWidth,
         width,
+        setWidth,
     } = useIDQContext();
 
     const [balance, setBalance] = useState(0);
@@ -242,6 +243,7 @@ const Home = (props) => {
     useEffect(()=> {
         getBalance();
         checkStatus();
+        setWidth(window.innerWidth);
 
         window.addEventListener(`resize`, updateWidth, {
             capture: false,

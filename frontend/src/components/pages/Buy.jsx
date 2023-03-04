@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
 import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
-import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../common/LoadingIndicator';
 import PaymentDialog from '../common/PaymentDialog';
 import './../../assets/css/App.css';
 import { useIDQContext } from './../../Contexts';
@@ -159,13 +159,13 @@ const Buy = (props) => {
                 {successFlg && (
                         /* 成功時のポップアップ */
                         <div id="toast" className={showToast ? "zero-show" : ""}>
-                              <div id="secdesc">Create Trasaction Successfull!!</div>
+                              <div id="secdesc">Trasaction Successfull!!</div>
                         </div>
                 )}
                 {failFlg && (
                         /* 失敗時のポップアップ */
                         <div id="toast" className={showToast ? "zero-show" : ""}>
-                              <div id="desc">Create Trasaction failfull..</div>
+                              <div id="desc">Trasaction failfull..</div>
                         </div>
                 )}
             </MainContainer>

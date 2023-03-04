@@ -9,6 +9,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './../assets/css/App.css';
 import { useIDQContext } from './../Contexts';
+import ActionButton2 from './common/ActionButton2';
 import Web3Menu from "./common/Web3Menu";
 import {
   connectWallet
@@ -17,6 +18,7 @@ import Buy from './pages/Buy';
 import Create from './pages/Create';
 import Home from './pages/Home';
 import NoPage from './pages/NoPage';
+import Tips from './pages/Tips';
 import Txs from './pages/Tx/Txs';
 import Upload from './pages/Upload';
 import MyVC from './pages/Vc/MyVc';
@@ -79,6 +81,7 @@ function App() {
           { currentAccount === null ? (
             <header className="App-header">
               <p>Welcome to IDQ Soul Wallet!!</p>
+              <ActionButton2 buttonName="Enter App" color="primary" clickAction={connectWalletAction} />
             </header>
           ) : (
             <Routes>
@@ -91,6 +94,7 @@ function App() {
               <Route path="/myvc" exact element={ <MyVC /> } />
               <Route path="/upload" exact element={ <Upload /> } />
               <Route path="/verify" exact element={ <Verify/> } />
+              <Route path="/tips" exact element={ <Tips/> } />
               <Route path="*" exact element={ <NoPage/> } />
             </Routes>
           )}

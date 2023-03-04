@@ -7,7 +7,7 @@ import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
 import superAgent from 'superagent';
 import ActionButton from '../common/ActionButton';
-import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../common/LoadingIndicator';
 import './../../assets/css/App.css';
 import { useIDQContext } from './../../Contexts';
 import {

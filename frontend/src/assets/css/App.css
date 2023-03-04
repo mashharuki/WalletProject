@@ -180,6 +180,11 @@ body {
   cursor:pointer
 }
 
+/* cardの背景 */
+.card-root {
+  background: 'rgb(150, 144, 144)';
+}
+
 /* ポップアップ用のCSS */
 #toast {
   visibility: hidden;
