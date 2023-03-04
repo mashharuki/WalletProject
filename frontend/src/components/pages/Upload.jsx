@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -10,12 +9,9 @@ import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
-import {
-      baseURL, PINTABaseURL
-} from './../common/Constant';
-import {
-      getDid
-} from './../hooks/UseContract';
+import { baseURL, PINTABaseURL } from './../common/Constant';
+import MainContainer from './../common/MainContainer';
+import { getDid } from './../hooks/UseContract';
 
 const {
     REACT_APP_PINATA_API_KEY,
@@ -152,66 +148,51 @@ const Upload = (props) => {
       };
 
       return (
-            <Grid
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-            >
-                  <Box 
-                  sx={{ 
-                        flexGrow: 1, 
-                        overflow: "hidden", 
-                        px: 3, 
-                        mt: 10, 
-                        height: '80vh'
-                  }}
+            <MainContainer>
+                  <StyledPaper 
+                        sx={{
+                              my: 1, 
+                              mx: "auto", 
+                              p: 0, 
+                              borderRadius: 4, 
+                              marginTop: 4
+                        }}
                   >
-                        <StyledPaper 
-                              sx={{
-                                    my: 1, 
-                                    mx: "auto", 
-                                    p: 0, 
-                                    borderRadius: 4, 
-                                    marginTop: 4
-                              }}
+                        <Grid 
+                              container 
+                              alignItems="center"
+                              justifyContent="center"
                         >
-                              <Grid 
-                                    container 
-                                    alignItems="center"
-                                    justifyContent="center"
-                              >
-                                    <div className="App-content">
-                                          {pendingFlg ? (
-                                                      <Grid container justifyContent="center">
-                                                            <div className="loading">
-                                                                  <p><LoadingIndicator/></p>
-                                                                  <h3>Please Wait・・・・</h3>
-                                                            </div>
-                                                      </Grid>
-                                          ) : (
-                                                <>
-                                                      <p><strong>You can upload your VC</strong></p>
-                                                      <p></p>
-                                                      <div className="file-ui">
-                                                            <MuiFileInput 
-                                                                  value={file} 
-                                                                  placeholder="Please select your file"
-                                                                  onChange={handleChangeFile} 
-                                                                  variant="outlined" 
-                                                            />
+                              <div className="App-content">
+                                    {pendingFlg ? (
+                                                <Grid container justifyContent="center">
+                                                      <div className="loading">
+                                                            <p><LoadingIndicator/></p>
+                                                            <h3>Please Wait・・・・</h3>
                                                       </div>
-                                                      <ActionButton2 
-                                                            buttonName="upload" 
-                                                            color="primary" 
-                                                            clickAction={upload} 
-                                                      /> 
-                                                </> 
-                                          )}
-                                    </div>
-                              </Grid>
-                        </StyledPaper>
-                  </Box>
+                                                </Grid>
+                                    ) : (
+                                          <>
+                                                <p><strong>You can upload your VC</strong></p>
+                                                <p></p>
+                                                <div className="file-ui">
+                                                      <MuiFileInput 
+                                                            value={file} 
+                                                            placeholder="Please select your file"
+                                                            onChange={handleChangeFile} 
+                                                            variant="outlined" 
+                                                      />
+                                                </div>
+                                                <ActionButton2 
+                                                      buttonName="upload" 
+                                                      color="primary" 
+                                                      clickAction={upload} 
+                                                /> 
+                                          </> 
+                                    )}
+                              </div>
+                        </Grid>
+                  </StyledPaper>
                   {successFlg && (
                         /* 成功時のポップアップ */
                         <div id="toast" className={showToast ? "zero-show" : ""}>
@@ -224,7 +205,7 @@ const Upload = (props) => {
                               <div id="desc">Create Trasaction failfull..</div>
                         </div>
                   )}
-            </Grid>
+            </MainContainer>
       );
 };
 

@@ -1,6 +1,5 @@
 import { TextField } from '@mui/material';
 // mui関連のコンポーネントのインポート
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -21,6 +20,7 @@ import './../../../assets/css/App.css';
 import {
     baseURL
 } from './../../common/Constant';
+import MainContainer from './../../common/MainContainer';
 import {
     getTxs
 } from './../../hooks/UseContract';
@@ -323,104 +323,30 @@ const Txs = (props) => {
     }, [wallet]);
 
     return(
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3, mt: 10, height: '80vh'}}>
-                <StyledPaper sx={{my: 1, mx: "auto", p: 0, borderRadius: 4, marginTop: 4}}>
-                    {isLoading ? (
-                        <Grid container justifyContent="center">
-                            <header className="loading">
-                                <p><LoadingIndicator/></p>
-                                <h3>Please Wait・・・・</h3>
-                            </header>
-                        </Grid>
-                    ) : ( 
-                        <>
-                            {/* Createモードかどうかで表示を切り替える。 */}
-                            {createFlg ? (
-                                <>
-                                    <Grid container justifyContent="center">
-                                        <Grid 
-                                            container
-                                            justifyContent="center"
-                                            sx={{ 
-                                                alignItems: 'center', 
-                                                m: 1,
-                                            }}
-                                        >
-                                            <p><strong>Please etner Transaction info</strong></p>
-                                        </Grid>
-                                        <Grid 
-                                            container 
-                                            justifyContent="center"
-                                            sx={{ 
-                                                display: 'flex', 
-                                                alignItems: 'center', 
-                                                m: 1,
-                                                marginTop: 4
-                                            }}
-                                        >
-                                            <Paper
-                                                elevation={0}
-                                                sx={{ 
-                                                    p: '2px 4px', 
-                                                    display: 'flex', 
-                                                    alignItems: 'center', 
-                                                    backgroundColor: 'rgb(150, 144, 144)',
-                                                    width: 450, 
-                                                    marginTop: 1
-                                                }}
-                                            >  
-                                                <label>to ：</label>
-                                                <TextField 
-                                                    id="to" 
-                                                    placeholder="send address" 
-                                                    margin="normal" 
-                                                    required
-                                                    onChange={ (e) => setTo(e.target.value) } 
-                                                    variant="outlined" 
-                                                    inputProps={{ 'aria-label': 'to' }} 
-                                                />
-                                            </Paper>
-                                        </Grid>
-                                        <Grid 
-                                            container 
-                                            justifyContent="center"
-                                            sx={{ 
-                                                display: 'flex', 
-                                                alignItems: 'center', 
-                                                m: 1,
-                                                marginTop: 4
-                                            }}
-                                        >
-                                            <Paper
-                                                elevation={0}
-                                                sx={{ 
-                                                    p: '2px 4px', 
-                                                    display: 'flex', 
-                                                    alignItems: 'center', 
-                                                    backgroundColor: 'rgb(150, 144, 144)',
-                                                    width: 450, 
-                                                    marginTop: 1
-                                                }}
-                                            >  
-                                                <label>value ：</label>
-                                                <TextField 
-                                                    id="value" 
-                                                    placeholder="value" 
-                                                    margin="normal" 
-                                                    type="number"
-                                                    required
-                                                    onChange={ (e) => setValue(e.target.value) } 
-                                                    variant="outlined" 
-                                                    inputProps={{ 'aria-label': 'value' }} 
-                                                />
-                                            </Paper>
-                                        </Grid>
+        <MainContainer>
+            <StyledPaper sx={{my: 1, mx: "auto", p: 0, borderRadius: 4, marginTop: 4}}>
+                {isLoading ? (
+                    <Grid container justifyContent="center">
+                        <header className="loading">
+                            <p><LoadingIndicator/></p>
+                            <h3>Please Wait・・・・</h3>
+                        </header>
+                    </Grid>
+                ) : ( 
+                    <>
+                        {/* Createモードかどうかで表示を切り替える。 */}
+                        {createFlg ? (
+                            <>
+                                <Grid container justifyContent="center">
+                                    <Grid 
+                                        container
+                                        justifyContent="center"
+                                        sx={{ 
+                                            alignItems: 'center', 
+                                            m: 1,
+                                        }}
+                                    >
+                                        <p><strong>Please etner Transaction info</strong></p>
                                     </Grid>
                                     <Grid 
                                         container 
@@ -432,65 +358,29 @@ const Txs = (props) => {
                                             marginTop: 4
                                         }}
                                     >
-                                        <ActionButton buttonName="Create" color="error" clickAction={createAction} />
-                                        <ActionButton buttonName="back" color="primary" clickAction={(e) => {setCreateFlg(false)}} />
-                                    </Grid>
-                                </>
-                            ) : (
-                                <>
-                                    <Grid container justifyContent="center">
-                                        <Grid 
-                                            container
-                                            justifyContent="center"
+                                        <Paper
+                                            elevation={0}
                                             sx={{ 
+                                                p: '2px 4px', 
+                                                display: 'flex', 
                                                 alignItems: 'center', 
-                                                m: 1,
+                                                backgroundColor: 'rgb(150, 144, 144)',
+                                                width: 450, 
+                                                marginTop: 1
                                             }}
-                                        >
-                                            <p><strong>Transaction Info</strong></p>
-                                        </Grid>
+                                        >  
+                                            <label>to ：</label>
+                                            <TextField 
+                                                id="to" 
+                                                placeholder="send address" 
+                                                margin="normal" 
+                                                required
+                                                onChange={ (e) => setTo(e.target.value) } 
+                                                variant="outlined" 
+                                                inputProps={{ 'aria-label': 'to' }} 
+                                            />
+                                        </Paper>
                                     </Grid>
-                                    <TableContainer sx={{ maxHeight: 600 }}>
-                                        <Table stickyHeader aria-label="sticky table">
-                                            <TableHead>
-                                                <TableRow>
-                                                    {columns.map((column) => (
-                                                        <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
-                                                            {column.label}
-                                                        </TableCell>
-                                                    ))}
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {txs
-                                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    .map((row, i) => {
-                                                        /* WalletTableコンポーネントに値を詰めて描画する。 */
-                                                        return (
-                                                            <TxTable 
-                                                                _wallet={wallet} 
-                                                                _columns={columns} 
-                                                                row={row} 
-                                                                index={i} 
-                                                                approveAction={(e) => approveAction(i)}
-                                                                revokeAction={(e) => revokeAction(i)}
-                                                                executeAction={(e) => executeAction(i)}
-                                                            />
-                                                        );
-                                                })}
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                    <TablePagination
-                                        rowsPerPageOptions={[10, 25, 100]}
-                                        component="div"
-                                        count={txs.length}
-                                        rowsPerPage={rowsPerPage}
-                                        page={page}
-                                        signer={account}
-                                        onPageChange={handleChangePage}
-                                        onRowsPerPageChange={handleChangeRowsPerPage}
-                                    />
                                     <Grid 
                                         container 
                                         justifyContent="center"
@@ -501,14 +391,117 @@ const Txs = (props) => {
                                             marginTop: 4
                                         }}
                                     >
-                                        <ActionButton buttonName="Create Transaction" color="error" clickAction={(e) => {setCreateFlg(true)}} />
+                                        <Paper
+                                            elevation={0}
+                                            sx={{ 
+                                                p: '2px 4px', 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                backgroundColor: 'rgb(150, 144, 144)',
+                                                width: 450, 
+                                                marginTop: 1
+                                            }}
+                                        >  
+                                            <label>value ：</label>
+                                            <TextField 
+                                                id="value" 
+                                                placeholder="value" 
+                                                margin="normal" 
+                                                type="number"
+                                                required
+                                                onChange={ (e) => setValue(e.target.value) } 
+                                                variant="outlined" 
+                                                inputProps={{ 'aria-label': 'value' }} 
+                                            />
+                                        </Paper>
                                     </Grid>
-                                </>
-                            ) }
-                        </>
-                    )}
-                </StyledPaper>
-            </Box>
+                                </Grid>
+                                <Grid 
+                                    container 
+                                    justifyContent="center"
+                                    sx={{ 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        m: 1,
+                                        marginTop: 4
+                                    }}
+                                >
+                                    <ActionButton buttonName="Create" color="error" clickAction={createAction} />
+                                    <ActionButton buttonName="back" color="primary" clickAction={(e) => {setCreateFlg(false)}} />
+                                </Grid>
+                            </>
+                        ) : (
+                            <>
+                                <Grid container justifyContent="center">
+                                    <Grid 
+                                        container
+                                        justifyContent="center"
+                                        sx={{ 
+                                            alignItems: 'center', 
+                                            m: 1,
+                                        }}
+                                    >
+                                        <p><strong>Transaction Info</strong></p>
+                                    </Grid>
+                                </Grid>
+                                <TableContainer sx={{ maxHeight: 600 }}>
+                                    <Table stickyHeader aria-label="sticky table">
+                                        <TableHead>
+                                            <TableRow>
+                                                {columns.map((column) => (
+                                                    <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                                                        {column.label}
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {txs
+                                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                .map((row, i) => {
+                                                    /* WalletTableコンポーネントに値を詰めて描画する。 */
+                                                    return (
+                                                        <TxTable 
+                                                            _wallet={wallet} 
+                                                            _columns={columns} 
+                                                            row={row} 
+                                                            index={i} 
+                                                            approveAction={(e) => approveAction(i)}
+                                                            revokeAction={(e) => revokeAction(i)}
+                                                            executeAction={(e) => executeAction(i)}
+                                                        />
+                                                    );
+                                            })}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                <TablePagination
+                                    rowsPerPageOptions={[10, 25, 100]}
+                                    component="div"
+                                    count={txs.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    signer={account}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
+                                <Grid 
+                                    container 
+                                    justifyContent="center"
+                                    sx={{ 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        m: 1,
+                                        marginTop: 4
+                                    }}
+                                >
+                                    <ActionButton buttonName="Create Transaction" color="error" clickAction={(e) => {setCreateFlg(true)}} />
+                                </Grid>
+                            </>
+                        ) }
+                    </>
+                )}
+            </StyledPaper>
             {successFlg && (
                 /* 成功時のポップアップ */
                 <div id="toast" className={showToast ? "zero-show" : ""}>
@@ -521,7 +514,7 @@ const Txs = (props) => {
                     <div id="desc">{popUpDocs}</div>
                 </div>
             )}
-        </Grid>
+        </MainContainer>
     );
 }
 

@@ -1,6 +1,5 @@
 import { TextField } from '@mui/material';
 // mui関連のコンポーネントのインポート
-import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -13,6 +12,7 @@ import './../../assets/css/App.css';
 import {
     baseURL
 } from './../common/Constant';
+import MainContainer from './../common/MainContainer';
 
 
 /** 
@@ -155,144 +155,27 @@ const Create = (props) => {
     }, [account]);
 
     return(
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3, mt: 10, height: '80vh'}}>
-                <StyledPaper sx={{my: 1, mx: "auto", p: 0, borderRadius: 4, marginTop: 4}}>
-                    {isLoading ? (
+        <MainContainer>
+            <StyledPaper sx={{my: 1, mx: "auto", p: 0, borderRadius: 4, marginTop: 4}}>
+                {isLoading ? (
+                    <Grid container justifyContent="center">
+                        <header className="loading">
+                            <p><LoadingIndicator/></p>
+                            <h3>Please Wait・・・・</h3>
+                        </header>
+                    </Grid>
+                ) : ( 
+                    <>
                         <Grid container justifyContent="center">
-                            <header className="loading">
-                                <p><LoadingIndicator/></p>
-                                <h3>Please Wait・・・・</h3>
-                            </header>
-                        </Grid>
-                    ) : ( 
-                        <>
-                            <Grid container justifyContent="center">
-                                <Grid 
-                                    container
-                                    justifyContent="center"
-                                    sx={{ 
-                                        alignItems: 'center', 
-                                        m: 1,
-                                    }}
-                                >
-                                    <p><strong>Please enter wallet info</strong></p>
-                                </Grid>
-                                <Grid 
-                                    container 
-                                    justifyContent="center"
-                                    sx={{ 
-                                        display: 'flex', 
-                                        alignItems: 'center', 
-                                        m: 1,
-                                        marginTop: 4
-                                    }}
-                                >
-                                    <Paper
-                                        elevation={0}
-                                        sx={{ 
-                                            p: '2px 4px', 
-                                            display: 'flex', 
-                                            alignItems: 'center', 
-                                            backgroundColor: 'rgb(150, 144, 144)',
-                                            width: 450, 
-                                            marginTop: 1
-                                        }}
-                                    >  
-                                        <label>Wallet Name：</label>
-                                        <TextField 
-                                            id="WalletName" 
-                                            placeholder="Wallet Name" 
-                                            margin="normal" 
-                                            required
-                                            onChange={ (e) => setWalletName(e.target.value) } 
-                                            variant="outlined" 
-                                            inputProps={{ 'aria-label': 'WalletName' }} 
-                                        />
-                                    </Paper>
-                                </Grid>
-                                <Grid 
-                                    container 
-                                    justifyContent="center"
-                                    sx={{ 
-                                        display: 'flex', 
-                                        alignItems: 'center', 
-                                        m: 1,
-                                        marginTop: 4
-                                    }}
-                                >
-                                    <Paper
-                                        elevation={0}
-                                        sx={{ 
-                                            p: '2px 4px', 
-                                            display: 'flex', 
-                                            alignItems: 'center', 
-                                            backgroundColor: 'rgb(150, 144, 144)',
-                                            width: 500, 
-                                            marginTop: 4
-                                        }}
-                                    >  
-                                        <label>Owner's address：</label>
-                                        <TextField 
-                                            id="ownerAddress" 
-                                            placeholder="owners's Address" 
-                                            margin="normal" 
-                                            required
-                                            value={owner}
-                                            onChange={ (e) => setOwner(e.target.value) } 
-                                            variant="outlined" 
-                                            inputProps={{ 'aria-label': 'ownerAddress' }} 
-                                        />
-                                        <Button 
-                                            onClick={addAddress} 
-                                            sx={{ margin: 1}} 
-                                            variant="contained" 
-                                            color="inherit" 
-                                            className="cta-button"
-                                        > 
-                                            + 
-                                        </Button>
-                                    </Paper>
-                                </Grid>
-                                <Grid 
-                                    container 
-                                    justifyContent="center"
-                                    sx={{ 
-                                        display: 'flex', 
-                                        alignItems: 'center', 
-                                        m: 1,
-                                        marginTop: 4
-                                    }}
-                                >
-                                    <Paper
-                                        elevation={0}
-                                        sx={{ 
-                                            p: '2px 4px', 
-                                            display: 'flex', 
-                                            alignItems: 'center', 
-                                            backgroundColor: 'rgb(150, 144, 144)',
-                                            width: 450, 
-                                            marginTop: 1
-                                        }}
-                                    >  
-                                        <label>Required：</label>
-                                        <TextField 
-                                            id="Required" 
-                                            placeholder="Required" 
-                                            margin="normal" 
-                                            required
-                                            type="number"
-                                            onChange={ (e) => setRequired(e.target.value) } 
-                                            variant="outlined" 
-                                            inputProps={{ 'aria-label': 'Required' }} 
-                                        />
-                                    </Paper>
-                                </Grid>
+                            <Grid 
+                                container
+                                justifyContent="center"
+                                sx={{ 
+                                    alignItems: 'center', 
+                                    m: 1,
+                                }}
+                            >
+                                <p><strong>Please enter wallet info</strong></p>
                             </Grid>
                             <Grid 
                                 container 
@@ -304,12 +187,122 @@ const Create = (props) => {
                                     marginTop: 4
                                 }}
                             >
-                                <ActionButton buttonName="Create" color="error" clickAction={createAction} />
+                                <Paper
+                                    elevation={0}
+                                    sx={{ 
+                                        p: '2px 4px', 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        backgroundColor: 'rgb(150, 144, 144)',
+                                        width: 450, 
+                                        marginTop: 1
+                                    }}
+                                >  
+                                    <label>Wallet Name：</label>
+                                    <TextField 
+                                        id="WalletName" 
+                                        placeholder="Wallet Name" 
+                                        margin="normal" 
+                                        required
+                                        onChange={ (e) => setWalletName(e.target.value) } 
+                                        variant="outlined" 
+                                        inputProps={{ 'aria-label': 'WalletName' }} 
+                                    />
+                                </Paper>
                             </Grid>
-                        </>
-                    )}
-                </StyledPaper>
-            </Box>
+                            <Grid 
+                                container 
+                                justifyContent="center"
+                                sx={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    m: 1,
+                                    marginTop: 4
+                                }}
+                            >
+                                <Paper
+                                    elevation={0}
+                                    sx={{ 
+                                        p: '2px 4px', 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        backgroundColor: 'rgb(150, 144, 144)',
+                                        width: 500, 
+                                        marginTop: 4
+                                    }}
+                                >  
+                                    <label>Owner's address：</label>
+                                    <TextField 
+                                        id="ownerAddress" 
+                                        placeholder="owners's Address" 
+                                        margin="normal" 
+                                        required
+                                        value={owner}
+                                        onChange={ (e) => setOwner(e.target.value) } 
+                                        variant="outlined" 
+                                        inputProps={{ 'aria-label': 'ownerAddress' }} 
+                                    />
+                                    <Button 
+                                        onClick={addAddress} 
+                                        sx={{ margin: 1}} 
+                                        variant="contained" 
+                                        color="inherit" 
+                                        className="cta-button"
+                                    > 
+                                        + 
+                                    </Button>
+                                </Paper>
+                            </Grid>
+                            <Grid 
+                                container 
+                                justifyContent="center"
+                                sx={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    m: 1,
+                                    marginTop: 4
+                                }}
+                            >
+                                <Paper
+                                    elevation={0}
+                                    sx={{ 
+                                        p: '2px 4px', 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        backgroundColor: 'rgb(150, 144, 144)',
+                                        width: 450, 
+                                        marginTop: 1
+                                    }}
+                                >  
+                                    <label>Required：</label>
+                                    <TextField 
+                                        id="Required" 
+                                        placeholder="Required" 
+                                        margin="normal" 
+                                        required
+                                        type="number"
+                                        onChange={ (e) => setRequired(e.target.value) } 
+                                        variant="outlined" 
+                                        inputProps={{ 'aria-label': 'Required' }} 
+                                    />
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                        <Grid 
+                            container 
+                            justifyContent="center"
+                            sx={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                m: 1,
+                                marginTop: 4
+                            }}
+                        >
+                            <ActionButton buttonName="Create" color="error" clickAction={createAction} />
+                        </Grid>
+                    </>
+                )}
+            </StyledPaper>
             {successFlg && (
                 /* 成功時のポップアップ */
                 <div id="toast" className={showToast ? "zero-show" : ""}>
@@ -322,7 +315,7 @@ const Create = (props) => {
                     <div id="desc">Create Trasaction failfull..</div>
                 </div>
             )}
-        </Grid>
+        </MainContainer>
     );
 }
 

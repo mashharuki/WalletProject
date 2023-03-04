@@ -1,9 +1,9 @@
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import React from "react";
 import './../../assets/css/App.css';
+import MainContainer from './../common/MainContainer';
 
 /** 
  * StyledPaperコンポーネント
@@ -20,45 +20,30 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  */
 const Verify = () => {
     return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Box 
-                sx={{ 
-                    flexGrow: 1, 
-                    overflow: "hidden", 
-                    px: 3, 
-                    mt: 10, 
-                    height: '80vh'
+        <MainContainer>
+            <StyledPaper
+                sx={{
+                    my: 1, 
+                    mx: "auto", 
+                    p: 0, 
+                    borderRadius: 4, 
+                    marginTop: 4
                 }}
             >
-                <StyledPaper
-                    sx={{
-                        my: 1, 
-                        mx: "auto", 
-                        p: 0, 
-                        borderRadius: 4, 
-                        marginTop: 4
-                    }}
+                <Grid 
+                    container 
+                    alignItems="center"
+                    justifyContent="center"
                 >
-                    <Grid 
-                        container 
-                        alignItems="center"
-                        justifyContent="center"
-                    >
-                        <div className="App-content">
-                            <p><strong>You can verify VC</strong></p>
-                            <p></p>
-                            <blockcerts-verifier></blockcerts-verifier>
-                            <p></p>
-                        </div>
-                    </Grid>
-                </StyledPaper>
-            </Box>
-        </Grid>
+                    <div className="App-content">
+                        <p><strong>You can verify VC</strong></p>
+                        <p></p>
+                        <blockcerts-verifier></blockcerts-verifier>
+                        <p></p>
+                    </div>
+                </Grid>
+            </StyledPaper>
+        </MainContainer>
     );
 };
 

@@ -11,8 +11,7 @@ import './../assets/css/App.css';
 import { RegisterContext } from './common/Contexts';
 import Web3Menu from "./common/Web3Menu";
 import {
-  connectWallet,
-  getProvider
+  connectWallet
 } from './hooks/UseContract';
 import Buy from './pages/Buy';
 import Create from './pages/Create';
@@ -31,8 +30,6 @@ import Wallets from './pages/Wallet/Wallets';
 function App() {
   // ステート変数
   const [currentAccount, setCurrentAccount] = useState(null);
-  const [blocto, setBlocto] = useState(null);
-  const [web3, setWeb3] = useState(null);
 
   // register status
   const isRegistered = false;
@@ -43,12 +40,8 @@ function App() {
   const connectWalletAction = async () => {
     try {
       // call createContractObject function
-      const { bloctoSDK, signer } = await connectWallet();
-      // call getProvider function
-      const provider = getProvider();
-  
-      setBlocto(bloctoSDK);
-      setWeb3(provider);
+      const { signer } = await connectWallet();
+
       setCurrentAccount(signer);
     } catch (error) {
       console.log(error);
@@ -61,7 +54,7 @@ function App() {
         <GlobalStyles styles={{ body: { margin: 0, padding: 0 } }} />
         <Router>
           <div sx={{ flexGrow: 1 }}>
-          { /* 画面上部に表示するAppBarコンポーネント */ }
+            { /* 画面上部に表示するAppBarコンポーネント */ }
             <AppBar position="static" color="transparent">
               <Toolbar>
                 <Typography variant="h6" color="black" sx={{ flexGrow: 1 }}>

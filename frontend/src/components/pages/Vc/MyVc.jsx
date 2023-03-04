@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -11,6 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import './../../../assets/css/App.css';
+import MainContainer from './../../common/MainContainer';
 import {
     getDid,
     getVcs
@@ -100,84 +100,69 @@ const MyVC = (props) => {
     });
 
     return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
-            <Box 
-                sx={{ 
-                    flexGrow: 1, 
-                    overflow: "hidden", 
-                    px: 3, 
-                    mt: 10, 
-                    height: '80vh'
+        <MainContainer>
+            <StyledPaper
+                sx={{
+                    my: 1, 
+                    mx: "auto", 
+                    p: 0, 
+                    borderRadius: 4, 
+                    marginTop: 4
                 }}
             >
-                <StyledPaper
-                    sx={{
-                        my: 1, 
-                        mx: "auto", 
-                        p: 0, 
-                        borderRadius: 4, 
-                        marginTop: 4
-                    }}
-                >
-                    <Grid container justifyContent="center">
-                        <Grid 
-                            container
-                            justifyContent="center"
-                            sx={{ 
-                                alignItems: 'center', 
-                                m: 1,
-                            }}
-                        >
-                            <p><strong>My Verifiable Credentials</strong></p>
-                        </Grid>
+                <Grid container justifyContent="center">
+                    <Grid 
+                        container
+                        justifyContent="center"
+                        sx={{ 
+                            alignItems: 'center', 
+                            m: 1,
+                        }}
+                    >
+                        <p><strong>My Verifiable Credentials</strong></p>
                     </Grid>
-                    <TableContainer sx={{ maxHeight: 600 }}>
-                        <Table stickyHeader aria-label="sticky table">
-                            <TableHead>
-                                <TableRow>
-                                    {columns.map((column) => (
-                                        <TableCell 
-                                            key={column.id} 
-                                            align={column.align} 
-                                            style={{ minWidth: column.minWidth }}
-                                        >
-                                            {column.label}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                { vcs
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row, i) => {
-                                        return (
-                                            <VcTable 
-                                                _vc={row} 
-                                                _columns={columns} 
-                                                index={i} 
-                                                downloadAction={downloadAction(row.cid, row.name)}
-                                            />);
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[10, 25, 100]}
-                        component="div"
-                        count={vcs.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </StyledPaper>
-            </Box>
-        </Grid>
+                </Grid>
+                <TableContainer sx={{ maxHeight: 600 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell 
+                                        key={column.id} 
+                                        align={column.align} 
+                                        style={{ minWidth: column.minWidth }}
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            { vcs
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, i) => {
+                                    return (
+                                        <VcTable 
+                                            _vc={row} 
+                                            _columns={columns} 
+                                            index={i} 
+                                            downloadAction={downloadAction(row.cid, row.name)}
+                                        />);
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={vcs.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </StyledPaper>
+        </MainContainer>
     );
 };
 
