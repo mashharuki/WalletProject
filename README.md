@@ -67,6 +67,7 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 共通資金プール送金機能   | マルチシグコントラクトから目的のアドレスへ送金する機能                            |
 | 共通資金プール送金機能   | 共通資金プール送金のために承認する機能                                            |
 | deposit 機能             | IDQ トークンを使ってマルチシグコントラクトにネイティブトークンを deposit する機能 |
+| Tips 機能                | 他人に気軽に IDQ Token を送れる機能(奢れる感覚)                                   |
 
 ## 使用した分散型インフラと API
 
@@ -107,14 +108,15 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 
 ## これから使用する予定の tech stacks
 
-| No. | 名称            |
-| --- | --------------- |
-| 1   | AWS S3          |
-| 2   | AWS EC2         |
-| 3   | AWS Route53     |
-| 4   | AWS API GateWay |
-| 5   | AWS Cloud Watch |
-| 6   | AWS Elastic IP  |
+| No. | 名称                 |
+| --- | -------------------- |
+| 1   | AWS S3               |
+| 2   | AWS Lambda           |
+| 3   | AWS Route53          |
+| 4   | AWS API GateWay      |
+| 5   | AWS Cloud Watch      |
+| 6   | AWS Elastic IP       |
+| 7   | AWS NAT ゲートウェイ |
 
 ## 使用した Blockchain
 
@@ -142,20 +144,6 @@ Avalanche Fuji Chain(Testnet)
 ### IDQ Soul Wallet を利用した際の想定フロー
 
 [![](https://mermaid.ink/img/pako:eNqdVVtPGkEU_iubfdJoH_RxH0ya0CY-NGnTJn3hZYWlJcJilyXEGBN3RgUV4yVWo8UqVqnWFmuplyKVH3PcBf5Fz8zAdldQm_JAdma-853v3GYm5FAirMmKnNTepTQ9pAWi6htDjQd1CX9m1Ixp0nDghUPLdmkL6Hug34BWpR5n_XujuFTfvGrmfoC1AGTOnjl18nOv1VhMM-2Zg2ZmBaxrsD6DVXLOLCC5XsGppsyEnoqPaEZrHTIThgS0iLxAzvHfu59I65oxIHbGVMOMhqJjqm5KyQFJTUptQWWgWSCH_GOuC3iQgR8_HwZyxrzQZdeLFxZhqKfc7ziQcouWHgE5wY9OfJrhvWF3QkwGeZUY1XTpLkYRofRoaEiKKBhRBugGC4rsd5ybD5yjvZADpAjkCOhXoBQd3fzOO9llJ5ep71eEUYTj04pPfqdCYShMvBXi1lgCRfL2wc31dnO3ldekUJQcVCRxyLO_aq9UwSrbmQpYmy3goAsEWuDVOQayh3Vk8skvNHK2NuylCzu37rPgyVpiAZILoAf21D5YOeHLucyCVeO9R4AsYH_W9yqNL4voFJc-Fl9UjPGEpYDUML1Ad4GuMAlss8oUkdXmlHVTK9yZkX9gwNmw5z94pUTcDETUWFJDTKO2djtBGG5gOHBPJd1TsZ92K5zddvI7rUlF6kIOrFkfNbYVjjive5XXvVzfrCDOX6CBdiXrZ8vOx3yjcOhq6N4aXVsRbwOgWxx9CRavNHokV5gkqTtZn2BrlKuYuUbRck6Jt8X6mEBFGkmNsw6zSp4O2_AG0MfCjEd1s6fXLu1gdJL_lDtxWVox1tbsxZ9-bx0N8zdrzDu_-Orz504Zr7xV0Xb_kaRjQdTDx32b5Yof9HYMlz29gxIfGC7zlk4UNl1Fsy7zkGbQRd67s0A-AV2_ZYkDwK92YSn3y3HNiKvRMD4hE4wpKJtvtbgWlBX8DKvGaFAO6pOIY_f-y3E9JCumkdL65dRYWDXbz42s8NZv7z4JR_ESdjc1vnwmHir-Xk3-AYKqR-E?type=png)](https://mermaid.live/edit#pako:eNqdVVtPGkEU_iubfdJoH_RxH0ya0CY-NGnTJn3hZYWlJcJilyXEGBN3RgUV4yVWo8UqVqnWFmuplyKVH3PcBf5Fz8zAdldQm_JAdma-853v3GYm5FAirMmKnNTepTQ9pAWi6htDjQd1CX9m1Ixp0nDghUPLdmkL6Hug34BWpR5n_XujuFTfvGrmfoC1AGTOnjl18nOv1VhMM-2Zg2ZmBaxrsD6DVXLOLCC5XsGppsyEnoqPaEZrHTIThgS0iLxAzvHfu59I65oxIHbGVMOMhqJjqm5KyQFJTUptQWWgWSCH_GOuC3iQgR8_HwZyxrzQZdeLFxZhqKfc7ziQcouWHgE5wY9OfJrhvWF3QkwGeZUY1XTpLkYRofRoaEiKKBhRBugGC4rsd5ybD5yjvZADpAjkCOhXoBQd3fzOO9llJ5ep71eEUYTj04pPfqdCYShMvBXi1lgCRfL2wc31dnO3ldekUJQcVCRxyLO_aq9UwSrbmQpYmy3goAsEWuDVOQayh3Vk8skvNHK2NuylCzu37rPgyVpiAZILoAf21D5YOeHLucyCVeO9R4AsYH_W9yqNL4voFJc-Fl9UjPGEpYDUML1Ad4GuMAlss8oUkdXmlHVTK9yZkX9gwNmw5z94pUTcDETUWFJDTKO2djtBGG5gOHBPJd1TsZ92K5zddvI7rUlF6kIOrFkfNbYVjjive5XXvVzfrCDOX6CBdiXrZ8vOx3yjcOhq6N4aXVsRbwOgWxx9CRavNHokV5gkqTtZn2BrlKuYuUbRck6Jt8X6mEBFGkmNsw6zSp4O2_AG0MfCjEd1s6fXLu1gdJL_lDtxWVox1tbsxZ9-bx0N8zdrzDu_-Orz504Zr7xV0Xb_kaRjQdTDx32b5Yof9HYMlz29gxIfGC7zlk4UNl1Fsy7zkGbQRd67s0A-AV2_ZYkDwK92YSn3y3HNiKvRMD4hE4wpKJtvtbgWlBX8DKvGaFAO6pOIY_f-y3E9JCumkdL65dRYWDXbz42s8NZv7z4JR_ESdjc1vnwmHir-Xk3-AYKqR-E)
-
-### BBS 署名 + Signature Scheme とは
-
-BBS+ Signature Scheme はマルチメッセージに特化した署名スキームで、その最大の特徴は ZKP(ゼロ知識証明)によるメッセージの選択的開示が可能になることで、VC の署名形式として注目されている。DID に紐づく情報として全てのデータを開示することなる。
-
-通常の署名形式では、署名はメッセージ全体に対して作成されます。検証者は、メッセージ全体を知らなければ、署名が正しいことを検証できません。
-
-これに対し、メッセージの一部だけを開示し、それが正しく署名されたメッセージの部分集合であることを証明することを、メッセージの選択的開示と呼びます。BBS+の選択的開示アルゴリズムでは、検証者はメッセージ全てを知ることも、署名の値そのものを知ることもありません。その代わりに、検証者は対応するゼロ知識証明(ZKP)を検証することで、開示されたメッセージの正しさを判断することができます。
-
-### BLS 署名(ボン・リン・シャチャム署名)
-
-イーサリアム 2.0 の Beacon Chain から採用された新たな署名方式を指す。イーサリアム 1.0 で使用されている署名方式は楕円曲線 DSA(通称 ECDSA)であり、両署名ともに楕円曲線のある点を利用し、署名が確実に署名者によるものであることを検証することができる。
-
-イーサリアム 2.0 では BLS 署名は ECDSA より署名サイズが小さいのに強いセキュリティを持つという特徴を利用し、Casper FFG のバリデータの署名によるフォークチョイスルールのために採用されている。イーサリアム 2.0 に採用されている BLS 署名では、Zcash が 2017 年に設計した BLS-12-381 楕円曲線を採用している。
 
 ### リポジトリのフォルダ構造
 
@@ -299,4 +287,5 @@ BBS+ Signature Scheme はマルチメッセージに特化した署名スキー�
 110. [【Canva】ピッチ資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit?utm_content=DAFYXl1D3PM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 111. [【Qita】react-qr-reader を利用した QR コードリーダーの作成](https://qiita.com/KenNagami/items/1493b498ff197f8f7689)
 112. [バーコードリーダーをブラウザから使えるようにしたい！JS のバーコードリーダーライブラリを調査しました](https://blog.ecbeing.tech/entry/2020/06/30/114023)
-113. [](https://stak.tech/news/14668)
+113. [Zxing でバーコードリーダーを作ってみた](https://stak.tech/news/14668)
+114. [React でウィンドウサイズが小さいときだけスライドショー表示をする方法](https://gotohayato.com/content/529/)

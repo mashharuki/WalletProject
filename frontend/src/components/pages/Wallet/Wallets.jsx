@@ -1,5 +1,4 @@
 // mui関連のコンポーネントのインポート
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -14,11 +13,13 @@ import React, { useEffect, useState } from "react";
 import superAgent from 'superagent';
 import Web3 from "web3";
 import WalletDialog from '../../common/Dialog';
-import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../../common/LoadingIndicator';
 import './../../../assets/css/App.css';
+import { useIDQContext } from './../../../Contexts';
 import {
     baseURL
 } from './../../common/Constant';
+import MainContainer from './../../common/MainContainer';
 import {
     getWallets, walletsCount
 } from './../../hooks/UseContract';
@@ -49,10 +50,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Walletsコンポーネント
  */
 const Wallets = (props) => {
-    // 引数からデータを取得する。
+    // create contract
     const {
-        signer
-    } = props;
+        currentAccount
+    } = useIDQContext();
     
     // アカウント用のステート変数
     const [account, setAccount] = useState(null);
@@ -96,7 +97,7 @@ const Wallets = (props) => {
             }
             
             // コントラクトとアカウントの情報をステート変数に格納する。
-            setAccount(signer);
+            setAccount(currentAccount);
             setWallets(multiSigWallets);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
@@ -120,7 +121,7 @@ const Wallets = (props) => {
             await superAgent
                 .post(baseURL + '/api/burnIDQ')
                 .query({
-                    to: signer,
+                    to: currentAccount,
                     amount: value,
                     walletAddr: depositAddr
                 })
@@ -221,12 +222,7 @@ const Wallets = (props) => {
     }, [account]);
 
     return(
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
+        <MainContainer>
             { /* Dialog */ } 
             <WalletDialog 
                 open={open} 
@@ -236,81 +232,79 @@ const Wallets = (props) => {
                 setAmountAction={(e) => {setAmount(e.target.value)}} 
             />
             { /* main content */ }
-            <Box sx={{ flexGrow: 1, overflow: "hidden", px: 3, mt: 10, height: '80vh'}}>
-                <StyledPaper sx={{my: 1, mx: "auto", p: 0, borderRadius: 4, marginTop: 4}}>
-                    {isLoading ? (
-                        <Grid container justifyContent="center">
-                            <header className="loading">
-                                <p><LoadingIndicator/></p>
-                                <h3>Please Wait・・・・</h3>
-                            </header>
-                        </Grid>
-                    ) : ( 
-                        <>
-                            {isZero ? (
+            <StyledPaper sx={{my: 1, mx: "auto", p: 0, borderRadius: 4, marginTop: 4}}>
+                {isLoading ? (
+                    <Grid container justifyContent="center">
+                        <header className="loading">
+                            <p><LoadingIndicator/></p>
+                            <h3>Please Wait・・・・</h3>
+                        </header>
+                    </Grid>
+                ) : ( 
+                    <>
+                        {isZero ? (
+                            <Grid container justifyContent="center">
+                                <h3>No Wallets!!</h3>
+                            </Grid>
+                        ) : (
+                            <>
+                                {/* 読み込み時以外は作成済みのウォレットの情報を表で出力する。 */}
                                 <Grid container justifyContent="center">
-                                    <h3>No Wallets!!</h3>
-                                </Grid>
-                            ) : (
-                                <>
-                                    {/* 読み込み時以外は作成済みのウォレットの情報を表で出力する。 */}
-                                    <Grid container justifyContent="center">
-                                        <Grid 
-                                            container
-                                            justifyContent="center"
-                                            sx={{ 
-                                                alignItems: 'center', 
-                                                m: 1,
-                                            }}
-                                        >
-                                            <p><strong>Wallet Info</strong></p>
-                                        </Grid>
+                                    <Grid 
+                                        container
+                                        justifyContent="center"
+                                        sx={{ 
+                                            alignItems: 'center', 
+                                            m: 1,
+                                        }}
+                                    >
+                                        <p><strong>Wallet Info</strong></p>
                                     </Grid>
-                                    <TableContainer sx={{ maxHeight: 600 }}>
-                                        <Table stickyHeader aria-label="sticky table">
-                                            <TableHead>
-                                                <TableRow>
-                                                    {columns.map((column) => (
-                                                        <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
-                                                            {column.label}
-                                                        </TableCell>
-                                                    ))}
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                { wallets
-                                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    .map((row, i) => {
-                                                        /* WalletTableコンポーネントに値を詰めて描画する。 */
-                                                        return (
-                                                            <WalletTable 
-                                                                _wallet={row} 
-                                                                _columns={columns} 
-                                                                row={row} 
-                                                                index={i} 
-                                                                depositAction={(e) => {
-                                                                    handleOpen(row)
-                                                                }}
-                                                            />);
-                                                })}
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                    <TablePagination
-                                        rowsPerPageOptions={[10, 25, 100]}
-                                        component="div"
-                                        count={wallets.length}
-                                        rowsPerPage={rowsPerPage}
-                                        page={page}
-                                        onPageChange={handleChangePage}
-                                        onRowsPerPageChange={handleChangeRowsPerPage}
-                                    />
-                                </>
-                            )}
-                        </>
-                    )}
-                </StyledPaper>
-            </Box>
+                                </Grid>
+                                <TableContainer sx={{ maxHeight: 600 }}>
+                                    <Table stickyHeader aria-label="sticky table">
+                                        <TableHead>
+                                            <TableRow>
+                                                {columns.map((column) => (
+                                                    <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                                                        {column.label}
+                                                    </TableCell>
+                                                ))}
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            { wallets
+                                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                .map((row, i) => {
+                                                    /* WalletTableコンポーネントに値を詰めて描画する。 */
+                                                    return (
+                                                        <WalletTable 
+                                                            _wallet={row} 
+                                                            _columns={columns} 
+                                                            row={row} 
+                                                            index={i} 
+                                                            depositAction={(e) => {
+                                                                handleOpen(row)
+                                                            }}
+                                                        />);
+                                            })}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                <TablePagination
+                                    rowsPerPageOptions={[10, 25, 100]}
+                                    component="div"
+                                    count={wallets.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
+                            </>
+                        )}
+                    </>
+                )}
+            </StyledPaper>
             {successFlg && (
                 /* 成功時のポップアップ */
                 <div id="toast" className={showToast ? "zero-show" : ""}>
@@ -323,7 +317,7 @@ const Wallets = (props) => {
                     <div id="desc">Create Trasaction failfull..</div>
                 </div>
             )}
-        </Grid>
+        </MainContainer>
     );
 }
 

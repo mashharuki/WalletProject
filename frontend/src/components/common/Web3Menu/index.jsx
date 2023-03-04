@@ -13,7 +13,8 @@ const options = [
       'Create',
       'Upload',
       'MyVC',
-      'Verify'
+      'Verify',
+      'Tips'
 ];
     
 // Menuコンポーネント用の定数

@@ -1,18 +1,21 @@
 // mui関連のコンポーネントのインポート
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
 import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
-import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../common/LoadingIndicator';
 import SendDialog from '../common/SendDialog';
 import './../../assets/css/App.css';
+import { useIDQContext } from './../../Contexts';
 import {
-    baseURL
+    baseURL,
+    WIDTH_THRESHOLD
 } from './../common/Constant';
+import GroupButtons from './../common/GroupButtons';
+import MainContainer from './../common/MainContainer';
 import QrCodeDialog from './../common/QrCodeDialog';
 import {
     getDid,
@@ -34,10 +37,13 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Homeコンポーネント
  */
 const Home = (props) => {
-    // 引数からデータを取得する。
+    // create contract
     const {
-        signer
-    } = props;
+        currentAccount,
+        updateWidth,
+        width,
+        setWidth,
+    } = useIDQContext();
 
     const [balance, setBalance] = useState(0);
     const [did, setDid] = useState(null);
@@ -61,7 +67,7 @@ const Home = (props) => {
         // DID作成APIを呼び出す
         superAgent
             .post(baseURL + '/api/create')
-            .query({addr: signer})
+            .query({addr: currentAccount})
             .end(async(err, res) => {
                 if (err) {
                     console.log("DID作成用API呼び出し中に失敗", err);
@@ -73,7 +79,7 @@ const Home = (props) => {
                 }
 
                 // DIDを取得する。
-                const result = await getDid(signer);
+                const result = await getDid(currentAccount);
                 var modStr = result.substr(0, 9) + '...' + result.substr(result.length - 3, 3);
 
                 setDid(modStr);
@@ -84,7 +90,7 @@ const Home = (props) => {
                 superAgent
                     .post(baseURL + '/api/mintIDQ')
                     .query({
-                        to: signer,
+                        to: currentAccount,
                         amount: 10000
                     })
                     .end(async(err, res) => {
@@ -209,7 +215,7 @@ const Home = (props) => {
      */
     const getBalance = async() => {
         // 残高を取得する
-        const num = await getIdqTokenBalanceOf(signer);
+        const num = await getIdqTokenBalanceOf(currentAccount);
         setBalance(num);
     }
 
@@ -219,13 +225,13 @@ const Home = (props) => {
     const checkStatus = async() => {
         
         // 登録ステータスを確認する。
-        var status = await getRegisterStatus(signer);
+        var status = await getRegisterStatus(currentAccount);
         console.log("isRegistered:", isRegistered);
         setIsRegistered(status);
 
         if(status) {
             // DIDを取得する。
-            const didData = await getDid(signer);
+            const didData = await getDid(currentAccount);
             console.log("didData :", didData);
             // short
             var modStr = didData.substr(0, 9) + '...' + didData.substr(didData.length - 3, 3)
@@ -237,15 +243,18 @@ const Home = (props) => {
     useEffect(()=> {
         getBalance();
         checkStatus();
+        setWidth(window.innerWidth);
+
+        window.addEventListener(`resize`, updateWidth, {
+            capture: false,
+            passive: true,
+        })
+      
+        return () => window.removeEventListener(`resize`, updateWidth)
     }, []);
 
     return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
+        <MainContainer>
             { /* Dialog */ } 
             <SendDialog 
                 open={open} 
@@ -262,76 +271,65 @@ const Home = (props) => {
                 did={fullDid}
                 handleClose={(e) => {handleQrClose()}} 
             />
-            { /* main content */ } 
-            <Box 
-                sx={{ 
-                    flexGrow: 1, 
-                    overflow: "hidden", 
-                    px: 3, 
-                    mt: 10, 
-                    height: '80vh'
+            <StyledPaper 
+                sx={{
+                    my: 1, 
+                    mx: "auto", 
+                    p: 0, 
+                    borderRadius: 4, 
+                    marginTop: 4
                 }}
             >
-                <StyledPaper 
-                    sx={{
-                        my: 1, 
-                        mx: "auto", 
-                        p: 0, 
-                        borderRadius: 4, 
-                        marginTop: 4
-                    }}
-                >
-                    {isLoading ? (
-                        <Grid container justifyContent="center">
-                            <div className="loading">
-                                <p><LoadingIndicator/></p>
-                                <h3>Please Wait・・・・</h3>
+                {isLoading ? (
+                    <Grid container justifyContent="center">
+                        <div className="loading">
+                            <p><LoadingIndicator/></p>
+                            <h3>Please Wait・・・・</h3>
+                        </div>
+                    </Grid>
+                ) : ( 
+                    <>
+                        <Grid 
+                            container 
+                            alignItems="center"
+                            justifyContent="center"
+                        >
+                            <div className="App-content">
+                                <p><strong>My Soul</strong></p>
+                                {isRegistered ? (
+                                    <>
+                                        <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
+                                        <p>Your IDQToken:{balance}</p>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            flex={true}
+                                        >
+                                            <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
+                                            <ActionButton2 buttonName="My QR Code" color="secondary" clickAction={handleQrOpen} />
+                                        </Grid>
+                                    </>
+                                ) : (
+                                    <>
+                                        <ActionButton2 buttonName="Register" color="primary" clickAction={registerAction} />
+                                    </>
+                                )}
                             </div>
                         </Grid>
-                    ) : ( 
-                        <>
-                            <Grid 
-                                container 
-                                alignItems="center"
-                                justifyContent="center"
-                            >
-                                <div className="App-content">
-                                    <p><strong>My Soul</strong></p>
-                                    {isRegistered ? (
-                                        <>
-                                            <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
-                                            <p>Your IDQToken:{balance}</p>
-                                            <Grid
-                                                container
-                                                direction="row"
-                                                justifyContent="center"
-                                                alignItems="center"
-                                                flex={true}
-                                            >
-                                                <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
-                                                <ActionButton2 buttonName="My QR Code" color="secondary" clickAction={handleQrOpen} />
-                                            </Grid>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <ActionButton2 buttonName="Register" color="primary" clickAction={registerAction} />
-                                        </>
-                                    )}
-                                </div>
-                            </Grid>
-                        </>
-                    )}
-                </StyledPaper>
-                {isRegistered ? (
-                    <Grid 
-                        container 
-                        justifyContent="center"
-                    >
-                        {/* <img className="image_size_m" src={Coupon} />  */}
-                        <></>
-                    </Grid>
-                ) : <></>}
-            </Box>
+                    </>
+                )}
+            </StyledPaper>
+            {isRegistered ? (
+                <Grid 
+                    container 
+                    justifyContent="center"
+                >
+                    {/* <img className="image_size_m" src={Coupon} />  */}
+                    <></>
+                </Grid>
+            ) : <></>}
             {successFlg && (
                 /* 成功時のポップアップ */
                 <div id="toast" className={showToast ? "zero-show" : ""}>
@@ -344,7 +342,9 @@ const Home = (props) => {
                     <div id="desc">Create Trasaction failfull..</div>
                 </div>
             )}
-        </Grid>
+            {/* 画面の幅が一定以下になった際には下部に遷移用のリンクを表示する。 */}
+            {width < WIDTH_THRESHOLD && <GroupButtons/>}
+        </MainContainer>
     );
 };
 

@@ -1,17 +1,16 @@
 import { TextField } from '@mui/material';
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
 import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
-import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from '../common/LoadingIndicator';
 import PaymentDialog from '../common/PaymentDialog';
 import './../../assets/css/App.css';
-import {
-      baseURL
-} from "./../common/Constant";
+import { useIDQContext } from './../../Contexts';
+import { baseURL } from "./../common/Constant";
+import MainContainer from './../common/MainContainer';
 
 /** 
  * StyledPaperコンポーネント
@@ -27,10 +26,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Buyコンポーネント
  */
 const Buy = (props) => {
-      // 引数からデータを取得する。
+      // create contract
       const {
-            signer
-      } = props;
+            currentAccount
+      } = useIDQContext();
 
       const [isLoading, setIsLoading] = useState(false);
       const [successFlg, setSuccessFlg] = useState(false);
@@ -49,7 +48,7 @@ const Buy = (props) => {
             superAgent
                   .post(baseURL + '/api/mintIDQ')
                   .query({
-                        to: signer,
+                        to: currentAccount,
                         amount: amount
                   })
                   .end(async(err, res) => {
@@ -109,83 +108,67 @@ const Buy = (props) => {
       }
 
       return (
-            <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-            >
+            <MainContainer>
                   { /* Payment Dialog */ } 
                   <PaymentDialog 
                         open={open} 
                         handleClose={(e) => {handleClose()}} 
                         buyAction={(e) => {buyAction()}}
                   />
-                  { /* main content */ } 
-                  <Box 
-                        sx={{ 
-                              flexGrow: 1, 
-                              overflow: "hidden", 
-                              px: 3, 
-                              mt: 10, 
-                              height: '80vh'
+                  <StyledPaper 
+                        sx={{
+                              my: 1, 
+                              mx: "auto", 
+                              p: 0, 
+                              borderRadius: 4, 
+                              marginTop: 4
                         }}
                   >
-                        <StyledPaper 
-                              sx={{
-                                    my: 1, 
-                                    mx: "auto", 
-                                    p: 0, 
-                                    borderRadius: 4, 
-                                    marginTop: 4
-                              }}
-                        >
-                              {isLoading ? (
-                                    <Grid container justifyContent="center">
-                                          <div className="loading">
-                                                <p><LoadingIndicator/></p>
-                                                <h3>Please Wait・・・・</h3>
+                        {isLoading ? (
+                              <Grid container justifyContent="center">
+                                    <div className="loading">
+                                          <p><LoadingIndicator/></p>
+                                          <h3>Please Wait・・・・</h3>
+                                    </div>
+                              </Grid>
+                        ) : ( 
+                              <>
+                                    <Grid 
+                                          container 
+                                          alignItems="center"
+                                          justifyContent="center"
+                                    >
+                                          <div className="App-content">
+                                                <p><strong>You can buy IDQ Token</strong></p>
+                                                <p></p>
+                                                <TextField 
+                                                      id="amount" 
+                                                      placeholder="enter amount" 
+                                                      margin="normal" 
+                                                      required
+                                                      onChange={ (e) => setAmount(e.target.value) } 
+                                                      variant="outlined" 
+                                                      inputProps={{ 'aria-label': 'amount' }} 
+                                                />
+                                                <ActionButton2 buttonName="buy" color="primary" clickAction={handleOpen} /> 
                                           </div>
                                     </Grid>
-                              ) : ( 
-                                    <>
-                                          <Grid 
-                                                container 
-                                                alignItems="center"
-                                                justifyContent="center"
-                                          >
-                                                <div className="App-content">
-                                                      <p><strong>You can buy IDQ Token</strong></p>
-                                                      <p></p>
-                                                      <TextField 
-                                                            id="amount" 
-                                                            placeholder="enter amount" 
-                                                            margin="normal" 
-                                                            required
-                                                            onChange={ (e) => setAmount(e.target.value) } 
-                                                            variant="outlined" 
-                                                            inputProps={{ 'aria-label': 'amount' }} 
-                                                      />
-                                                      <ActionButton2 buttonName="buy" color="primary" clickAction={handleOpen} /> 
-                                                </div>
-                                          </Grid>
-                                    </>
-                              )}
-                        </StyledPaper>
-                </Box>
+                              </>
+                        )}
+                  </StyledPaper>
                 {successFlg && (
                         /* 成功時のポップアップ */
                         <div id="toast" className={showToast ? "zero-show" : ""}>
-                              <div id="secdesc">Create Trasaction Successfull!!</div>
+                              <div id="secdesc">Trasaction Successfull!!</div>
                         </div>
                 )}
                 {failFlg && (
                         /* 失敗時のポップアップ */
                         <div id="toast" className={showToast ? "zero-show" : ""}>
-                              <div id="desc">Create Trasaction failfull..</div>
+                              <div id="desc">Trasaction failfull..</div>
                         </div>
                 )}
-            </Grid>
+            </MainContainer>
       );
 };
 
