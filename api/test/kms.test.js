@@ -23,11 +23,11 @@ describe('KMS connect Test', () => {
             const signer = new KmsEthersSigner({
                   keyId: KEY_ID,
                   kmsClientConfig: {
-                  region: REGION_ID,
-                  credentials: {
-                        accessKeyId: AWS_ACCESS_KEY_ID,
-                        secretAccessKey: AWS_SECRET_ACCESS_KEY
-                  }
+                        region: REGION_ID,
+                        credentials: {
+                              accessKeyId: AWS_ACCESS_KEY_ID,
+                              secretAccessKey: AWS_SECRET_ACCESS_KEY
+                        }
                   },
             }).connect(provider);
 
