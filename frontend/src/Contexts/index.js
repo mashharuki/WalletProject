@@ -18,12 +18,24 @@ export const useIDQContext = () => {
 export const ContextProvider = ({ children }) => {
       // ステート変数
       const [currentAccount, setCurrentAccount] = useState(null);
+      const [width, setWidth] = useState(0);
+
+      /**
+       * 画面の幅を変更する
+       * @param {*} event 
+       */
+      const updateWidth = (event) => {
+        setWidth(window.innerWidth)
+      }
 
       return (
             <IDQContext.Provider 
                 value={{
                   currentAccount,
-                  setCurrentAccount
+                  setCurrentAccount,
+                  updateWidth,
+                  width,
+                  setWidth,
                 }}
             >
                 {children}

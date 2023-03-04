@@ -39,7 +39,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const Home = (props) => {
     // create contract
     const {
-        currentAccount
+        currentAccount,
+        updateWidth,
+        width,
     } = useIDQContext();
 
     const [balance, setBalance] = useState(0);
@@ -54,7 +56,6 @@ const Home = (props) => {
     const [amount, setAmount] = useState(0);
     const [open, setOpen] = useState(false);
     const [qrOpen, setQrOpen] = useState(false);
-    const [width, setWidth] = useState(0);
 
     /**
      * Register function 
@@ -238,14 +239,6 @@ const Home = (props) => {
         }
     };
 
-    /**
-     * 画面の幅を変更する
-     * @param {*} event 
-     */
-    const updateWidth = (event) => {
-        setWidth(window.innerWidth)
-    }
-
     useEffect(()=> {
         getBalance();
         checkStatus();
@@ -347,6 +340,7 @@ const Home = (props) => {
                     <div id="desc">Create Trasaction failfull..</div>
                 </div>
             )}
+            {/* 画面の幅が一定以下になった際には下部に遷移用のリンクを表示する。 */}
             {width < WIDTH_THRESHOLD && <GroupButtons/>}
         </MainContainer>
     );
