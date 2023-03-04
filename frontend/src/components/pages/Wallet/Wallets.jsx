@@ -15,6 +15,7 @@ import Web3 from "web3";
 import WalletDialog from '../../common/Dialog';
 import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
 import './../../../assets/css/App.css';
+import { useIDQContext } from './../../../Contexts';
 import {
     baseURL
 } from './../../common/Constant';
@@ -49,10 +50,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Walletsコンポーネント
  */
 const Wallets = (props) => {
-    // 引数からデータを取得する。
+    // create contract
     const {
-        signer
-    } = props;
+        currentAccount
+    } = useIDQContext();
     
     // アカウント用のステート変数
     const [account, setAccount] = useState(null);
@@ -96,7 +97,7 @@ const Wallets = (props) => {
             }
             
             // コントラクトとアカウントの情報をステート変数に格納する。
-            setAccount(signer);
+            setAccount(currentAccount);
             setWallets(multiSigWallets);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
@@ -120,7 +121,7 @@ const Wallets = (props) => {
             await superAgent
                 .post(baseURL + '/api/burnIDQ')
                 .query({
-                    to: signer,
+                    to: currentAccount,
                     amount: value,
                     walletAddr: depositAddr
                 })

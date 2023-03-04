@@ -16,3 +16,5 @@ export const baseURL = 'http://192.168.0.5:3001';
 export const PINTABaseURL = 'https://api.pinata.cloud';
 // PINTA Gateway API Base URL
 export const PINTAGatewayURL = 'https://gateway.pinata.cloud/ipfs';
+// width threshold
+export const WIDTH_THRESHOLD = 768;

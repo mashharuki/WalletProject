@@ -9,6 +9,7 @@ import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
+import { useIDQContext } from './../../Contexts';
 import { baseURL, PINTABaseURL } from './../common/Constant';
 import MainContainer from './../common/MainContainer';
 import { getDid } from './../hooks/UseContract';
@@ -32,10 +33,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Upload Component
  */
 const Upload = (props) => {
-      // 引数からデータを取得する。
+      // create contract
       const {
-            signer
-      } = props;
+            currentAccount
+      } = useIDQContext();
 
       const [file, setFile] = useState({});
       const [fileName, setFileName] = useState('blockcert json file');
@@ -56,7 +57,7 @@ const Upload = (props) => {
             postData.append('pinataOptions', '{"cidVersion": 1}');
             postData.append('pinataMetadata', `{"name": "${fileName}", "keyvalues": {"company": "vc"}}`);
             // get did
-            var did = await getDid(signer);
+            var did = await getDid(currentAccount);
             
             try {
                   // フラグ ON

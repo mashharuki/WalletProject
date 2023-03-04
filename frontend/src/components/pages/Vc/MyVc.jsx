@@ -10,6 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import './../../../assets/css/App.css';
+import { useIDQContext } from './../../../Contexts';
 import MainContainer from './../../common/MainContainer';
 import {
     getDid,
@@ -40,10 +41,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * MyVC Component
  */
 const MyVC = (props) => {
-    // 引数からデータを取得する。
+    // create contract
     const {
-        signer
-    } = props;
+        currentAccount
+    } = useIDQContext();
 
     const [vcs, setVcs] = useState([]);
     const [page, setPage] = useState(0);
@@ -54,7 +55,7 @@ const MyVC = (props) => {
      */
     const init = async()=> {
         // get did
-        var did = await getDid(signer);
+        var did = await getDid(currentAccount);
         var result = await getVcs(did);
         setVcs(result);
     };

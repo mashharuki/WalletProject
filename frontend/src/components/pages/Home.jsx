@@ -9,9 +9,12 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import SendDialog from '../common/SendDialog';
 import './../../assets/css/App.css';
+import { useIDQContext } from './../../Contexts';
 import {
-    baseURL
+    baseURL,
+    WIDTH_THRESHOLD
 } from './../common/Constant';
+import GroupButtons from './../common/GroupButtons';
 import MainContainer from './../common/MainContainer';
 import QrCodeDialog from './../common/QrCodeDialog';
 import {
@@ -34,10 +37,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Homeコンポーネント
  */
 const Home = (props) => {
-    // 引数からデータを取得する。
+    // create contract
     const {
-        signer
-    } = props;
+        currentAccount
+    } = useIDQContext();
 
     const [balance, setBalance] = useState(0);
     const [did, setDid] = useState(null);
@@ -51,6 +54,7 @@ const Home = (props) => {
     const [amount, setAmount] = useState(0);
     const [open, setOpen] = useState(false);
     const [qrOpen, setQrOpen] = useState(false);
+    const [width, setWidth] = useState(0);
 
     /**
      * Register function 
@@ -61,7 +65,7 @@ const Home = (props) => {
         // DID作成APIを呼び出す
         superAgent
             .post(baseURL + '/api/create')
-            .query({addr: signer})
+            .query({addr: currentAccount})
             .end(async(err, res) => {
                 if (err) {
                     console.log("DID作成用API呼び出し中に失敗", err);
@@ -73,7 +77,7 @@ const Home = (props) => {
                 }
 
                 // DIDを取得する。
-                const result = await getDid(signer);
+                const result = await getDid(currentAccount);
                 var modStr = result.substr(0, 9) + '...' + result.substr(result.length - 3, 3);
 
                 setDid(modStr);
@@ -84,7 +88,7 @@ const Home = (props) => {
                 superAgent
                     .post(baseURL + '/api/mintIDQ')
                     .query({
-                        to: signer,
+                        to: currentAccount,
                         amount: 10000
                     })
                     .end(async(err, res) => {
@@ -209,7 +213,7 @@ const Home = (props) => {
      */
     const getBalance = async() => {
         // 残高を取得する
-        const num = await getIdqTokenBalanceOf(signer);
+        const num = await getIdqTokenBalanceOf(currentAccount);
         setBalance(num);
     }
 
@@ -219,13 +223,13 @@ const Home = (props) => {
     const checkStatus = async() => {
         
         // 登録ステータスを確認する。
-        var status = await getRegisterStatus(signer);
+        var status = await getRegisterStatus(currentAccount);
         console.log("isRegistered:", isRegistered);
         setIsRegistered(status);
 
         if(status) {
             // DIDを取得する。
-            const didData = await getDid(signer);
+            const didData = await getDid(currentAccount);
             console.log("didData :", didData);
             // short
             var modStr = didData.substr(0, 9) + '...' + didData.substr(didData.length - 3, 3)
@@ -234,9 +238,24 @@ const Home = (props) => {
         }
     };
 
+    /**
+     * 画面の幅を変更する
+     * @param {*} event 
+     */
+    const updateWidth = (event) => {
+        setWidth(window.innerWidth)
+    }
+
     useEffect(()=> {
         getBalance();
         checkStatus();
+
+        window.addEventListener(`resize`, updateWidth, {
+            capture: false,
+            passive: true,
+        })
+      
+        return () => window.removeEventListener(`resize`, updateWidth)
     }, []);
 
     return (
@@ -328,6 +347,7 @@ const Home = (props) => {
                     <div id="desc">Create Trasaction failfull..</div>
                 </div>
             )}
+            {width < WIDTH_THRESHOLD && <GroupButtons/>}
         </MainContainer>
     );
 };

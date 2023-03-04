@@ -9,6 +9,7 @@ import superAgent from 'superagent';
 import ActionButton from '../common/ActionButton';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import './../../assets/css/App.css';
+import { useIDQContext } from './../../Contexts';
 import {
     baseURL
 } from './../common/Constant';
@@ -28,10 +29,11 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Createコンポーネント
  */
 const Create = (props) => {
-    // 引数からデータを取得する。
+    // create contract
     const {
-        signer    
-    } = props;
+        currentAccount
+    } = useIDQContext();
+
 
     // アカウント用のステート変数
     const [account, setAccount] = useState(null);
@@ -57,7 +59,7 @@ const Create = (props) => {
      */
     const init = async() => {
         try {
-            setAccount(signer);
+            setAccount(currentAccount);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);

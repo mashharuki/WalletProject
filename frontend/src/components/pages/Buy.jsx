@@ -8,6 +8,7 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
 import PaymentDialog from '../common/PaymentDialog';
 import './../../assets/css/App.css';
+import { useIDQContext } from './../../Contexts';
 import { baseURL } from "./../common/Constant";
 import MainContainer from './../common/MainContainer';
 
@@ -25,10 +26,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  * Buyコンポーネント
  */
 const Buy = (props) => {
-      // 引数からデータを取得する。
+      // create contract
       const {
-            signer
-      } = props;
+            currentAccount
+      } = useIDQContext();
 
       const [isLoading, setIsLoading] = useState(false);
       const [successFlg, setSuccessFlg] = useState(false);
@@ -47,7 +48,7 @@ const Buy = (props) => {
             superAgent
                   .post(baseURL + '/api/mintIDQ')
                   .query({
-                        to: signer,
+                        to: currentAccount,
                         amount: amount
                   })
                   .end(async(err, res) => {

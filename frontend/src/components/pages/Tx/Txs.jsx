@@ -17,6 +17,7 @@ import Web3 from "web3";
 import ActionButton from '../../common/ActionButton';
 import LoadingIndicator from '../../common/LoadingIndicator/LoadingIndicator';
 import './../../../assets/css/App.css';
+import { useIDQContext } from './../../../Contexts';
 import {
     baseURL
 } from './../../common/Constant';
@@ -52,9 +53,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
  */
 const Txs = (props) => {
 
-    const { 
-        signer
-    } = props;
+    // create contract
+    const {
+        currentAccount
+    } = useIDQContext();
 
     // コントラクト用のステート変数
     const [contract, setContract] = useState(null); 
@@ -101,7 +103,7 @@ const Txs = (props) => {
             const transactions = await getTxs();
             // コントラクトとアカウントの情報をステート変数に格納する。
             setContract("");
-            setAccount(signer);
+            setAccount(currentAccount);
             setWallet(addr);
             setTxs(transactions);
         } catch (error) {
