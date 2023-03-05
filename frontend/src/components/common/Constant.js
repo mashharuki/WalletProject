@@ -11,7 +11,7 @@ export const CHAIN_ID = '43113';
 // rpc URL 
 export const RPC_URL = `https://ava-testnet.public.blastapi.io/ext/bc/C/rpc`;
 // API Base URL
-export const baseURL = 'http://192.168.0.5:3001';
+export const baseURL = 'http://192.168.0.15:3001';
 // PINTA API Base URL
 export const PINTABaseURL = 'https://api.pinata.cloud';
 // PINTA Gateway API Base URL

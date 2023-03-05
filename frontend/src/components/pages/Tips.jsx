@@ -9,6 +9,7 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator';
 import MainContainer from "../common/MainContainer";
 import './../../assets/css/App.css';
+import { useIDQContext } from './../../Contexts';
 import { baseURL } from "./../common/Constant";
 
 // サンプル用のデモデータ
@@ -37,6 +38,11 @@ const demoDatas = [
  * Tipsコンポーネント
  */
 const Tips = () => {
+      // create contract
+      const {
+            fullDid, 
+      } = useIDQContext();
+
       const [isLoading, setIsLoading] = useState(false);
       const [successFlg, setSuccessFlg] = useState(false);
       const [failFlg, setFailFlg] = useState(false);
@@ -52,8 +58,9 @@ const Tips = () => {
 
             // IDQToken発行APIを呼び出す
             superAgent
-                  .post(baseURL + '/api/mintIDQ')
+                  .post(baseURL + '/api/send')
                   .query({
+                        from: fullDid,
                         to: to,
                         amount: amount
                   })
@@ -120,7 +127,7 @@ const Tips = () => {
                                                 </Typography>
                                           </CardContent>
                                           <CardActions>
-                                                <ActionButton2 buttonName="send" color="primary" clickAction={() => sendAction(demoData.to, demoData.value)} />
+                                                <ActionButton2 buttonName="Tips" color="primary" clickAction={() => sendAction(demoData.to, demoData.value)} />
                                           </CardActions>
                                     </Card>
                               ))}
