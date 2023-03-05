@@ -18,6 +18,7 @@ export const useIDQContext = () => {
 export const ContextProvider = ({ children }) => {
   // ステート変数
   const [currentAccount, setCurrentAccount] = useState(null);
+  const [fullDid, setFullDid] = useState(null);
   const [width, setWidth] = useState(0);
 
   /**
@@ -36,6 +37,8 @@ export const ContextProvider = ({ children }) => {
         updateWidth,
         width,
         setWidth,
+        fullDid, 
+        setFullDid,
       }}
     >
       {children}

@@ -43,11 +43,12 @@ const Home = (props) => {
         updateWidth,
         width,
         setWidth,
+        fullDid, 
+        setFullDid,
     } = useIDQContext();
 
     const [balance, setBalance] = useState(0);
     const [did, setDid] = useState(null);
-    const [fullDid, setFullDid] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);
     const [successFlg, setSuccessFlg] = useState(false);
