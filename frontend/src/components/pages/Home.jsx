@@ -16,7 +16,6 @@ import {
 } from './../common/Constant';
 import GroupButtons from './../common/GroupButtons';
 import MainContainer from './../common/MainContainer';
-import QrCodeDialog from './../common/QrCodeDialog';
 import {
     getDid,
     getIdqTokenBalanceOf,
@@ -183,21 +182,6 @@ const Home = (props) => {
     }
 
     /**
-     * Open Dialog
-     * @param wallet MultoSig Wallet Addr
-     */
-    const handleQrOpen = (wallet) => {
-        setQrOpen(true);
-    }
-
-    /**
-     * Close Dialog
-     */
-    const handleQrClose = () => {
-        setQrOpen(false);
-    }
-
-    /**
      * クリップボードでDIDをコピーするための機能
      */
     const copy = () => {
@@ -267,11 +251,7 @@ const Home = (props) => {
                 setAmountAction={(e) => {setAmount(e.target.value)}} 
             />
             {/* QrCodeDialog */}
-            <QrCodeDialog
-                open={qrOpen}
-                did={fullDid}
-                handleClose={(e) => {handleQrClose()}} 
-            />
+            
             <StyledPaper 
                 sx={{
                     my: 1, 
@@ -309,7 +289,7 @@ const Home = (props) => {
                                             flex={true}
                                         >
                                             <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
-                                            <ActionButton2 buttonName="My QR Code" color="secondary" clickAction={handleQrOpen} />
+                                            <ActionButton2 buttonName="My QR Code" color="secondary" clickAction={{}} />
                                         </Grid>
                                     </>
                                 ) : (
@@ -322,15 +302,6 @@ const Home = (props) => {
                     </>
                 )}
             </StyledPaper>
-            {isRegistered ? (
-                <Grid 
-                    container 
-                    justifyContent="center"
-                >
-                    {/* <img className="image_size_m" src={Coupon} />  */}
-                    <></>
-                </Grid>
-            ) : <></>}
             {successFlg && (
                 /* 成功時のポップアップ */
                 <div id="toast" className={showToast ? "zero-show" : ""}>
