@@ -1,5 +1,6 @@
 // mui関連のコンポーネントのインポート
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Container } from '@mui/material';
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -16,6 +17,8 @@ import {
 } from './../common/Constant';
 import GroupButtons from './../common/GroupButtons';
 import MainContainer from './../common/MainContainer';
+import QrCodeDialog from './../common/QrCodeDialog';
+import QrCodeReader from './../common/QrCodeReader';
 import {
     getDid,
     getIdqTokenBalanceOf,
@@ -44,6 +47,10 @@ const Home = (props) => {
         setWidth,
         fullDid, 
         setFullDid,
+        isOpenQRCamera, 
+        setIsOpenQRCamera,
+        setQrResult,
+        clickOpenQrReader
     } = useIDQContext();
 
     const [balance, setBalance] = useState(0);
@@ -182,6 +189,21 @@ const Home = (props) => {
     }
 
     /**
+     * Open Dialog
+     * @param wallet MultoSig Wallet Addr
+     */
+    const handleQrOpen = (wallet) => {
+        setQrOpen(true);
+    }
+
+    /**
+     * Close Dialog
+     */
+    const handleQrClose = () => {
+        setQrOpen(false);
+    }
+
+    /**
      * クリップボードでDIDをコピーするための機能
      */
     const copy = () => {
@@ -239,84 +261,104 @@ const Home = (props) => {
     }, []);
 
     return (
-        <MainContainer>
-            { /* Dialog */ } 
-            <SendDialog 
-                open={open} 
-                amount={amount}
-                to={to}
-                handleClose={(e) => {handleClose()}} 
-                sendAction={(e) => {sendAction(to, amount)}} 
-                setTo={(e) => {setTo(e.target.value)}}
-                setAmountAction={(e) => {setAmount(e.target.value)}} 
-            />
-            {/* QrCodeDialog */}
-            
-            <StyledPaper 
-                sx={{
-                    my: 1, 
-                    mx: "auto", 
-                    p: 0, 
-                    borderRadius: 4, 
-                    marginTop: 4
-                }}
-            >
-                {isLoading ? (
-                    <Grid container justifyContent="center">
-                        <div className="loading">
-                            <p><LoadingIndicator/></p>
-                            <h3>Please Wait・・・・</h3>
+        <>
+            {isOpenQRCamera ? (
+                <Container maxWidth="md" style={{ paddingTop: "1em", paddingBottom: "10em" }}>
+                    <QrCodeReader 
+                        onRead={e => {
+                            setIsOpenQRCamera(false);
+                            setQrResult(e);
+                            setTo(e.text);
+                        }} 
+                        setOpen={setIsOpenQRCamera} 
+                    />
+                </Container>
+            ):(
+                <MainContainer>
+                    { /* Dialog */ } 
+                    <SendDialog 
+                        open={open} 
+                        amount={amount}
+                        to={to}
+                        handleClose={(e) => {handleClose()}} 
+                        sendAction={(e) => {sendAction(to, amount)}} 
+                        setTo={(e) => {setTo(e.target.value)}}
+                        setAmountAction={(e) => {setAmount(e.target.value)}} 
+                        clickOpenQrReader={clickOpenQrReader}
+                    />
+                    {/* QrCodeDialog */}
+                    <QrCodeDialog
+                        open={qrOpen}
+                        did={fullDid}
+                        handleClose={(e) => {handleQrClose()}} 
+                    />
+                    <StyledPaper 
+                        sx={{
+                            my: 1, 
+                            mx: "auto", 
+                            p: 0, 
+                            borderRadius: 4, 
+                            marginTop: 4
+                        }}
+                    >
+                        {isLoading ? (
+                            <Grid container justifyContent="center">
+                                <div className="loading">
+                                    <p><LoadingIndicator/></p>
+                                    <h3>Please Wait・・・・</h3>
+                                </div>
+                            </Grid>
+                        ) : ( 
+                            <>
+                                <Grid 
+                                    container 
+                                    alignItems="center"
+                                    justifyContent="center"
+                                >
+                                    <div className="App-content">
+                                        <p><strong>My Soul</strong></p>
+                                        {isRegistered ? (
+                                            <>
+                                                <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
+                                                <p>Your IDQToken:{balance}</p>
+                                                <Grid
+                                                    container
+                                                    direction="row"
+                                                    justifyContent="center"
+                                                    alignItems="center"
+                                                    flex={true}
+                                                >
+                                                    <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
+                                                    <ActionButton2 buttonName="My QR Code" color="secondary" clickAction={handleQrOpen} />
+                                                </Grid>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ActionButton2 buttonName="Register" color="primary" clickAction={registerAction} />
+                                            </>
+                                        )}
+                                    </div>
+                                </Grid>
+                            </>
+                        )}
+                    </StyledPaper>
+                    {successFlg && (
+                        /* 成功時のポップアップ */
+                        <div id="toast" className={showToast ? "zero-show" : ""}>
+                            <div id="secdesc">Create Trasaction Successfull!!</div>
                         </div>
-                    </Grid>
-                ) : ( 
-                    <>
-                        <Grid 
-                            container 
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <div className="App-content">
-                                <p><strong>My Soul</strong></p>
-                                {isRegistered ? (
-                                    <>
-                                        <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
-                                        <p>Your IDQToken:{balance}</p>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            flex={true}
-                                        >
-                                            <ActionButton2 buttonName="send" color="primary" clickAction={handleOpen} />
-                                            <ActionButton2 buttonName="My QR Code" color="secondary" clickAction={{}} />
-                                        </Grid>
-                                    </>
-                                ) : (
-                                    <>
-                                        <ActionButton2 buttonName="Register" color="primary" clickAction={registerAction} />
-                                    </>
-                                )}
-                            </div>
-                        </Grid>
-                    </>
-                )}
-            </StyledPaper>
-            {successFlg && (
-                /* 成功時のポップアップ */
-                <div id="toast" className={showToast ? "zero-show" : ""}>
-                    <div id="secdesc">Create Trasaction Successfull!!</div>
-                </div>
+                    )}
+                    {failFlg && (
+                        /* 失敗時のポップアップ */
+                        <div id="toast" className={showToast ? "zero-show" : ""}>
+                            <div id="desc">Create Trasaction failfull..</div>
+                        </div>
+                    )}
+                    {/* 画面の幅が一定以下になった際には下部に遷移用のリンクを表示する。 */}
+                    {width < WIDTH_THRESHOLD && <GroupButtons/>}
+                </MainContainer>
             )}
-            {failFlg && (
-                /* 失敗時のポップアップ */
-                <div id="toast" className={showToast ? "zero-show" : ""}>
-                    <div id="desc">Create Trasaction failfull..</div>
-                </div>
-            )}
-            {/* 画面の幅が一定以下になった際には下部に遷移用のリンクを表示する。 */}
-            {width < WIDTH_THRESHOLD && <GroupButtons/>}
-        </MainContainer>
+        </>
     );
 };
 
