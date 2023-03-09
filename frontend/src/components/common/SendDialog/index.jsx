@@ -24,16 +24,9 @@ const SendDialog = (props) => {
         handleClose, 
         sendAction, 
         setTo,
-        setAmountAction
+        setAmountAction,
+        clickOpenQrReader
     } = props;
-
-    /**
-     * readerを起動させる。
-     */
-    const startReader = () => {
-        setReadFlg(true);  
-    };
-
 
     return (
         <>
@@ -72,11 +65,10 @@ const SendDialog = (props) => {
                         flex={true}
                     >
                         <ActionButton buttonName="send" color="primary" clickAction={sendAction}/>
-                        <ActionButton buttonName="Scan" color="secondary" clickAction={startReader} />
+                        <ActionButton buttonName="Scan" color="secondary" clickAction={clickOpenQrReader} />
                     </Grid>
                 </DialogActions>
             </Dialog>
-            {readFlg && <video style={{ maxWidth: "100%", maxHeight: "100%",height:"100%" }} ref={{}} /> }
         </>
     );
 };

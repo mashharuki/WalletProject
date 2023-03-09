@@ -20,14 +20,23 @@ export const ContextProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState(null);
   const [fullDid, setFullDid] = useState(null);
   const [width, setWidth] = useState(0);
+  const [isOpenQRCamera, setIsOpenQRCamera] = useState(false);
+  const [qrResult, setQrResult] = useState({});
 
   /**
-   * 画面の幅を変更する
+   * update screent width
    * @param {*} event 
    */
   const updateWidth = (event) => {
     setWidth(window.innerWidth)
   }
+
+  /**
+   * clickOpenQrReader function
+   */
+  const clickOpenQrReader = () => {
+    setIsOpenQRCamera(true);
+  };
 
   return (
     <IDQContext.Provider 
@@ -39,6 +48,11 @@ export const ContextProvider = ({ children }) => {
         setWidth,
         fullDid, 
         setFullDid,
+        isOpenQRCamera, 
+        setIsOpenQRCamera,
+        qrResult, 
+        setQrResult,
+        clickOpenQrReader
       }}
     >
       {children}
