@@ -26,7 +26,8 @@ const QrCodeReader = ({ onRead, setOpen }) => {
        * @returns 
        */
       const setDevicesList = async () => {
-            const list = await BrowserQRCodeReader.listVideoInputDevices();
+            // const list = await BrowserQRCodeReader.listVideoInputDevices();
+            const list = await navigator.mediaDevices.enumerateDevices();
             const result = [];
             for (const device of list) {
                   result.push({ id: device.deviceId, name: device.label });
@@ -37,10 +38,10 @@ const QrCodeReader = ({ onRead, setOpen }) => {
     
       useEffect(() => {
             mountedRef.current = true;
-            const codeReader = new BrowserQRCodeReader(undefined, undefined);
+            const codeReader = new BrowserQRCodeReader(undefined, 'video');
             setDevicesList();
 
-            codeReader.decodeFromVideoDevice(currentCamera, videoRef.current, function (result, _, controls) {
+            codeReader.decodeFromVideoDevice(undefined, videoRef.current, function (result, _, controls) {
                   if (mountedRef.current === false) {
                         controls.stop();
                         return;
