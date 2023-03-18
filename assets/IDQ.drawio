@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-18T10:42:46.315Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="yFLlVA8kbG5RFJDCMnwN" version="21.0.6" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2023-03-18T10:43:50.254Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="39_p_n2clhQ_Ilywtbgu" version="21.0.6" type="github" pages="6">
   <diagram id="AgBQlWnoEHxcCPggjtpq" name="system image">
     <mxGraphModel dx="3728" dy="1192" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -550,7 +550,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="MI8bs4qWKh-9EMOPD8Tm" name="IDQ  データの持ち方">
-    <mxGraphModel dx="2074" dy="1192" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2074" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -651,7 +651,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="4QBctZe4GlFusfspHoq9" name="Tips機能概念図">
-    <mxGraphModel dx="2901" dy="1192" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2901" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -697,7 +697,7 @@
         <mxCell id="-IVI5tdoh385MmLmVY__-5" value="発行処理" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="-530" y="365" width="130" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="-IVI5tdoh385MmLmVY__-6" value="SBTにはDIDを含める。&lt;br&gt;その他情報をメタデータ&lt;br&gt;としてくっつける" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="-IVI5tdoh385MmLmVY__-6" value="Tipsの概要をメタデータに含める？？" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="-280" y="345" width="150" height="55" as="geometry" />
         </mxCell>
         <mxCell id="jW3RUWXp35WJI321IQyX-1" value="何かの行動をトリガーにTokenを発行する。&lt;br style=&quot;font-size: 17px;&quot;&gt;→ SBTの実態は、スマートコントラクトである。&lt;br style=&quot;font-size: 17px;&quot;&gt;　 ⇨ 事前に設定が必要。" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=17;" vertex="1" parent="1">
