@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-18T09:34:25.292Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="bT26Ypgz0YwCIg0Q5RoU" version="21.0.6" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2023-03-18T09:34:52.257Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="ONphuy7lsVvtbMP1arbv" version="21.0.6" type="github" pages="6">
   <diagram id="AgBQlWnoEHxcCPggjtpq" name="system image">
     <mxGraphModel dx="3728" dy="1192" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -700,6 +700,14 @@
         <mxCell id="-IVI5tdoh385MmLmVY__-6" value="SBTにはDIDを含める。&lt;br&gt;その他情報をメタデータ&lt;br&gt;としてくっつける" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="-280" y="345" width="150" height="55" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ZBqEa7_ErKQVkpQ22A2Z" name="データの持ち方(ETHTokyo版)">
+    <mxGraphModel dx="2074" dy="1192" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
