@@ -47,11 +47,11 @@ app.use(express.json());
 ////////////////////////////////////////////////////////////
 
 /**
- * IDQTokenを発行するAPI
+ * Tokenを発行するAPI
  * @param to 発行先アドレス
  * @param amount 発行量
  */
-app.post('/api/mintIDQ', async(req, res) => {
+app.post('/api/mintToken', async(req, res) => {
   logger.log("発行用のAPI開始");
 
   var to = req.query.to;
@@ -81,12 +81,12 @@ app.post('/api/mintIDQ', async(req, res) => {
 });
     
 /**
- * IDQTokenを償却するAPI
+ * Tokenを償却するAPI
  * @param to 償却アドレス
  * @param amount 償却量
  * @param walletAddr ウォレットアドレス
  */
-app.post('/api/burnIDQ', async(req, res) => {
+app.post('/api/burnToken', async(req, res) => {
   logger.log("償却用のAPI開始")
 
   var to = req.query.to;
@@ -125,10 +125,10 @@ app.post('/api/burnIDQ', async(req, res) => {
 });
     
 /**
- * IDQTokenの残高を取得するAPI
+ * Tokenの残高を取得するAPI
  * @param addr 残高を取得するアドレス
  */
-app.get('/api/balance/IDQ', async(req, res) => {
+app.get('/api/balance/token', async(req, res) => {
   logger.log("残高取得用のAPI開始");
 
   var addr = req.query.addr;
@@ -148,7 +148,7 @@ app.get('/api/balance/IDQ', async(req, res) => {
 });
     
 /**
- * IDQTokenを送金するAPI
+ * Tokenを送金するAPI
  * @param from 送金元のDID
  * @param to 送金先のDID
  * @param amount 総金額

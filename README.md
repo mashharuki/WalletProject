@@ -1,65 +1,39 @@
 ## プロダクト名
 
-IDQ Soul Wallet
+Wallet Project
 
 ## カテゴリ
 
-- セキュリティ
-- ウォレット
-
 ## メンバー Discord ID
-
-1. QAQA#7612
-2. mashharuki#9415
 
 ## デモ動画
 
-[https://www.youtube.com/watch?v=gYVFFzLEgvU](https://www.youtube.com/watch?v=gYVFFzLEgvU)
+[]()
 
 ## ピッチ資料
 
-[ピッチ資料](https://github.com/mashharuki/IDQ/blob/main/assets/pitch/pitch.md)
+[ピッチ資料]()
 
 ## キャッチフレーズ
 
-Web 3 Friendly / Web3 の一般的な普及
-
 ## 概要（500 文字）
-
-IDQ | Soul Wallet は Web3 の一般的な普及を目指したウォレットプロダクトです。
-
-Web3 時代とは「デジタルで個人が Wallet と PHR ヘルスデータ DID で個人管理ができること」だと考えています。  
-Web3 はまだ一般的には普及しておりません。これがその起爆剤になります。
-
-機能性とポイントは３つ：
-
-1. 秘密鍵がいらないのにデジタル ID/送金のセキュアで使い方がすごく簡単！
-2. QR コードをスマホでスキャンするだけで Wallet アクセス OK！
-3. API ファースト（API 接続のところで今回、産学連携の PDI 認証システムをプラグインするだけで使用できます。また企業間連携やパートナシップも可能）
-
-【Private/Secure/Earn】
-
-Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り方と Web3 の新しいコミュケーションのあり方を Communication protocol にすることで社会インフラ化を加速、DID 連携をヘルスケア・IoT・スマートシティ領域でも活かすことできます。
-オムニチャンネル化、Super アプリ化を目指す。
-
-特異性: DID 連携、承認制送金システム
 
 ## プロダクト URL
 
-[IDQ Soul Wallet](https://idq.vercel.app/)
+[]()
 
 ## Github repo(open) URL
 
-[https://github.com/mashharuki/IDQ](https://github.com/mashharuki/IDQ)
+[]()
 
 ## 開発した機能一覧表
 
 | 機能名                   | 説明                                                                              |
 | ------------------------ | --------------------------------------------------------------------------------- |
 | Blocto ログイン 機能     | コントラクトウォレットを作成する機能                                              |
-| IDQ トークン発行機能     | IDQ トークンを発行する機能                                                        |
-| IDQ トークン送信機能     | IDQ トークンを送金する機能                                                        |
-| IDQ トークン購入機能     | IDQ トークンを購入する機能                                                        |
+| トークン発行機能         | トークンを発行する機能                                                            |
+| トークン送信機能         | トークンを送金する機能                                                            |
+| トークン購入機能         | トークンを購入する機能                                                            |
 | DID 登録機能             | 新規ログイン時に DID を発行し、スマコンに登録する機能                             |
 | DID 関連データの登録機能 | DID と紐づく情報(VC)を IPFS に登録する機能                                        |
 | DID 関連情報表示機能     | DID と紐づく情報を表示する機能                                                    |
@@ -67,7 +41,7 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 共通資金プール送金機能   | マルチシグコントラクトから目的のアドレスへ送金する機能                            |
 | 共通資金プール送金機能   | 共通資金プール送金のために承認する機能                                            |
 | deposit 機能             | IDQ トークンを使ってマルチシグコントラクトにネイティブトークンを deposit する機能 |
-| Tips 機能                | 他人に気軽に IDQ Token を送れる機能(奢れる感覚)                                   |
+| 小口送金機能             | 他人に気軽に Token を送れる機能                                                   |
 
 ## 使用した分散型インフラと API
 
@@ -101,7 +75,7 @@ Web3 Wallet をセキュアに且つ自らで稼げることで情報の触り�
 | 14  | Verifiable Credential | DID と紐づくデータを検証可能な状態で公開するため                           |
 | 15  | Pinata API            | IPFS へのファイルアップロードのため                                        |
 | 16  | Ipfs                  | Verifiable Credentials と DID ドキュメントの登録・保管・参照のため         |
-| 17  | Stripe API            | IDQ トークン購入機能実装のため                                             |
+| 17  | Stripe API            | トークン購入機能実装のため                                                 |
 | 18  | MUI Component         | フロントエンドの開発を効率化させるため                                     |
 | 19  | Protocol              | Avalanche Fuji Chain(Testnet)                                              |
 | 20  | AWS KMS               | 署名に必要な秘密鍵を管理するため(秘密鍵本体の流出リスクを抑える)           |
@@ -137,13 +111,11 @@ Avalanche Fuji Chain(Testnet)
 
 ## application code やその他の file
 
-### IDQ Soul Wallet のシステム構成イメージ図
+### システム構成イメージ図
 
-<img src="./assets/img/IDQ-システム構成図.drawio.png">
+### 想定フロー
 
-### IDQ Soul Wallet を利用した際の想定フロー
-
-[![](https://mermaid.ink/img/pako:eNqdVVtPGkEU_iubfdJoH_RxH0ya0CY-NGnTJn3hZYWlJcJilyXEGBN3RgUV4yVWo8UqVqnWFmuplyKVH3PcBf5Fz8zAdldQm_JAdma-853v3GYm5FAirMmKnNTepTQ9pAWi6htDjQd1CX9m1Ixp0nDghUPLdmkL6Hug34BWpR5n_XujuFTfvGrmfoC1AGTOnjl18nOv1VhMM-2Zg2ZmBaxrsD6DVXLOLCC5XsGppsyEnoqPaEZrHTIThgS0iLxAzvHfu59I65oxIHbGVMOMhqJjqm5KyQFJTUptQWWgWSCH_GOuC3iQgR8_HwZyxrzQZdeLFxZhqKfc7ziQcouWHgE5wY9OfJrhvWF3QkwGeZUY1XTpLkYRofRoaEiKKBhRBugGC4rsd5ybD5yjvZADpAjkCOhXoBQd3fzOO9llJ5ep71eEUYTj04pPfqdCYShMvBXi1lgCRfL2wc31dnO3ldekUJQcVCRxyLO_aq9UwSrbmQpYmy3goAsEWuDVOQayh3Vk8skvNHK2NuylCzu37rPgyVpiAZILoAf21D5YOeHLucyCVeO9R4AsYH_W9yqNL4voFJc-Fl9UjPGEpYDUML1Ad4GuMAlss8oUkdXmlHVTK9yZkX9gwNmw5z94pUTcDETUWFJDTKO2djtBGG5gOHBPJd1TsZ92K5zddvI7rUlF6kIOrFkfNbYVjjive5XXvVzfrCDOX6CBdiXrZ8vOx3yjcOhq6N4aXVsRbwOgWxx9CRavNHokV5gkqTtZn2BrlKuYuUbRck6Jt8X6mEBFGkmNsw6zSp4O2_AG0MfCjEd1s6fXLu1gdJL_lDtxWVox1tbsxZ9-bx0N8zdrzDu_-Orz504Zr7xV0Xb_kaRjQdTDx32b5Yof9HYMlz29gxIfGC7zlk4UNl1Fsy7zkGbQRd67s0A-AV2_ZYkDwK92YSn3y3HNiKvRMD4hE4wpKJtvtbgWlBX8DKvGaFAO6pOIY_f-y3E9JCumkdL65dRYWDXbz42s8NZv7z4JR_ESdjc1vnwmHir-Xk3-AYKqR-E?type=png)](https://mermaid.live/edit#pako:eNqdVVtPGkEU_iubfdJoH_RxH0ya0CY-NGnTJn3hZYWlJcJilyXEGBN3RgUV4yVWo8UqVqnWFmuplyKVH3PcBf5Fz8zAdldQm_JAdma-853v3GYm5FAirMmKnNTepTQ9pAWi6htDjQd1CX9m1Ixp0nDghUPLdmkL6Hug34BWpR5n_XujuFTfvGrmfoC1AGTOnjl18nOv1VhMM-2Zg2ZmBaxrsD6DVXLOLCC5XsGppsyEnoqPaEZrHTIThgS0iLxAzvHfu59I65oxIHbGVMOMhqJjqm5KyQFJTUptQWWgWSCH_GOuC3iQgR8_HwZyxrzQZdeLFxZhqKfc7ziQcouWHgE5wY9OfJrhvWF3QkwGeZUY1XTpLkYRofRoaEiKKBhRBugGC4rsd5ybD5yjvZADpAjkCOhXoBQd3fzOO9llJ5ep71eEUYTj04pPfqdCYShMvBXi1lgCRfL2wc31dnO3ldekUJQcVCRxyLO_aq9UwSrbmQpYmy3goAsEWuDVOQayh3Vk8skvNHK2NuylCzu37rPgyVpiAZILoAf21D5YOeHLucyCVeO9R4AsYH_W9yqNL4voFJc-Fl9UjPGEpYDUML1Ad4GuMAlss8oUkdXmlHVTK9yZkX9gwNmw5z94pUTcDETUWFJDTKO2djtBGG5gOHBPJd1TsZ92K5zddvI7rUlF6kIOrFkfNbYVjjive5XXvVzfrCDOX6CBdiXrZ8vOx3yjcOhq6N4aXVsRbwOgWxx9CRavNHokV5gkqTtZn2BrlKuYuUbRck6Jt8X6mEBFGkmNsw6zSp4O2_AG0MfCjEd1s6fXLu1gdJL_lDtxWVox1tbsxZ9-bx0N8zdrzDu_-Orz504Zr7xV0Xb_kaRjQdTDx32b5Yof9HYMlz29gxIfGC7zlk4UNl1Fsy7zkGbQRd67s0A-AV2_ZYkDwK92YSn3y3HNiKvRMD4hE4wpKJtvtbgWlBX8DKvGaFAO6pOIY_f-y3E9JCumkdL65dRYWDXbz42s8NZv7z4JR_ESdjc1vnwmHir-Xk3-AYKqR-E)
+[![]()
 
 ### リポジトリのフォルダ構造
 
@@ -162,16 +134,16 @@ Avalanche Fuji Chain(Testnet)
 
 ## テスト手順
 
-[テスト手順書](https://github.com/mashharuki/IDQ/blob/main/assets/spec/README2.md)
+[テスト手順書](https://github.com/mashharuki//blob/main/assets/spec/README2.md)
 
 ## 審査やテストのためにプロジェクトにアクセスする方法など
 
-[プロジェクト起動手順書(ローカル環境)](https://github.com/mashharuki/IDQ/blob/main/assets/spec/README3.md)
+[プロジェクト起動手順書(ローカル環境)](https://github.com/mashharuki//blob/main/assets/spec/README3.md)
 
 ## その他ドキュメント
 
-- [概要設計書](https://github.com/mashharuki/IDQ/blob/main/assets/spec/design.md)
-- [機能設計書](https://github.com/mashharuki/IDQ/blob/main/assets/spec/functions.md)
+- [概要設計書](https://github.com/mashharuki//blob/main/assets/spec/design.md)
+- [機能設計書](https://github.com/mashharuki//blob/main/assets/spec/functions.md)
 
 #### その他本プロダクトを開発するにあたり参考にした文献
 
@@ -271,8 +243,8 @@ Avalanche Fuji Chain(Testnet)
 94. [初心者が５分で出来る簡単サーバレス API を構築してみる【Lambda】](https://recipe.kc-cloud.jp/archives/16877/)
 95. [パブリック API の構築](https://aws.amazon.com/jp/startups/start-building/how-to-build-a-public-facing-API/)
 96. [【MUI】Low-code admin builder](https://mui.com/toolpad/)
-97. [【Canva】プレゼン資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit)
-98. [【UNCHAIN】IDQ Soul Wallet](https://unchain-shiftbase.notion.site/IDQ-Soul-Wallet-65ff1af4271d43468d78e40190c0d710)
+97. [Zxing でバーコードリーダーを作ってみた](https://stak.tech/news/14668)
+98. [【UNCHAIN】進捗 to earn 資料](https://unchain-shiftbase.notion.site/IDQ-Soul-Wallet-65ff1af4271d43468d78e40190c0d710)
 99. [【GitHub】cert-verifier-js](https://github.com/blockchain-certificates/cert-verifier-js)
 100. [【GitHub】blockcerts-verifier](https://github.com/blockchain-certificates/blockcerts-verifier)
 101. [MUI file input](https://viclafouch.github.io/mui-file-input/docs/getting-started/)
@@ -284,8 +256,6 @@ Avalanche Fuji Chain(Testnet)
 107. [Neumorphism UI](https://demo.themesberg.com/neumorphism-ui/html/components/toasts.html)
 108. [ui-neumorphism](https://akaspanion.github.io/ui-neumorphism/)
 109. [React.js UI コンポーネント「ui-neumorphism」を使用する](https://mebee.info/2021/07/06/post-35062/)
-110. [【Canva】ピッチ資料](https://www.canva.com/design/DAFYXl1D3PM/tLVLT0a6pWs0qsMmjHNMjQ/edit?utm_content=DAFYXl1D3PM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+110. [React でウィンドウサイズが小さいときだけスライドショー表示をする方法](https://gotohayato.com/content/529/)
 111. [【Qita】react-qr-reader を利用した QR コードリーダーの作成](https://qiita.com/KenNagami/items/1493b498ff197f8f7689)
 112. [バーコードリーダーをブラウザから使えるようにしたい！JS のバーコードリーダーライブラリを調査しました](https://blog.ecbeing.tech/entry/2020/06/30/114023)
-113. [Zxing でバーコードリーダーを作ってみた](https://stak.tech/news/14668)
-114. [React でウィンドウサイズが小さいときだけスライドショー表示をする方法](https://gotohayato.com/content/529/)

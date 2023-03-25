@@ -26,7 +26,7 @@ const generateDID = async() => {
                         {
                               id: 'idq',
                               type: 'LinkedDomains',
-                              serviceEndpoint: 'http://idq.vercel.app/'
+                              serviceEndpoint: 'http://example/'
                         }
                   ]
             }

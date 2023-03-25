@@ -2,7 +2,7 @@ const MyToken = artifacts.require("MyToken");
 
 module.exports = async function (deployer) {
   // deploy
-  deployer.deploy(MyToken, "IDQToken", "IDQ", {
+  deployer.deploy(MyToken, "MyToken", "MTN", {
     from : "0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072"
   });
   // get instance

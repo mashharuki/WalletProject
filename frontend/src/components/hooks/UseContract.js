@@ -64,10 +64,10 @@ export const getDid = async(signer) => {
 };
 
 /**
- * getIdqTokenBalanceOf メソッド
+ * getTokenBalanceOf メソッド
  * @param signer ログイン中のsignerオブジェクト
  */
-export const getIdqTokenBalanceOf = async(signer) => {
+export const getTokenBalanceOf = async(signer) => {
       // call createContractObject メソッド
       const MyTokenContract = await createContractObject(MyToken.abi, MYTOKEN_ADDRESS);
       // get token balance

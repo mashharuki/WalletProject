@@ -17,7 +17,7 @@ import Web3 from "web3";
 import ActionButton from '../../common/ActionButton';
 import LoadingIndicator from '../../common/LoadingIndicator';
 import './../../../assets/css/App.css';
-import { useIDQContext } from './../../../Contexts';
+import { useMyContext } from './../../../Contexts';
 import {
     baseURL
 } from './../../common/Constant';
@@ -56,7 +56,7 @@ const Txs = (props) => {
     // create contract
     const {
         currentAccount
-    } = useIDQContext();
+    } = useMyContext();
 
     // コントラクト用のステート変数
     const [contract, setContract] = useState(null); 

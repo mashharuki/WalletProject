@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          <strong>Welcome to IDQ Soul Wallet!!</strong>
+          <strong>Welcome to My Wallet!!</strong>
         </p>
         <QRCode value={URL} />
         <a href={URL}>{URL}</a>

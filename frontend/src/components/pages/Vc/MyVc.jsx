@@ -10,7 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import React, { useEffect, useState } from "react";
 import './../../../assets/css/App.css';
-import { useIDQContext } from './../../../Contexts';
+import { useMyContext } from './../../../Contexts';
 import MainContainer from './../../common/MainContainer';
 import {
     getDid,
@@ -44,7 +44,7 @@ const MyVC = (props) => {
     // create contract
     const {
         currentAccount
-    } = useIDQContext();
+    } = useMyContext();
 
     const [vcs, setVcs] = useState([]);
     const [page, setPage] = useState(0);

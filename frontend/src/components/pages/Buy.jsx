@@ -8,7 +8,7 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator';
 import PaymentDialog from '../common/PaymentDialog';
 import './../../assets/css/App.css';
-import { useIDQContext } from './../../Contexts';
+import { useMyContext } from './../../Contexts';
 import { baseURL } from "./../common/Constant";
 import MainContainer from './../common/MainContainer';
 
@@ -29,7 +29,7 @@ const Buy = (props) => {
       // create contract
       const {
             currentAccount
-      } = useIDQContext();
+      } = useMyContext();
 
       const [isLoading, setIsLoading] = useState(false);
       const [successFlg, setSuccessFlg] = useState(false);

@@ -15,7 +15,7 @@ import Web3 from "web3";
 import WalletDialog from '../../common/Dialog';
 import LoadingIndicator from '../../common/LoadingIndicator';
 import './../../../assets/css/App.css';
-import { useIDQContext } from './../../../Contexts';
+import { useMyContext } from './../../../Contexts';
 import {
     baseURL
 } from './../../common/Constant';
@@ -53,7 +53,7 @@ const Wallets = (props) => {
     // create contract
     const {
         currentAccount
-    } = useIDQContext();
+    } = useMyContext();
     
     // アカウント用のステート変数
     const [account, setAccount] = useState(null);

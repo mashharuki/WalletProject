@@ -32,7 +32,7 @@ const SendDialog = (props) => {
         <>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">
-                    Send IDQ Token
+                    Send Token
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>

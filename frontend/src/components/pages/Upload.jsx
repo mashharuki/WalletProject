@@ -9,7 +9,7 @@ import superAgent from 'superagent';
 import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator';
 import './../../assets/css/App.css';
-import { useIDQContext } from './../../Contexts';
+import { useMyContext } from './../../Contexts';
 import { baseURL, PINTABaseURL } from './../common/Constant';
 import MainContainer from './../common/MainContainer';
 import { getDid } from './../hooks/UseContract';
@@ -36,7 +36,7 @@ const Upload = (props) => {
       // create contract
       const {
             currentAccount
-      } = useIDQContext();
+      } = useMyContext();
 
       const [file, setFile] = useState({});
       const [fileName, setFileName] = useState('blockcert json file');

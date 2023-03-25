@@ -1,10 +1,10 @@
-# IDQ Soul Wallet ローカル起動方法
+# Soul Wallet ローカル起動方法
 
 ローカルで動かす手順は下記の通りです。
 
 1. API サーバーの設定と起動
 2. intro-app の起動
-3. IDQ Soul Wallet の起動
+3. Soul Wallet の起動
 
 ## API サーバーの設定と起動
 
@@ -73,7 +73,7 @@ npm i
       <div className="App">
             <header className="App-header">
             <p>
-            <strong>Welcome to IDQ Soul Wallet!!</strong>
+            <strong>Welcome to  Soul Wallet!!</strong>
             </p>
             <QRCode value={URL} />
             <a href={URL}>{URL}</a>
@@ -93,7 +93,7 @@ npm run start
 
 <img src="./assets/img/qrcode_local.png">
 
-## IDQ Soul Wallet の起動
+## Soul Wallet の起動
 
 1. `frontend`ディレクトリに移動する。
 2. モジュールのインストールのため下記コマンドを実行

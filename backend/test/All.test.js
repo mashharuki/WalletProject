@@ -51,7 +51,7 @@ contract("MultiSigWallet & MyToken Contract tests!!", accounts => {
      */
     beforeEach (async () => {
         // MyTokenコントラクトのインスタンスを生成
-        myToken = await MyToken.new("IDQToken", "IDQ", {
+        myToken = await MyToken.new("MyToken", "TST", {
             from: accounts[0],
             gas: 5000000
         });
@@ -94,12 +94,12 @@ contract("MultiSigWallet & MyToken Contract tests!!", accounts => {
        
         it ("gets the myToken name", async () => {
             const actual = await myToken.name();
-            assert.equal(actual, "IDQToken", "name should match");
+            assert.equal(actual, "MyToken", "name should match");
         });
 
         it ("gets the myToken symbol", async () => {
             const actual = await myToken.symbol();
-            assert.equal(actual, "IDQ", "symbol should match");
+            assert.equal(actual, "TST", "symbol should match");
         });
 
         it ("gets the myToken decimals", async () => {

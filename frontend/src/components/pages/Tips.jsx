@@ -9,7 +9,7 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator';
 import MainContainer from "../common/MainContainer";
 import './../../assets/css/App.css';
-import { useIDQContext } from './../../Contexts';
+import { useMyContext } from './../../Contexts';
 import { baseURL } from "./../common/Constant";
 
 // サンプル用のデモデータ
@@ -41,7 +41,7 @@ const Tips = () => {
       // create contract
       const {
             fullDid, 
-      } = useIDQContext();
+      } = useMyContext();
 
       const [isLoading, setIsLoading] = useState(false);
       const [successFlg, setSuccessFlg] = useState(false);
@@ -56,7 +56,7 @@ const Tips = () => {
       const sendAction = async(to, amount) => {
             setIsLoading(true);
 
-            // IDQToken発行APIを呼び出す
+            // Token発行APIを呼び出す
             superAgent
                   .post(baseURL + '/api/send')
                   .query({
@@ -66,7 +66,7 @@ const Tips = () => {
                   })
                   .end(async(err, res) => {
                         if (err) {
-                              console.log("IDQToken発行用API呼び出し中に失敗", err);
+                              console.log("Token発行用API呼び出し中に失敗", err);
                               // popUpメソッドの呼び出し
                               popUp(false, "failfull...");
                               setIsLoading(false);

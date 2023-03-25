@@ -10,7 +10,7 @@ import ActionButton2 from '../common/ActionButton2';
 import LoadingIndicator from '../common/LoadingIndicator';
 import SendDialog from '../common/SendDialog';
 import './../../assets/css/App.css';
-import { useIDQContext } from './../../Contexts';
+import { useMyContext } from './../../Contexts';
 import {
     baseURL,
     WIDTH_THRESHOLD
@@ -20,9 +20,7 @@ import MainContainer from './../common/MainContainer';
 import QrCodeDialog from './../common/QrCodeDialog';
 import QrCodeReader from './../common/QrCodeReader';
 import {
-    getDid,
-    getIdqTokenBalanceOf,
-    getRegisterStatus
+    getDid, getRegisterStatus, getTokenBalanceOf
 } from './../hooks/UseContract';
 
 /** 
@@ -51,7 +49,7 @@ const Home = (props) => {
         setIsOpenQRCamera,
         setQrResult,
         clickOpenQrReader
-    } = useIDQContext();
+    } = useMyContext();
 
     const [balance, setBalance] = useState(0);
     const [did, setDid] = useState(null);
@@ -93,16 +91,16 @@ const Home = (props) => {
                 setFullDid(result);
                 console.log("DID作成用API呼び出し結果：", result);  
 
-                // IDQToken発行APIを呼び出す
+                // Token発行APIを呼び出す
                 superAgent
-                    .post(baseURL + '/api/mintIDQ')
+                    .post(baseURL + '/api/mintToken')
                     .query({
                         to: currentAccount,
                         amount: 10000
                     })
                     .end(async(err, res) => {
                         if (err) {
-                            console.log("IDQToken発行用API呼び出し中に失敗", err);
+                            console.log("Token発行用API呼び出し中に失敗", err);
                             // popUpメソッドの呼び出し
                             popUp(false, "failfull...");
                             setIsLoading(false);
@@ -133,7 +131,7 @@ const Home = (props) => {
             })
             .end(async(err, res) => {
                 if (err) {
-                    console.log("IDQToken送金用API呼び出し中に失敗", err);
+                    console.log("Token送金用API呼び出し中に失敗", err);
                     // popUpメソッドの呼び出し
                     popUp(false, "failfull...");
                     setIsLoading(false);
@@ -222,7 +220,7 @@ const Home = (props) => {
      */
     const getBalance = async() => {
         // 残高を取得する
-        const num = await getIdqTokenBalanceOf(currentAccount);
+        const num = await getTokenBalanceOf(currentAccount);
         setBalance(num);
     }
 
@@ -320,7 +318,7 @@ const Home = (props) => {
                                         {isRegistered ? (
                                             <>
                                                 <p>Your DID:{did} <ContentCopyIcon className='pointer' fontSize="small" onClick={copy}/></p>
-                                                <p>Your IDQToken:{balance}</p>
+                                                <p>Your Token:{balance}</p>
                                                 <Grid
                                                     container
                                                     direction="row"

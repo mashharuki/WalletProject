@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './../assets/css/App.css';
-import { useIDQContext } from './../Contexts';
+import { useMyContext } from './../Contexts';
 import ActionButton2 from './common/ActionButton2';
 import Web3Menu from "./common/Web3Menu";
 import {
@@ -33,7 +33,7 @@ function App() {
   const {
     currentAccount,
     setCurrentAccount
-  } = useIDQContext();
+  } = useMyContext();
 
   /**
    * ウォレット接続ボタンを押した時の処理
@@ -58,7 +58,7 @@ function App() {
           <AppBar position="static" color="transparent">
             <Toolbar>
               <Typography variant="h6" color="black" sx={{ flexGrow: 1 }}>
-                <strong>IDQ</strong>
+                <strong>Web3 Wallet</strong>
               </Typography>
               { /* ウォレットに接続していなければログインアイコンを表示する。 */ }
               <Typography variant="h6" color="inherit">
@@ -80,7 +80,7 @@ function App() {
           </AppBar>
           { currentAccount === null ? (
             <header className="App-header">
-              <p>Welcome to IDQ Soul Wallet!!</p>
+              <p>Welcome to Web3 Wallet!!</p>
               <ActionButton2 buttonName="Enter App" color="primary" clickAction={connectWalletAction} />
             </header>
           ) : (

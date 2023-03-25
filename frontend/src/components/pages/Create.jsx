@@ -9,7 +9,7 @@ import superAgent from 'superagent';
 import ActionButton from '../common/ActionButton';
 import LoadingIndicator from '../common/LoadingIndicator';
 import './../../assets/css/App.css';
-import { useIDQContext } from './../../Contexts';
+import { useMyContext } from './../../Contexts';
 import {
     baseURL
 } from './../common/Constant';
@@ -32,7 +32,7 @@ const Create = (props) => {
     // create contract
     const {
         currentAccount
-    } = useIDQContext();
+    } = useMyContext();
 
 
     // アカウント用のステート変数

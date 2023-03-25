@@ -28,9 +28,9 @@ const pinata = new pinataSDK({
 // option
 const options = {
       pinataMetadata: {
-          name: 'IDQ-Soul-Wallet',
+          name: 'Wallet',
           keyvalues: {
-              productName: 'IDQ-Soul-Wallet',
+              productName: 'Wallet',
           }
       },
       pinataOptions: {

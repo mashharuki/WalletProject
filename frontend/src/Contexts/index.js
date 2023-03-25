@@ -1,14 +1,14 @@
 import { createContext, useContext, useState } from "react";
 
 // create Context
-export const IDQContext = createContext({});
+export const MyContext = createContext({});
 
 /**
  * useContractContext function
  * @returns 
  */
-export const useIDQContext = () => {
-  return useContext(IDQContext);
+export const useMyContext = () => {
+  return useContext(MyContext);
 }
 
 /**
@@ -39,7 +39,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   return (
-    <IDQContext.Provider 
+    <MyContext.Provider 
       value={{
         currentAccount,
         setCurrentAccount,
@@ -56,6 +56,6 @@ export const ContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </IDQContext.Provider>
+    </MyContext.Provider>
   );
 };
